@@ -27,7 +27,7 @@ namespace InMemoryDB
         public abstract class ParentField { }
 
         // konkrétní třídy pole pro daný typ hodnoty
-        public class Field<T> : ParentField where T : IEqualityComparer<T>
+        public class Field<T> : ParentField where T : IComparable<T>
         {
             public T Value { get; set; }
 
@@ -48,9 +48,39 @@ namespace InMemoryDB
 
         }
 
-        ParentField GetField<T>(T val) where T : IEqualityComparer<T>
+        ParentField GetField<T>(T val)
         {
-            return new Field<T>(val);
+
+            throw new NotImplementedException("Type " + typeof(T) + " is not implemented yet!");
+        }
+
+        ParentField GetField(int val) {
+
+            return new Field<int>(val);
+        }
+
+        ParentField GetField(string val)
+        {
+
+            return new Field<string>(val);
+        }
+
+        ParentField GetField(double val)
+        {
+
+            return new Field<double>(val);
+        }
+
+        ParentField GetField(float val)
+        {
+
+            return new Field<float>(val);
+        }
+
+        ParentField GetField(char val)
+        {
+
+            return new Field<char>(val);
         }
 
         /*public class Select
@@ -60,8 +90,8 @@ namespace InMemoryDB
                 ColumnType(ref column);
             }
         }*/
-        
-        public void SelectWhere<T>(string column, T val) where T : IEqualityComparer<T>
+
+        public void SelectWhere<T>(string column, T val) where T : IComparable<T>
         {
             if (ColumnType(column) != typeof(T)) throw new ArgumentException("Invalid value type!");
             
@@ -115,7 +145,7 @@ namespace InMemoryDB
 
 
 
-        public void Insert(Record values) // params object[] values nelze použít, protože object nemá vynucený IEqutable interface
+        public void Insert(params object[] values) // params object[] values nelze použít, protože object nemá vynucený IEqutable interface
         {
             if (_empty) _empty = false;
 
@@ -132,7 +162,9 @@ namespace InMemoryDB
                     else
                     {
 
-                        list.Add(GetField(values[i]));
+                        dynamic tmp = (dynamic)values[i];
+
+                        list.Add(GetField(tmp));
 
                     }
 
