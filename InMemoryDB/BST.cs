@@ -7,42 +7,56 @@ using System.Threading.Tasks;
 namespace InMemoryDB
 {
 
-    internal class BST<T> where T : IEqualityComparer<T>
+    internal class BST<T> where T : IComparable<T>
     {
         class Node
         {
             public T value;
             public UIntPtr RecordId;
+            //public Record Rec;
             public Node? Left;
             public Node? Right;
 
-            public Node(T value) { this.value = value; }
+            public Node(T value, UIntPtr id) { this.value = value; RecordId = id; }
 
             public static bool operator<(Node a, T b)
             {
-                // todo
-                return true;
+                return Comparer<T>.Default.Compare(a.value, b) < 0;
             }
 
             public static bool operator>(Node a, T b)
             {
-                // todo
-                return false;
+                return Comparer<T>.Default.Compare(a.value, b) > 0;
             }
 
             public static bool operator ==(Node a, T b)
             {
-                // todo
-                return false;
+                return Comparer<T>.Default.Compare(a.value, b) == 0;
             }
 
 
             public static bool operator !=(Node a, T b)
             {
-                // todo
-                return false;
+                return Comparer<T>.Default.Compare(a.value, b) != 0;
             }
 
+            public override int GetHashCode()
+            {
+                return RecordId.GetHashCode(); // zahrnout zde potomky a předky?
+            }
+
+            // nezahrnuje potomky
+            public override bool Equals(object o)
+            {
+                if (o == null) return false;
+
+                if (o.GetType() != typeof(BST<T>.Node))
+                    return false;
+
+                Node n = (Node)o;
+
+                return RecordId == n.RecordId; // Comparer<T>.Default.Compare(value, n.value) == 0 && 
+            }
         }
 
         Node? root = null;
@@ -51,6 +65,15 @@ namespace InMemoryDB
         {
 
             Node? current = root;
+
+            if (current.Left != null)
+                Console.Write(current.Left.value + " - ");
+
+            Console.Write(current.value);
+
+            if (current.Right != null)
+                Console.Write(" - " + current.Right.value);
+            Console.WriteLine();
 
             while (true)
             {
@@ -63,29 +86,55 @@ namespace InMemoryDB
                 else
                     current = current.Right;
 
+                if (current.Left != null)
+                    Console.Write(current.Left.value + " - ");
+
+                Console.Write(current.value);
+
+                if (current.Right != null)
+                    Console.Write(" - " + current.Right.value);
+                Console.WriteLine();
             }
 
         }
 
-        public void Insert(T value, UIntPtr recordId)
+        public void Insert(T value, UIntPtr id)
         {
 
             Node? current = root;
+            Node? next = null;
 
-            while (current != null)
-            {
+            if (current == null)
+                root = new Node(value, id);
+            else
+                while (true)
+                {
                
-                if (current > value)
-                    current = current.Left;
-                else
-                    current = current.Right;
+                    if (current > value)
+                        next = current.Left;
+                    else
+                        next = current.Right;
 
-                // jak asi vypadá indexování a hledání dle čísel????? wtf
+                    if (next == null) // nalezli jsme místo, kam můžeme uzel přidat
+                    {
+                        if (current > value)
+                            current.Left = new Node(value, id);
+                        else
+                            current.Right = new Node(value, id);
+                        break;
+                    }
 
-            }
+                    current = next;
 
-            current = new Node(value);
+                    // jak asi vypadá indexování a hledání dle čísel????? wtf
+
+                }
+
         }
 
+        public BST()
+        {
+
+        }
     }
 }

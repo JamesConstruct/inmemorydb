@@ -12,10 +12,10 @@ namespace InMemoryDB
     using Record = List<ParentField>;
 
     // Mateřská třída pole, umožňuje polymorfismus
-    public abstract class ParentField { }
+    internal abstract class ParentField { }
 
     // konkrétní třídy pole pro daný typ hodnoty
-    public class Field<T> : ParentField where T : IComparable<T>
+    internal class Field<T> : ParentField where T : IComparable<T>
     {
         public T Value { get; set; }
 
@@ -141,6 +141,9 @@ namespace InMemoryDB
                 {
                     Console.WriteLine("Got him!");
 
+                    
+                    Console.WriteLine(bst.Find(val.ToString()));
+
                     return new RecordWrapper(rec, this);
                 }
             }
@@ -237,8 +240,11 @@ namespace InMemoryDB
 
             _records.Add(new Record(list));
 
+            bst.Insert((string)values[1], (UIntPtr)Count);
+
         }
 
+        public BST<string> bst = new();
 
         public Db() 
         {
