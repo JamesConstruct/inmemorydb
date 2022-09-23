@@ -7,23 +7,31 @@ using System.Threading.Tasks;
 namespace InMemoryDB
 {
 
-    internal abstract class BST {
-        //public virtual void Insert(T value, UIntPtr id) { throw new Exception(); }
-        //public virtual UIntPtr Find(T value) { throw new Exception(); }
-    }
+    internal abstract class BST {}
 
 
     internal class BST<T> : BST where T : IComparable<T>
     {
+
         class Node
         {
-            public T value;
-            public UIntPtr RecordId;
-            //public Record Rec;
-            public Node? Left;
-            public Node? Right;
 
-            public Node(T value, UIntPtr id) { this.value = value; RecordId = id; }
+            public T value; // hodnota uzlu
+
+            public int RecordId;    // pořadí záznamu v databázi
+        
+            public Node? Left;  // Levý syn
+
+            public Node? Right; // Pravý syn
+
+
+            /// <summary>
+            /// Inicializuje nový uzel s hodnotou typu T (value) odkazující na záznam s daným id.
+            /// </summary>
+            /// <param name="value">Hodnota uzlu</param>
+            /// <param name="id">Id záznamu</param>
+            public Node(T value, int id) { this.value = value; RecordId = id; }
+
 
             public static bool operator<(Node a, T b)
             {
@@ -52,7 +60,7 @@ namespace InMemoryDB
             }
 
             // nezahrnuje potomky
-            public override bool Equals(object o)
+            public override bool Equals(object? o)
             {
                 if (o == null) return false;
 
@@ -67,70 +75,65 @@ namespace InMemoryDB
 
         Node? root = null;
 
-        public UIntPtr Find(T value)
+        public int Find(T value)
         {
 
             Node? current = root;
-
-            if (current.Left != null)
-                Console.Write(current.Left.value + " - ");
-
-            Console.Write(current.value);
-
-            if (current.Right != null)
-                Console.Write(" - " + current.Right.value);
-            Console.WriteLine();
 
             while (true)
             {
+
                 if (current == null)
                     throw new Exception("Zaznam nebyl nalezen.");
+
                 if ((Node)current == value)
                     return current.RecordId;
+
                 else if (current > value)
                     current = current.Left;
+
                 else
                     current = current.Right;
 
-                if (current.Left != null)
-                    Console.Write(current.Left.value + " - ");
-
-                Console.Write(current.value);
-
-                if (current.Right != null)
-                    Console.Write(" - " + current.Right.value);
-                Console.WriteLine();
             }
+
 
         }
 
-        public void Insert(T value, UIntPtr id)
+        public void Insert(T value, int id)
         {
 
             Node? current = root;
-            Node? next = null;
+            Node? next = null; // nadcházející uzel ve vyhledávání
 
-            if (current == null)
+            if (current == null)    // strom je zatím prázdný
                 root = new Node(value, id);
+
             else
                 while (true)
                 {
                
                     if (current > value)
                         next = current.Left;
+
                     else
                         next = current.Right;
 
+
                     if (next == null) // nalezli jsme místo, kam můžeme uzel přidat
                     {
+
                         if (current > value)
                             current.Left = new Node(value, id);
+
                         else
                             current.Right = new Node(value, id);
-                        break;
+
+                        break; // konec
+
                     }
 
-                    current = next;
+                    current = next; // postupujeme dál
 
                 }
 
@@ -140,5 +143,6 @@ namespace InMemoryDB
         {
 
         }
+
     }
 }

@@ -5,6 +5,10 @@ namespace InMemoryDB
 {
     public class Program
     {
+
+        /// <summary>
+        /// Hlavní funkce programu.
+        /// </summary>
         public static void Main()
         {
 

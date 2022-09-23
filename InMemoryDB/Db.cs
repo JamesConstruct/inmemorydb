@@ -138,7 +138,7 @@ namespace InMemoryDB
             if (_indexes.ContainsKey(index))
             {
 
-                UIntPtr i = ((dynamic)_indexes[index]).Find(val);
+                int i = ((dynamic)_indexes[index]).Find(val);
 
                 Console.WriteLine("Got him logarithmically!");
 
@@ -215,6 +215,13 @@ namespace InMemoryDB
             RemoveColumnAt(index);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="column"></param>
+        /// <exception cref="ArgumentException"></exception>
+        /// <exception cref="Exception"></exception>
         public void MakeIndex<T>(string column) where T : IComparable<T>
         {
 
@@ -252,7 +259,7 @@ namespace InMemoryDB
 
                         if (_indexes.ContainsKey(i))    // this column is an index
                             
-                            ((dynamic) _indexes[i]).Insert(tmp, (UIntPtr)Count);
+                            ((dynamic) _indexes[i]).Insert(tmp, (int)Count);
 
                     }
 
