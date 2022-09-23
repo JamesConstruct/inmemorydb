@@ -4,107 +4,168 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Dynamic;
 
 namespace InMemoryDB
 {
+
+    using Record = List<ParentField>;
+
+    // Mateřská třída pole, umožňuje polymorfismus
+    public abstract class ParentField { }
+
+    // konkrétní třídy pole pro daný typ hodnoty
+    public class Field<T> : ParentField where T : IComparable<T>
+    {
+        public T Value { get; set; }
+
+        public static bool operator ==(Field<T> a, Field<T> b)
+        {
+            return EqualityComparer<T>.Default.Equals(a.Value, b.Value);
+        }
+
+        public static bool operator !=(Field<T> a, Field<T> b)
+        {
+            return !EqualityComparer<T>.Default.Equals(a.Value, b.Value);
+        }
+
+        public Field(T value)
+        {
+            Value=value;
+        }
+
+    }
+
     internal class Db
     {
 
-        public class Record
+        public static class FieldConvertor
         {
-            public int Id { get; set; }
 
-            public List<ParentField> Fields { get; set; }
-
-            public Record(List<ParentField> fields)
+            public static ParentField GetField<T>(T val)
             {
-                Fields = fields;
+
+                throw new NotImplementedException("Type " + typeof(T) + " is not implemented yet!");
+            }
+
+            public static ParentField GetField(int val)
+            {
+
+                return new Field<int>(val);
+            }
+
+            public static ParentField GetField(string val)
+            {
+
+                return new Field<string>(val);
+            }
+
+            public static ParentField GetField(double val)
+            {
+
+                return new Field<double>(val);
+            }
+
+            public static ParentField GetField(float val)
+            {
+
+                return new Field<float>(val);
+            }
+
+            public static ParentField GetField(char val)
+            {
+
+                return new Field<char>(val);
             }
 
         }
 
-        // Mateřská třída pole, umožňuje polymorfismus
-        public abstract class ParentField { }
 
-        // konkrétní třídy pole pro daný typ hodnoty
-        public class Field<T> : ParentField where T : IComparable<T>
+        public sealed class RecordWrapper : DynamicObject
         {
-            public T Value { get; set; }
+            private Record _record;
+            private readonly Db _db;
 
-            public static bool operator ==(Field<T> a, Field<T> b)
+            public RecordWrapper(Record record, Db db)
             {
-                return EqualityComparer<T>.Default.Equals(a.Value, b.Value);
+                _record=record;
+                _db=db;
             }
 
-            public static bool operator !=(Field<T> a, Field<T> b)
+            public override IEnumerable<string> GetDynamicMemberNames()
             {
-                return !EqualityComparer<T>.Default.Equals(a.Value, b.Value);
+                return _db._columns;
             }
 
-            public Field(T value)
+            public override bool TryGetMember(GetMemberBinder binder, out object result)
             {
-                Value=value;
+                if (_db._columns.Contains(binder.Name))
+                {
+                    int index = _db._columns.IndexOf(binder.Name);
+                    dynamic tmp = _record.ElementAt(index);
+                    result = tmp.Value;
+                    return true;
+                }
+                else
+                {
+                    result = null;
+                    return false;
+                }
             }
 
-        }
-
-        ParentField GetField<T>(T val)
-        {
-
-            throw new NotImplementedException("Type " + typeof(T) + " is not implemented yet!");
-        }
-
-        ParentField GetField(int val) {
-
-            return new Field<int>(val);
-        }
-
-        ParentField GetField(string val)
-        {
-
-            return new Field<string>(val);
-        }
-
-        ParentField GetField(double val)
-        {
-
-            return new Field<double>(val);
-        }
-
-        ParentField GetField(float val)
-        {
-
-            return new Field<float>(val);
-        }
-
-        ParentField GetField(char val)
-        {
-
-            return new Field<char>(val);
-        }
-
-        /*public class Select
-        {
-            public Select Where<T>(string column, T value)
+            public override bool TrySetMember(SetMemberBinder binder, object value)
             {
-                ColumnType(ref column);
+                /* úprava polí v db??
+                if (_db._columns.Contains(binder.Name))
+                {
+                    _properties[binder.Name] = value;
+                    return true;
+                }
+                else
+                {
+                    return false;
+                } */
+                return false;
             }
-        }*/
+        }
 
-        public void SelectWhere<T>(string column, T val) where T : IComparable<T>
+        public RecordWrapper SelectWhere<T>(string column, T val) where T : IComparable<T>
         {
             if (ColumnType(column) != typeof(T)) throw new ArgumentException("Invalid value type!");
-            
+
             int index = _columns.IndexOf(column);
 
             foreach (Record rec in _records)
             {
-                if (EqualityComparer<T>.Default.Equals(((Field<T>)rec.Fields.ElementAt(index)).Value, val))
+                if (EqualityComparer<T>.Default.Equals(((Field<T>)rec.ElementAt(index)).Value, val))
                 {
                     Console.WriteLine("Got him!");
+
+                    return new RecordWrapper(rec, this);
                 }
             }
+
+            throw new Exception("Not found!");
         }
+
+        public T GetSum<T>(string column) where T : new()
+        {
+            if (ColumnType(column) != typeof(T)) throw new ArgumentException("Invalid value type!");
+
+            int index = _columns.IndexOf(column);
+
+            T sum = new();
+
+            foreach (Record rec in _records)
+            {
+                dynamic obj = rec.ElementAt(index);
+                sum += obj.Value;
+            }
+
+            return sum;
+
+        }
+
 
         // přidá sloupec daného typu s daným názvem, name musí být unikátní
         public void AddColumn<T>(string name)
@@ -145,7 +206,7 @@ namespace InMemoryDB
 
 
 
-        public void Insert(params object[] values) // params object[] values nelze použít, protože object nemá vynucený IEqutable interface
+        public void Insert(params object[] values)
         {
             if (_empty) _empty = false;
 
@@ -164,7 +225,7 @@ namespace InMemoryDB
 
                         dynamic tmp = (dynamic)values[i];
 
-                        list.Add(GetField(tmp));
+                        list.Add(FieldConvertor.GetField(tmp));
 
                     }
 
