@@ -96,7 +96,7 @@
             <param name="record">Záznam z databáze.</param>
             <param name="db">Databáze, ze které záznam pochází.</param>
         </member>
-        <member name="M:InMemoryDB.Db.SelectWhere``1(System.String,``0)">
+        <member name="M:InMemoryDB.Db.SelectOneWhere``1(System.String,``0)">
             <summary>
             Vyhledá záznam v databázi, kde se daný sloupec <b>rovná</b> udané hodnotě. V případě, že hledáme dle indexu vyhledává logaritmicky, jinak lineárně. Vrátí první nalezený
             výsledek, nemusí se jednat o první v pořadí, v jakém byly záznamy přidávány.
@@ -105,6 +105,18 @@
             <param name="column">Název sloupce, dle kterého vyhledáváme.</param>
             <param name="val">Hodnota, kterou chceme nalézt.</param>
             <returns>Vrací RecordWrapper nesoucí daný záznam.</returns>
+            <exception cref="T:System.ArgumentException">ArgumentException v případě špatného typu sloupce.</exception>
+            <exception cref="T:System.Exception">Exception v případě, že záznam není nalezen.</exception>
+        </member>
+        <member name="M:InMemoryDB.Db.SelectAllWhere``1(System.String,``0)">
+            <summary>
+            Vyhledá záznam v databázi, kde se daný sloupec <b>rovná</b> udané hodnotě. V případě, že hledáme dle indexu vyhledává logaritmicky, jinak lineárně. Vrátí všechny
+            výsledky v nedefinovaném pořadí.
+            </summary>
+            <typeparam name="T">Typ hodnoty, dle které vyhledáváme.</typeparam>
+            <param name="column">Název sloupce, dle kterého vyhledáváme.</param>
+            <param name="val">Hodnota, kterou chceme nalézt.</param>
+            <returns>Vrací TableWrapper nesoucí dané záznamy.</returns>
             <exception cref="T:System.ArgumentException">ArgumentException v případě špatného typu sloupce.</exception>
             <exception cref="T:System.Exception">Exception v případě, že záznam není nalezen.</exception>
         </member>
@@ -159,6 +171,13 @@
             <summary>
             Vytvoří prázdnou databázi.
             </summary>
+        </member>
+        <member name="M:InMemoryDB.Db.CopyStructure(InMemoryDB.Db)">
+            <summary>
+            Zkopíruje strukturu jiné databáze, tedy typy a názvy sloupců a indexovací sloupce. Lze pouze, pokud je tabulka prázdná.
+            </summary>
+            <exception cref="T:System.Exception">Vrací Exception, když databáze není prázdná.</exception>
+            <param name="other">Tabulka, jejíž strukturu chceme okopírovat.</param>
         </member>
         <member name="P:InMemoryDB.Db.Count">
             <summary>

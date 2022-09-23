@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shfbBuild product="Sandcastle Help File Builder and Tools" version="2022.8.14.1" projectFile="C:\Users\kuban\source\repos\InMemoryDB\InMemoryDB\Docs.shfbproj" started="23.09.2022 6:16:42">
+<buildStep step="Initializing">
+The Sandcastle tools are located in &#39;C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder&#39;
+Locating components in the following folder(s):
+    C:\Users\kuban\source\repos\InMemoryDB\InMemoryDB
+    C:\ProgramData\EWSoftware\Sandcastle Help File Builder\Components and Plug-Ins
+    C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components
+Using framework reflection data for &#39;.NET Core/.NET Standard/.NET 5.0+&#39; located in &#39;C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Data\.NET&#39;
+Using presentation style &#39;Markdown&#39; located in &#39;C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\Markdown&#39;
+-------------------------------
+Clearing any prior web/markdown output...
+</buildStep>
+<buildStep step="ValidatingDocumentationSources">
+Validating and copying documentation source information
+Source: C:\Users\kuban\source\repos\InMemoryDB\InMemoryDB\obj\Debug\net6.0\InMemoryDB.xml
+Source: C:\Users\kuban\source\repos\InMemoryDB\InMemoryDB\obj\Debug\net6.0\InMemoryDB.dll
+    Found assembly &#39;C:\Users\kuban\source\repos\InMemoryDB\InMemoryDB\obj\Debug\net6.0\InMemoryDB.dll&#39;
+
+Copying XML comments files
+    C:\Users\kuban\source\repos\InMemoryDB\InMemoryDB\obj\Debug\net6.0\InMemoryDB.xml -&gt; C:\Users\kuban\source\repos\InMemoryDB\InMemoryDB\Help\Working\InMemoryDB.xml
+</buildStep>
+<buildStep step="GenerateSharedContent">
+Generating shared content files (en-US, Angličtina (Spojen&#233; st&#225;ty))...
+    Last step completed in 00:00:00,0000
+</buildStep>
+<buildStep step="GenerateApiFilter">
+Generating API filter for MRefBuilder...
+    Last step completed in 00:00:00,0000
+</buildStep>
+<buildStep step="GenerateReflectionInfo">
+Generating reflection information...
+[C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Current\Bin\amd64\MSBuild.exe - GenerateRefInfo-48cb3bd0-f334-4056-a2dc-4ffb3dd64df9.proj]
+Vytv&#160;&#253;enˇ sestavenˇ bylo zah&#160;jeno 23.09.2022 6:16:43.
+Projekt C:\Users\kuban\source\repos\InMemoryDB\InMemoryDB\Help\Working\GenerateRefInfo-48cb3bd0-f334-4056-a2dc-4ffb3dd64df9.proj v uzlu 1 (věchozˇ cˇle).
+PrepareForBuild:
+  Probˇh&#160; vytv&#160;&#253;enˇ adres&#160;&#253;e obj\Debug\.
+GenerateBindingRedirects:
+  &#233;kol ResolveAssemblyReferences nevr&#160;til &#167;&#160;dn‚ n&#160;vrhy na p&#253;esmŘrov&#160;nˇ vazeb.
+GenerateRefInfo:
+  Microsoft.Build (v17.1.0+ae57d105c6094d8d59fe42f557ad0dcb46ec285e)
+  c Microsoft Corporation. All rights reserved.
+  No source code context base path specified.  Source context information is unavailable.
+  Loaded 1 assemblies for reflection and 1 dependency assemblies.
+  Using framework redirect &#39;System.Linq.Expressions, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a&#39; in place of &#39;System.Linq.Expressions, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a&#39;
+  Using framework redirect &#39;System.Collections, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a&#39; in place of &#39;System.Collections, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a&#39;
+  Wrote information on 1 namespaces, 1 types, and 2 members
+  Merging duplicate type and member information
+  Merged 0 duplicate type(s) and 0 duplicate member(s)
+Sestavenˇ projektu C:\Users\kuban\source\repos\InMemoryDB\InMemoryDB\Help\Working\GenerateRefInfo-48cb3bd0-f334-4056-a2dc-4ffb3dd64df9.proj (s věchozˇmi cˇli) bylo dokonźeno.
+    Last step completed in 00:00:00,5887
+</buildStep>
+<buildStep step="ApplyDocumentModel">
+Applying document model to reflection output...
+    Last step completed in 00:00:00,0156
+</buildStep>
+<buildStep step="AddApiTopicFilenames">
+Adding topic filenames to API members...
+    Last step completed in 00:00:00,0065
+</buildStep>
+<buildStep step="GenerateApiTopicManifest">
+Generating API topic manifest...
+    Last step completed in 00:00:00,0000
+</buildStep>
+<buildStep step="GenerateNamespaceSummaries">
+Generating namespace summary information...
+    Last step completed in 00:00:00,0000
+</buildStep>
+<buildStep step="CopyAdditionalContent">
+Copying additional content files...
+No additional content to copy
+    Last step completed in 00:00:00,0000
+</buildStep>
+<buildStep step="MergeTablesOfContents">
+Merging conceptual and additional tables of contents...
+    Last step completed in 00:00:00,0000
+</buildStep>
+<buildStep step="GenerateIntermediateTableOfContents">
+Generating intermediate table of contents file for API content...
+Generating conceptual content intermediate TOC file...
+    Last step completed in 00:00:00,0000
+</buildStep>
+<buildStep step="CreateBuildAssemblerConfigs">
+Creating Sandcastle configuration files...
+    Last step completed in 00:00:00,0313
+</buildStep>
+<buildStep step="CombiningIntermediateTocFiles">
+Combining conceptual and API intermediate TOC files...
+    Last step completed in 00:00:00,0000
+</buildStep>
+<buildStep step="MergeCustomConfigs">
+Merging custom build component configurations
+C:\Users\kuban\source\repos\InMemoryDB\InMemoryDB\Help\Working\BuildAssembler.config
+  Updating reference topic configurations.
+  No conceptual content.  Removing conceptual content components.
+    Last step completed in 00:00:00,0156
+</buildStep>
+<buildStep step="BuildTopics">
+Building help topics...
+Loading configuration...
+Processing topics...
+SHFB: Warning BE0066: ShowMissingComponent: [N:InMemoryDB] Missing &lt;summary&gt; documentation
+Processed 5 topic(s)
+1 warning(s)
+CopyFromIndexComponent: &quot;reflection&quot; in-memory cache entries used: 1 of 15.
+CopyFromIndexComponent: &quot;comments&quot; in-memory cache entries used: 2 of 30.
+ResolveReferenceLinksComponent: 8 entries added to the member ID URL cache.  New cache size: 8 entries
+    Last step completed in 00:00:01,0178
+</buildStep>
+<buildStep step="CopyStandardHelpContent">
+Copying standard help content...
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\Markdown\media\AlertCaution.png -&gt; C:\Users\kuban\source\repos\InMemoryDB\InMemoryDB\Help\Working\Output\Markdown\media\AlertCaution.png
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\Markdown\media\AlertLanguage.png -&gt; C:\Users\kuban\source\repos\InMemoryDB\InMemoryDB\Help\Working\Output\Markdown\media\AlertLanguage.png
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\Markdown\media\AlertNote.png -&gt; C:\Users\kuban\source\repos\InMemoryDB\InMemoryDB\Help\Working\Output\Markdown\media\AlertNote.png
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\Markdown\media\AlertSecurity.png -&gt; C:\Users\kuban\source\repos\InMemoryDB\InMemoryDB\Help\Working\Output\Markdown\media\AlertSecurity.png
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\Markdown\media\AlertToDo.png -&gt; C:\Users\kuban\source\repos\InMemoryDB\InMemoryDB\Help\Working\Output\Markdown\media\AlertToDo.png
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\Markdown\MarkdownContent\_Footer.md -&gt; C:\Users\kuban\source\repos\InMemoryDB\InMemoryDB\Help\Working\Output\Markdown\_Footer.md
+    Last step completed in 00:00:00,0156
+</buildStep>
+<buildStep step="GenerateHelpProject">
+Executing informational Generate Help Project build step for plug-ins (not used for Markdown)
+    Last step completed in 00:00:00,0000
+</buildStep>
+<buildStep step="CompilingHelpFile">
+Generating markdown content...
+Finished generating 5 topics
+Copying content to output folder...
+Finished copying 13 files
+    Last step completed in 00:00:00,0378
+</buildStep>
+<buildStep step="CleanIntermediates">
+Removing intermediate files...
+    Last step completed in 00:00:00,0000
+</buildStep>
+<buildStep step="Completed">
+
+Build completed successfully at 23.09.2022 6:16:44.  Total time: 00:00:02,1386
+
+</buildStep>
+</shfbBuild>

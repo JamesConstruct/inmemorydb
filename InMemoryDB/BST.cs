@@ -113,6 +113,41 @@ namespace InMemoryDB
 
         }
 
+
+        public List<int> FindAll(T value)
+        {
+
+            Node? current = root;
+
+            List<int> results = new();
+
+            while (true)
+            {
+
+                if (current == null)
+                    throw new Exception("Zaznam nebyl nalezen.");
+
+                if ((Node)current == value)
+                    while ((Node)current == value)
+                    {
+                        results.Add(current.RecordId);
+                        current = current.Right;
+
+                        if (current == null)
+                            return results;
+                    }
+
+                else if (current > value)
+                    current = current.Left;
+
+                else
+                    current = current.Right;
+
+            }
+
+
+        }
+
         /// <summary>
         /// Vloží nový uzel odkazující na záznam do stromu.
         /// </summary>

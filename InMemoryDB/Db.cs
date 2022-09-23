@@ -15,14 +15,14 @@ namespace InMemoryDB
     /// <summary>
     /// Mateřská třída pole umožňující polymorfismus.
     /// </summary>
-    internal abstract class ParentField { }
+    public abstract class ParentField { }
 
 
     /// <summary>
     /// Třída pole pro konkrétní hodnotu.
     /// </summary>
     /// <typeparam name="T">Typ hodnoty pole.</typeparam>
-    internal class Field<T> : ParentField where T : IComparable<T>
+    public class Field<T> : ParentField where T : IComparable<T>
     {
         /// <summary>
         /// Hodnota pole.
@@ -67,13 +67,13 @@ namespace InMemoryDB
     /// <summary>
     /// Hlavní třída databáze.
     /// </summary>
-    internal class Db
+    public class Db
     {
 
         /// <summary>
         /// Tato třída převádí typ pole konrkétní hodnoty na obecného předka ParentField. Zde je třeba přidat funkce pro další datové typy v případě rozšiřování.
         /// </summary>
-        public static class FieldConvertor
+        private static class FieldConvertor
         {
 
             public static ParentField GetField<T>(T val)
@@ -181,6 +181,23 @@ namespace InMemoryDB
         }
 
 
+        public RecordWrapper First()
+        {
+            return new RecordWrapper(_records.First(), this);
+        }
+
+        public RecordWrapper Last()
+        {
+            return new RecordWrapper(_records.Last(), this);
+        }
+
+        public RecordWrapper RecordAt(int i)
+        {
+            if (i < 0 || i >= _records.Count) throw new Exception("Invalid index!");
+
+            return new RecordWrapper(_records.ElementAt(i), this);
+        }
+
 
         /// <summary>
         /// Vyhledá záznam v databázi, kde se daný sloupec <b>rovná</b> udané hodnotě. V případě, že hledáme dle indexu vyhledává logaritmicky, jinak lineárně. Vrátí první nalezený
@@ -192,7 +209,7 @@ namespace InMemoryDB
         /// <returns>Vrací RecordWrapper nesoucí daný záznam.</returns>
         /// <exception cref="ArgumentException">ArgumentException v případě špatného typu sloupce.</exception>
         /// <exception cref="Exception">Exception v případě, že záznam není nalezen.</exception>
-        public RecordWrapper SelectWhere<T>(string column, T val) where T : IComparable<T>
+        public RecordWrapper SelectOneWhere<T>(string column, T val) where T : IComparable<T>
         {
 
             // ověření, že sedí typ T na daný sloupec
@@ -232,6 +249,64 @@ namespace InMemoryDB
 
             // nic nebylo nalezeno
             throw new Exception("Not found!");
+
+
+        }
+
+
+        /// <summary>
+        /// Vyhledá záznam v databázi, kde se daný sloupec <b>rovná</b> udané hodnotě. V případě, že hledáme dle indexu vyhledává logaritmicky, jinak lineárně. Vrátí všechny
+        /// výsledky v nedefinovaném pořadí.
+        /// </summary>
+        /// <typeparam name="T">Typ hodnoty, dle které vyhledáváme.</typeparam>
+        /// <param name="column">Název sloupce, dle kterého vyhledáváme.</param>
+        /// <param name="val">Hodnota, kterou chceme nalézt.</param>
+        /// <returns>Vrací TableWrapper nesoucí dané záznamy.</returns>
+        /// <exception cref="ArgumentException">ArgumentException v případě špatného typu sloupce.</exception>
+        /// <exception cref="Exception">Exception v případě, že záznam není nalezen.</exception>
+        public Db SelectAllWhere<T>(string column, T val) where T : IComparable<T>
+        {
+
+            // ověření, že sedí typ T na daný sloupec
+            if (ColumnType(column) != typeof(T)) throw new ArgumentException("Invalid value type!");
+
+            // index sloupce
+            int index = ColumnIndex(column);
+
+            Db sub_db = new Db();
+            sub_db.CopyStructure(this);
+
+
+            // jedná-li se o indexovaný sloupce, můžeme využít logaritmického vyhledávání
+            if (_indexes.ContainsKey(index))
+            {
+
+                // vyhledání pořadí v tabulce _records pomocí sestaveného vyhledávacího stromu
+                List<int> results = ((dynamic)_indexes[index]).FindAll(val);
+
+                foreach (int i in results)
+                    sub_db.Insert(_records.ElementAt((int)i));
+
+            }
+
+            // musíme provést lineární vyhledávání - jedná se o neindexovaný sloupec
+            else
+            {
+
+                foreach (Record rec in _records)
+                {
+                    if (EqualityComparer<T>.Default.Equals(((Field<T>)rec.ElementAt(index)).Value, val))
+                    {
+
+                        sub_db.Insert(rec);
+
+                    }
+                }
+
+            }
+
+
+            return sub_db;
 
 
         }
@@ -399,6 +474,49 @@ namespace InMemoryDB
 
         }
 
+        public void Insert(Record record)
+        {
+
+            // Pokud byla tabulka prázdná, již není
+            if (_empty) _empty = false;
+
+            // sedí počet?
+            if (_fields.Count == record.Count)
+            {
+
+                for (int i = 0; i < record.Count; i++)
+
+                    // Sedí typ?
+                    if (_fields.ElementAt(i) != ((dynamic)record.ElementAt(i)).Value.GetType())
+                    {
+
+                        throw new Exception("Field type mismatch at index " + i);
+
+                    }
+
+
+                    else
+                    {
+
+                        if (_indexes.ContainsKey(i))    // jedná se o indexovaný sloupec, musíme hodnotu vložit do BVS
+
+                            ((dynamic)_indexes[i]).Insert(((dynamic)record.ElementAt(i)).Value, (int)Count);
+
+                    }
+
+
+            }
+            else
+
+                throw new Exception("Invalid number of fields!");
+
+
+            // Vložíme record do listu záznamů
+            _records.Add(record);
+
+
+        }
+
 
         /// <summary>
         /// Vytvoří prázdnou databázi.
@@ -406,6 +524,20 @@ namespace InMemoryDB
         public Db() 
         {
 
+        }
+
+        /// <summary>
+        /// Zkopíruje strukturu jiné databáze, tedy typy a názvy sloupců a indexovací sloupce. Lze pouze, pokud je tabulka prázdná.
+        /// </summary>
+        /// <exception cref="Exception">Vrací Exception, když databáze není prázdná.</exception>
+        /// <param name="other">Tabulka, jejíž strukturu chceme okopírovat.</param>
+        public void CopyStructure(Db other)
+        {
+            if (!_empty) throw new Exception("Database is not empty!");
+
+            _fields = other._fields;
+            _columns = other._columns;
+            _indexes = other._indexes;
         }
 
 
