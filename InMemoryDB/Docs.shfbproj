@@ -15,16 +15,16 @@
     <Name>Documentation</Name>
     <!-- SHFB properties -->
     <FrameworkVersion>.NET Core/.NET Standard/.NET 5.0+</FrameworkVersion>
-    <OutputPath>.\Help\</OutputPath>
+    <OutputPath>Help\</OutputPath>
     <HtmlHelpName>Documentation</HtmlHelpName>
     <Language>en-US</Language>
     <DocumentationSources>
       <DocumentationSource sourceFile="obj\Debug\net6.0\InMemoryDB.xml" />
       <DocumentationSource sourceFile="obj\Debug\net6.0\InMemoryDB.dll" />
     </DocumentationSources>
-    <HelpFileFormat>Website</HelpFileFormat>
+    <HelpFileFormat>Markdown</HelpFileFormat>
     <SyntaxFilters>Standard</SyntaxFilters>
-    <PresentationStyle>Default2022</PresentationStyle>
+    <PresentationStyle>Markdown</PresentationStyle>
     <BuildLogFile>
     </BuildLogFile>
     <CleanIntermediates>True</CleanIntermediates>
@@ -33,6 +33,16 @@
     <IndentHtml>False</IndentHtml>
     <BuildAssemblerVerbosity>OnlyWarningsAndErrors</BuildAssemblerVerbosity>
     <SaveComponentCacheCapacity>100</SaveComponentCacheCapacity>
+    <WarnOnMissingSourceContext>False</WarnOnMissingSourceContext>
+    <TransformComponentArguments>
+      <Argument Key="BibliographyDataFile" Value="" />
+      <Argument Key="MaxVersionParts" Value="" />
+      <Argument Key="IncludeEnumValues" Value="True" />
+      <Argument Key="EnumMemberSortOrder" Value="Value" />
+      <Argument Key="FlagsEnumValueFormat" Value="IntegerValue" />
+      <Argument Key="FlagsEnumSeparatorSize" Value="0" />
+      <Argument Key="BaseSourceCodeUrl" Value="https://gitlab.mff.cuni.cz/teaching/nprg031/2022-summer/student-telcerj/-/tree/master/InMemoryDB/Help" />
+    </TransformComponentArguments>
   </PropertyGroup>
   <!-- There are no properties for these groups.  AnyCPU needs to appear in order for Visual Studio to perform
 			 the build.  The others are optional common platform types that may appear. -->
