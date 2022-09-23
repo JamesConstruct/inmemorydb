@@ -4,6 +4,20 @@
         <name>InMemoryDB</name>
     </assembly>
     <members>
+        <member name="T:InMemoryDB.ITree`1">
+            <summary>
+            Interface pro konkrétní vyhledávací strom.
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:InMemoryDB.ITree`1.Find(`0)" -->
+        <!-- Badly formed XML comment ignored for member "M:InMemoryDB.ITree`1.FindAll(`0)" -->
+        <member name="M:InMemoryDB.ITree`1.Insert(`0,System.Int32)">
+            <summary>
+            Umožňuje vložit nový uzel do stromu s hodnotou value odkazující na záznam s daným Id.
+            </summary>
+            <param name="value">Hodnota uzlu pro vyhledávání.</param>
+            <param name="id">Id na které odkazuje.</param>
+        </member>
         <member name="T:InMemoryDB.BST">
             <summary>
             Obecná třída vyhledávacích stromů.
@@ -34,6 +48,13 @@
             <param name="value">Hodnota, kterou hledáme.</param>
             <returns>Id záznamu, na který uzel ukazuje.</returns>
             <exception cref="T:System.Exception">Vyhodí exception, pokud daná hodnota ve stromě (tedy v databázi) neexistuje.</exception>
+        </member>
+        <member name="M:InMemoryDB.BST`1.FindAll(`0)">
+            <summary>
+            Najde všechny uzly s danou hodnotou a vrátí list Id záznamů, které jim odpovídají. Vrací prázdný seznam, pokud nic nenajde.
+            </summary>
+            <param name="value">Hodnota, kterou hledáme.</param>
+            <returns>List Id záznamu, na který uzly ukazují.</returns>
         </member>
         <member name="M:InMemoryDB.BST`1.Insert(`0,System.Int32)">
             <summary>
@@ -204,6 +225,11 @@
             </summary>
             <exception cref="T:System.Exception">Vrací Exception, když databáze není prázdná.</exception>
             <param name="other">Tabulka, jejíž strukturu chceme okopírovat.</param>
+        </member>
+        <member name="M:InMemoryDB.Db.Drop">
+            <summary>
+            Vyprázdní tabulku a smaže její strukturu.
+            </summary>
         </member>
         <member name="P:InMemoryDB.Db.Count">
             <summary>

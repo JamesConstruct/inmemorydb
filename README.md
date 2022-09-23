@@ -1,6 +1,6 @@
-# student
+# Zápočtový program, programování II.
 
-Tady bude Váš zápočtový program
+[Dokumentace Zde](https://gitlab.mff.cuni.cz/teaching/nprg031/2022-summer/student-telcerj/-/blob/master/InMemoryDB/Help/Home.md).
 
 ## Getting started
 

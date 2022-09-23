@@ -6,6 +6,34 @@ using System.Threading.Tasks;
 
 namespace InMemoryDB
 {
+
+    /// <summary>
+    /// Interface pro konkrétní vyhledávací strom.
+    /// </summary>
+    public interface ITree<T>
+    {
+        /// <summary>
+        /// Vyhledá první prvek s danou hodnotou ve stromě a vrátí jeho id
+        /// </summary>
+        /// <param name="value">Hodnota, kterou hledáme.</param>
+        /// <returns>Int Id daného záznamu.</int></returns>
+        public int Find(T value);
+
+        /// <summary>
+        /// Vyhledá všechny prvky s danou hodnotou ve stromě a vrátí seznam jejich id.
+        /// </summary>
+        /// <param name="value">Hodnota, kterou hledáme.</param>
+        /// <returns>List<Int> Id daných záznamů.</id></returns>
+        public List<int> FindAll(T value);
+
+        /// <summary>
+        /// Umožňuje vložit nový uzel do stromu s hodnotou value odkazující na záznam s daným Id.
+        /// </summary>
+        /// <param name="value">Hodnota uzlu pro vyhledávání.</param>
+        /// <param name="id">Id na které odkazuje.</param>
+        public void Insert(T value, int id);
+    }
+
     /// <summary>
     /// Obecná třída vyhledávacích stromů.
     /// </summary>
@@ -16,7 +44,7 @@ namespace InMemoryDB
     /// Vyhledávací strom daného typu - s hodnotami typu T.
     /// </summary>
     /// <typeparam name="T">Všechny uzlu stromu mají hodnotu tohoto typu.</typeparam>
-    internal class BST<T> : BST where T : IComparable<T>
+    internal class BST<T> : BST, ITree<T> where T : IComparable<T>
     {
 
         /// <summary>
@@ -113,10 +141,14 @@ namespace InMemoryDB
 
         }
 
-
+        /// <summary>
+        /// Najde všechny uzly s danou hodnotou a vrátí list Id záznamů, které jim odpovídají. Vrací prázdný seznam, pokud nic nenajde.
+        /// </summary>
+        /// <param name="value">Hodnota, kterou hledáme.</param>
+        /// <returns>List Id záznamu, na který uzly ukazují.</returns>
         public List<int> FindAll(T value)
         {
-
+            
             Node? current = root;
 
             List<int> results = new();

@@ -16,6 +16,8 @@ namespace InMemoryDB
         public static void Main()
         {
 
+            // Jednoduchá tabulka, výběr dle jména a součet
+
             var db = new InMemoryDB.Db();
 
             db.AddColumn<int>("Id");
@@ -23,31 +25,52 @@ namespace InMemoryDB
             db.AddColumn<double>("Balance");
             db.MakeIndex<string>("Name");
 
-            db.Insert(2, "Jimmi", 3.45);
+            db.Insert(2, "Johhny", 3.45);
             db.Insert(5, "James", 1.23);
             db.Insert(7, "Emily", 0.55);
             db.Insert(12, "Rodrigez", 2.4);
             db.Insert(13, "Alpharomeo", 1.02);
             db.Insert(1, "Ziki", 1.0);
-            db.Insert(44, "James", 100.00);
+            db.Insert(44, "Emily", 100.00);
 
             dynamic r = db.SelectOneWhere("Name", "Ziki");
+            System.Console.WriteLine("Ziki, balance: " + r.Balance);
+            System.Console.WriteLine("Typ hodnoty: " + r.Balance.GetType());
 
-            // System.Console.WriteLine(((InMemoryDB.Db.Field<double>)r.Fields.ElementAt(2)).Value);
-            System.Console.WriteLine(r.Name);
-            System.Console.WriteLine(r.Balance.GetType());
+            // Selekce více řádků
+            Db sub_table = db.SelectAllWhere("Name", "Emily");
+            System.Console.WriteLine("Počet vybraných: " + sub_table.Count);
+            System.Console.WriteLine("Součet vybraných: " + sub_table.GetSum<double>("Balance"));
+            sub_table = sub_table.SelectAllWhere("Id", 44);
+            System.Console.WriteLine("Počet vybraných: " + sub_table.Count);
+            System.Console.WriteLine("Balance: " + ((dynamic)sub_table.First()).Balance);
+
+            System.Console.WriteLine("Celkový součet: " + db.GetSum<double>("Balance"));
+
+            System.Console.WriteLine("Celkový počet: " + db.Count);
 
 
-            Db sub_table = db.SelectAllWhere("Name", "James");
-            System.Console.WriteLine(sub_table.Count);
-            System.Console.WriteLine(sub_table.GetSum<double>("Balance"));
-            sub_table = sub_table.SelectAllWhere("Id", 5);
-            System.Console.WriteLine(sub_table.Count);
-            System.Console.WriteLine(((dynamic)sub_table.First()).Balance);
+            // složitější tabulka
 
-            System.Console.WriteLine(db.GetSum<double>("Balance"));
+            db.Drop();
 
-            System.Console.WriteLine(db.Count);
+            db.AddColumn<int>("Id");
+            db.AddColumn<string>("Sender");
+            db.AddColumn<string>("Receiver");
+            db.AddColumn<int>("Amount");
+            db.AddColumn<bool>("Verified");
+            db.MakeIndex<int>("Id");
+
+            db.Insert(0, "John", "Jimmi", 10, true);
+            db.Insert(1, "Jimmi", "Ian", 6, true);
+            db.Insert(2, "Jimmi", "John", 15, true);
+            db.Insert(3, "Unknown", "Jimmi", 10000, false);
+
+            int income = db.SelectAllWhere("Receiver", "Jimmi").SelectAllWhere("Verified", true).GetSum<int>("Amount");
+            int outcome = db.SelectAllWhere("Sender", "Jimmi").SelectAllWhere("Verified", true).GetSum<int>("Amount");
+            // int to_self = db.SelectAllWhere("Sender", "Jimmi").SelectAllWhere("Receiver", "Jimmi").SelectAllWhere("Verified", "true").GetSum<int>("Amount");
+
+            Console.WriteLine("Jimmi's balance = " + (income - outcome));
 
         }
 
