@@ -13,6 +13,7 @@ namespace InMemoryDB
             db.AddColumn<int>("Id");
             db.AddColumn<string>("Name");
             db.AddColumn<double>("Balance");
+            db.MakeIndex<string>("Name");
 
             db.Insert(2, "Jimmi", 3.45);
             db.Insert(5, "James", 1.23);
@@ -21,7 +22,7 @@ namespace InMemoryDB
             db.Insert(13, "Alpharomeo", 1.02);
             db.Insert(1, "Ziki", 1.0);
 
-            dynamic r = db.SelectWhere("Name", "Alpharomeo");
+            dynamic r = db.SelectWhere("Name", "Ziki");
 
             // System.Console.WriteLine(((InMemoryDB.Db.Field<double>)r.Fields.ElementAt(2)).Value);
             System.Console.WriteLine(r.Balance);

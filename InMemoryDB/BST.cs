@@ -7,7 +7,13 @@ using System.Threading.Tasks;
 namespace InMemoryDB
 {
 
-    internal class BST<T> where T : IComparable<T>
+    internal abstract class BST {
+        //public virtual void Insert(T value, UIntPtr id) { throw new Exception(); }
+        //public virtual UIntPtr Find(T value) { throw new Exception(); }
+    }
+
+
+    internal class BST<T> : BST where T : IComparable<T>
     {
         class Node
         {
@@ -79,7 +85,7 @@ namespace InMemoryDB
             {
                 if (current == null)
                     throw new Exception("Zaznam nebyl nalezen.");
-                if (current == value)
+                if ((Node)current == value)
                     return current.RecordId;
                 else if (current > value)
                     current = current.Left;
@@ -125,8 +131,6 @@ namespace InMemoryDB
                     }
 
                     current = next;
-
-                    // jak asi vypadá indexování a hledání dle čísel????? wtf
 
                 }
 

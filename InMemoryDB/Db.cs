@@ -135,17 +135,30 @@ namespace InMemoryDB
 
             int index = _columns.IndexOf(column);
 
-            foreach (Record rec in _records)
+            if (_indexes.ContainsKey(index))
             {
-                if (EqualityComparer<T>.Default.Equals(((Field<T>)rec.ElementAt(index)).Value, val))
+
+                UIntPtr i = ((dynamic)_indexes[index]).Find(val);
+
+                Console.WriteLine("Got him logarithmically!");
+
+                return new RecordWrapper(_records.ElementAt((int)i), this);
+
+            }
+            else
+            {
+
+                // linear search
+                foreach (Record rec in _records)
                 {
-                    Console.WriteLine("Got him!");
+                    if (EqualityComparer<T>.Default.Equals(((Field<T>)rec.ElementAt(index)).Value, val))
+                    {
+                        Console.WriteLine("Got him lineary!");
 
-                    
-                    Console.WriteLine(bst.Find(val.ToString()));
-
-                    return new RecordWrapper(rec, this);
+                        return new RecordWrapper(rec, this);
+                    }
                 }
+
             }
 
             throw new Exception("Not found!");
@@ -202,8 +215,15 @@ namespace InMemoryDB
             RemoveColumnAt(index);
         }
 
-        public void MakeIndex()
+        public void MakeIndex<T>(string column) where T : IComparable<T>
         {
+
+            if (ColumnType(column) != typeof(T)) throw new ArgumentException("Invalid value type!");
+
+            if (!_empty)
+                throw new Exception("Database is not empty!");
+
+            _indexes.Add(ColumnIndex(column), new BST<T>());
 
         }
 
@@ -230,6 +250,10 @@ namespace InMemoryDB
 
                         list.Add(FieldConvertor.GetField(tmp));
 
+                        if (_indexes.ContainsKey(i))    // this column is an index
+                            
+                            ((dynamic) _indexes[i]).Insert(tmp, (UIntPtr)Count);
+
                     }
 
 
@@ -240,11 +264,8 @@ namespace InMemoryDB
 
             _records.Add(new Record(list));
 
-            bst.Insert((string)values[1], (UIntPtr)Count);
-
         }
 
-        public BST<string> bst = new();
 
         public Db() 
         {
@@ -257,12 +278,18 @@ namespace InMemoryDB
         private bool _empty = true;  // dokud je db prázdná, můžeme upravovat sloupce, redundance??
         private List<Type> _fields = new();
         private List<String> _columns = new();
+        private Dictionary<int, BST> _indexes = new();
 
         private Type ColumnType(string name)
         {
             if (!_columns.Contains(name)) throw new Exception("Invalid column!");
 
             return _fields.ElementAt(_columns.IndexOf(name));
+        }
+
+        private int ColumnIndex(string name)
+        {
+            return _columns.IndexOf(name);
         }
 
 
