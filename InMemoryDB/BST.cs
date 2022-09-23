@@ -125,7 +125,7 @@ namespace InMemoryDB
             {
 
                 if (current == null)
-                    throw new Exception("Zaznam nebyl nalezen.");
+                    return results; // throw new Exception("Zaznam nebyl nalezen.");
 
                 if ((Node)current == value)
                     while ((Node)current == value)

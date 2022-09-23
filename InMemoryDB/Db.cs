@@ -181,16 +181,32 @@ namespace InMemoryDB
         }
 
 
+        /// <summary>
+        /// Vrátí první záznam v databázi.
+        /// </summary>
+        /// <returns>RecordWrapper obsahující první záznam v databázi.</returns>
         public RecordWrapper First()
         {
             return new RecordWrapper(_records.First(), this);
         }
 
+
+        /// <summary>
+        /// Vrátí poslední záznam v databázi.
+        /// </summary>
+        /// <returns>RecordWrapper obsahující poslední záznam v databázi.</returns>
         public RecordWrapper Last()
         {
             return new RecordWrapper(_records.Last(), this);
         }
 
+
+        /// <summary>
+        /// Vrátí záznam z databáze na definované pozici.
+        /// </summary>
+        /// <param name="i">Pozice záznamu.</param>
+        /// <returns>Vrátí RecordWrapper obsahující daný záznam.</returns>
+        /// <exception cref="Exception">Vrátí Exception, pokud je daná pozice neplatná.</exception>
         public RecordWrapper RecordAt(int i)
         {
             if (i < 0 || i >= _records.Count) throw new Exception("Invalid index!");
@@ -200,7 +216,7 @@ namespace InMemoryDB
 
 
         /// <summary>
-        /// Vyhledá záznam v databázi, kde se daný sloupec <b>rovná</b> udané hodnotě. V případě, že hledáme dle indexu vyhledává logaritmicky, jinak lineárně. Vrátí první nalezený
+        /// Vyhledá záznam v databázi, kde se daný sloupec <b>rovná</b> udané hodnotě. V případě, že hledáme dle indexu vyhledává logaritmicky, jinak lineárně. Vrátí <b>první</b> nalezený
         /// výsledek, nemusí se jednat o první v pořadí, v jakém byly záznamy přidávány.
         /// </summary>
         /// <typeparam name="T">Typ hodnoty, dle které vyhledáváme.</typeparam>
@@ -255,15 +271,14 @@ namespace InMemoryDB
 
 
         /// <summary>
-        /// Vyhledá záznam v databázi, kde se daný sloupec <b>rovná</b> udané hodnotě. V případě, že hledáme dle indexu vyhledává logaritmicky, jinak lineárně. Vrátí všechny
-        /// výsledky v nedefinovaném pořadí.
+        /// Vyhledá <b>všechny</b> záznamy v databázi, kde se daný sloupec <b>rovná</b> udané hodnotě. V případě, že hledáme dle indexu vyhledává logaritmicky, jinak lineárně. Vrátí všechny
+        /// výsledky v nedefinovaném pořadí. Může vracet prázdnou tabulku.
         /// </summary>
         /// <typeparam name="T">Typ hodnoty, dle které vyhledáváme.</typeparam>
         /// <param name="column">Název sloupce, dle kterého vyhledáváme.</param>
         /// <param name="val">Hodnota, kterou chceme nalézt.</param>
-        /// <returns>Vrací TableWrapper nesoucí dané záznamy.</returns>
+        /// <returns>Vrací novou databázi se stejnou strukturou obsahující jen vyhledávané záznamy.</returns>
         /// <exception cref="ArgumentException">ArgumentException v případě špatného typu sloupce.</exception>
-        /// <exception cref="Exception">Exception v případě, že záznam není nalezen.</exception>
         public Db SelectAllWhere<T>(string column, T val) where T : IComparable<T>
         {
 
@@ -474,6 +489,12 @@ namespace InMemoryDB
 
         }
 
+
+        /// <summary>
+        /// Vloží do databáze nový záznam obsahující zadané hodnoty. Typ hodnoty musí korespondovat s typem sloupce.
+        /// </summary>
+        /// <param name="record">Třída Record obsahující všechny hodnoty s typy korespondujícími s typem sloupců v tabulce.</param>
+        /// <exception cref="Exception">Vrací Exception v případě, že je zadán špatný počet argumentů, nebo nesedí jejich typ.</exception>
         public void Insert(Record record)
         {
 

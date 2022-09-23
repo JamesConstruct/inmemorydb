@@ -96,9 +96,29 @@
             <param name="record">Záznam z databáze.</param>
             <param name="db">Databáze, ze které záznam pochází.</param>
         </member>
+        <member name="M:InMemoryDB.Db.First">
+            <summary>
+            Vrátí první záznam v databázi.
+            </summary>
+            <returns>RecordWrapper obsahující první záznam v databázi.</returns>
+        </member>
+        <member name="M:InMemoryDB.Db.Last">
+            <summary>
+            Vrátí poslední záznam v databázi.
+            </summary>
+            <returns>RecordWrapper obsahující poslední záznam v databázi.</returns>
+        </member>
+        <member name="M:InMemoryDB.Db.RecordAt(System.Int32)">
+            <summary>
+            Vrátí záznam z databáze na definované pozici.
+            </summary>
+            <param name="i">Pozice záznamu.</param>
+            <returns>Vrátí RecordWrapper obsahující daný záznam.</returns>
+            <exception cref="T:System.Exception">Vrátí Exception, pokud je daná pozice neplatná.</exception>
+        </member>
         <member name="M:InMemoryDB.Db.SelectOneWhere``1(System.String,``0)">
             <summary>
-            Vyhledá záznam v databázi, kde se daný sloupec <b>rovná</b> udané hodnotě. V případě, že hledáme dle indexu vyhledává logaritmicky, jinak lineárně. Vrátí první nalezený
+            Vyhledá záznam v databázi, kde se daný sloupec <b>rovná</b> udané hodnotě. V případě, že hledáme dle indexu vyhledává logaritmicky, jinak lineárně. Vrátí <b>první</b> nalezený
             výsledek, nemusí se jednat o první v pořadí, v jakém byly záznamy přidávány.
             </summary>
             <typeparam name="T">Typ hodnoty, dle které vyhledáváme.</typeparam>
@@ -110,15 +130,14 @@
         </member>
         <member name="M:InMemoryDB.Db.SelectAllWhere``1(System.String,``0)">
             <summary>
-            Vyhledá záznam v databázi, kde se daný sloupec <b>rovná</b> udané hodnotě. V případě, že hledáme dle indexu vyhledává logaritmicky, jinak lineárně. Vrátí všechny
-            výsledky v nedefinovaném pořadí.
+            Vyhledá <b>všechny</b> záznamy v databázi, kde se daný sloupec <b>rovná</b> udané hodnotě. V případě, že hledáme dle indexu vyhledává logaritmicky, jinak lineárně. Vrátí všechny
+            výsledky v nedefinovaném pořadí. Může vracet prázdnou tabulku.
             </summary>
             <typeparam name="T">Typ hodnoty, dle které vyhledáváme.</typeparam>
             <param name="column">Název sloupce, dle kterého vyhledáváme.</param>
             <param name="val">Hodnota, kterou chceme nalézt.</param>
-            <returns>Vrací TableWrapper nesoucí dané záznamy.</returns>
+            <returns>Vrací novou databázi se stejnou strukturou obsahující jen vyhledávané záznamy.</returns>
             <exception cref="T:System.ArgumentException">ArgumentException v případě špatného typu sloupce.</exception>
-            <exception cref="T:System.Exception">Exception v případě, že záznam není nalezen.</exception>
         </member>
         <member name="M:InMemoryDB.Db.GetSum``1(System.String)">
             <summary>
@@ -165,6 +184,13 @@
             Vloží do databáze nový záznam obsahující zadané hodnoty. Typ hodnoty musí korespondovat s typem sloupce.
             </summary>
             <param name="values">Hodnoty jednoho záznamu.</param>
+            <exception cref="T:System.Exception">Vrací Exception v případě, že je zadán špatný počet argumentů, nebo nesedí jejich typ.</exception>
+        </member>
+        <member name="M:InMemoryDB.Db.Insert(System.Collections.Generic.List{InMemoryDB.ParentField})">
+            <summary>
+            Vloží do databáze nový záznam obsahující zadané hodnoty. Typ hodnoty musí korespondovat s typem sloupce.
+            </summary>
+            <param name="record">Třída Record obsahující všechny hodnoty s typy korespondujícími s typem sloupců v tabulce.</param>
             <exception cref="T:System.Exception">Vrací Exception v případě, že je zadán špatný počet argumentů, nebo nesedí jejich typ.</exception>
         </member>
         <member name="M:InMemoryDB.Db.#ctor">
