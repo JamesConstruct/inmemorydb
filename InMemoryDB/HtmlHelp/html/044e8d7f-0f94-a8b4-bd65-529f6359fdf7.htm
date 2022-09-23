@@ -1,0 +1,102 @@
+﻿<!DOCTYPE html ><html lang="en-US"><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><link rel="shortcut icon" href="../icons/favicon.ico" /><link rel="stylesheet" href="../css/bulma.css" /><link rel="stylesheet" href="../css/font-awesome.min.css" /><link rel="stylesheet" href="../css/presentationStyle.css" /><link rel="stylesheet" href="../css/vs.min.css" /><script src="../scripts/jquery-3.5.1.min.js"></script><script src="../scripts/clipboard.min.js"></script><script src="../scripts/highlight.min.js"></script><script src="../scripts/presentationStyle.js"></script><title>InMemoryDB Namespace</title><meta name="Title" content="InMemoryDB" /><meta name="Help.Id" content="N:InMemoryDB" /><meta name="Help.ContentType" content="Reference" /><meta name="container" content="InMemoryDB" /><meta name="guid" content="044e8d7f-0f94-a8b4-bd65-529f6359fdf7" /><meta name="Description" content="summaryN:InMemoryDB" /><meta name="tocFile" content="../toc/Root.xml" /></head><body><div class="fixedLayout"><div id="Header" class="fixedHeader"><div class="pageHeader level mb-0 py-2 px-4"><div id="TitleContainer" class="level-left"><div id="DocumentationTitle" class="level-item">In-Memory Databáze v C#</div></div><div id="LangFilterSearchContainer" class="level-right"><div class="level-item"><div class="dropdown is-hoverable"><div class="dropdown-trigger"><button class="button" aria-haspopup="true" aria-controls="dropdown-menu"><span id="CurrentLanguage"></span><span class="icon is-small"><i class="fa fa-angle-down" aria-hidden="true"></i></span></button></div><div class="dropdown-menu" role="menu"><div id="LanguageSelections" class="dropdown-content"><a class="dropdown-item languageFilterItem" data-languageId="cs">C#</a><a class="dropdown-item languageFilterItem" data-languageId="vb">VB</a><a class="dropdown-item languageFilterItem" data-languageId="cpp">C++</a><a class="dropdown-item languageFilterItem" data-languageId="fs">F#</a></div></div></div></div><div class="level-item"><form id="SearchForm" action="#" onsubmit="TransferToSearchPage(); return false;"><div class="field"><div class="control has-icons-left"><input id="SearchTerms" class="input" type="text" maxlength="200" placeholder="Search" /><span class="icon is-small is-left"><i class="fa fa-search"></i></span><button id="SearchButton" type="submit" class="is-hidden"></button></div></div></form></div></div></div></div><div class="fixedContent"><nav class="breadcrumb my-1 px-2 border-bottom" role="navigation"><ul id="TopicBreadcrumbs" /></nav><div class="columns pl-5 pr-5 fixedContent"><div id="ShowHideTOCColumn" class="column is-hidden-tablet"><a id="ShowHideTOC">Show/Hide TOC</a></div><div id="TOCColumn" class="column is-hidden-mobile"><nav class="toc"><ul id="TableOfContents" class="toc-menu" /></nav></div><div id="TopicContent" class="column content is-7"><h1>In<wbr />Memory<wbr />DB Namespace</h1><div class="summary">
+    Jednoduchá in-memory databáze napsaná v C# jako zápočtový projekt do Programování II.
+    Databáze má polymorfní strukturu a může obsahovat libovolný počet sloupců (omezení pamětí) různého druhu. Databáze nativně podporuje základní datové typy C#, avšak
+    je možné ji snadno rozšířit tak, aby pracovala s jakýmkoli typem implementujícím IComparable interface. Databáze podporuje indexování a binární vyhledávání
+    v logaritmickém čase.
+    
+    
+    <h1>Inicializace</h1>
+    
+    Databáze se inicializuje pomocí Db db = new Db();
+    Dojde k inicializaci prázdné tabulky neobsahující žádné sloupce ani data.
+    
+    
+    <h1>Struktura</h1>
+    
+    Strukturu databáze lze libovolně měnit, dokud je prázdná, poté tento pokus vyústí v Exception. Sloupce lze přidávat pomocí metody <code>AddColumn<T>(string name)</code>,
+    jež přiřadí sloupci jak název tak datový typ, ten je pro daný sloupec již neměnný, avšak sloupec lze později odstranit pomocí metod RemoveColumn a RemoveColumnAt.
+    Pro vytvoření indexu slouží metoda MakeIndex<T>(string column_name), která přijímá název sloupce. Automaticky se tak namapuje binární vyhledávací strom (třída BST)
+    na daný index a při každém přidání prvku se hodnota v daném sloupci zařadí do stromu spolu s odkazem na konkrétní řádek.
+    
+    
+    <h1>Runtime</h1>
+    
+    Pro přidání slouží metoda Insert, celkový počet řádků vyjadřuje vlastnost Count. Pro vyhledávání existují dvě základní metody SelectOneWhere a SelectAllWhere,
+    které vrací výsledky, jež se na daném sloupci shodují s hledanou hodnotou. SelectOneWhere vrací tzv. RecordWrapper, který zabaluje Record tak, aby se k jeho polím
+    dalo dynamicky přistupovat jako k vlastnostem (avšak neobsahuje jakoukoli komplilační kontrolu existence sloupců). SelectAllWhere vrací všechny výsledky, které se
+    shodují na daném sloupci s hledanou hodnotou ve formě pod-tabulky: opět třídy Db, která však obsahuje jen hledané řádky. Při tomto výběru se automaticky vybudují
+    všechny indexy pro pod-tabulku znovu a umožňují stejné binární vyhledávání jako na mateřské tabulce. 
+    
+    
+    <h2>Binární vyhledání</h2>
+    
+    O binární vyhledávání se starají binární vyhledávací stromy, jež se budují během přidávání prvků. Třída BST představuje jednoduchý nevyvážený strom, avšak lze ji
+    nahradit jakoukoli třídou, jež implementuje interface ITree a je potomkem třídy BST. Tedy ji lze jednoduše vyměnit např. za AVL strom a zajistit si tak lepší
+    složitost v nejhorším případě (v původní implementaci až lineární složitost).
+    
+    
+    <h2>Více-sloupcové vyhledávání</h2>
+    
+    Více sloupcového vyhledávání lze dosáhnout pomocí SelectAllWhere, jež vrací tabulku, na které se opět dá spustit vyhledávání. Obdobně se dá postupovat při
+    přidání dalších vyhledávácích metod.
+    
+    
+    <h2>Rozšiřitelnost</h2>
+    
+    Databázi lze snadno rozšířit o další datové typy, stačí pouze rozšířit třídu FieldConvertor o funkci GetField:
+    
+    <code>
+    
+    public static ParentField GetField(bool val)
+    {
+       return new Field<bool>(val);
+    }
+    
+    </code>
+    
+    Rozšíření o další možnosti Selektování lze jednoduše, pokud stačí lineární čas, avšak pro práci s binárním vyhledáváním je třeba vzít do úvahy slovník _indexes a pracovat
+    s vyhledávacími stromy, to je asi nejvíce problematická část, co se rozšíření kódu týče, celková implementace stromů je pro další vývojáře možná zbytečně komplikovaná a
+    specifická. Slovník _indexes obsahuje jako klíč pozici sloupce v tabulce a jako hodnotu příslušící vyhledávací strom uložený v polymorfním kontejneru obsahujícím mateřský
+    typ BTS.
+    
+    Pro implementaci dalších operací by také bylo třeba upravit BTS, avšak lze k tomu použít standardní metody práce s BVS. Při mazání je nutno synchronizovat mazání v tabulce a
+    indexovacích stromech, elegantním řešením by byl další "neviditelný" sloupec, jež by označoval, zda-li byl záznam smazán, a tabulka by se čas od času pročistila od těchto
+    záznamů. Výhodou tohoto řešení je, že by se nemusely všechny prvky posouvat tak často.
+    
+    Změna vyhledávacího stromu je však jednoduchá, stačí změna v souboru Db.cs, nový strom musí být potomkem třídy BTS z BTS.cs a musí implementovat základní rozhraní ITree.
+    
+    <h1>Příklad</h1>
+    
+    Příkladový zdrojový kód naleznete v souboru Program.cs
+
+</div><h2 class="quickLinkHeader"><span class="icon toggleSection" tabindex="0"><i class="fa fa-angle-down"></i></span>Classes</h2><div id="IDBCASection"><table id="classList" class="table is-hoverable"><tr><td><a href="072256a6-4e86-2a0a-723b-934e64bcdb43.htm">Db</a></td><td>
+            
+    
+    Hlavní třída databáze.
+            </td></tr><tr><td><a href="4fbc5763-f72d-71a7-e56d-5031feba9090.htm">Db<span id="LSTA973D0C7_0" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>FieldConvertor</a></td><td>
+            Tato třída převádí typ pole konrkétní hodnoty na obecného předka ParentField. Zde je třeba přidat funkce pro další datové typy v případě rozšiřování.
+            </td></tr><tr><td><a href="15d1f56f-3dc8-30e2-1769-44c8b9a97dea.htm">Db<span id="LSTA973D0C7_1" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>RecordWrapper</a></td><td>
+            Tato třída uzavírá Record a přidává mu dynamické rozhraní pro přístup k hodnotám dle jmen sloupců v databází.
+            </td></tr><tr><td><a href="46a67b2d-bfd0-833f-4eb7-7ea9c7c08d2c.htm">Field<span id="LSTA973D0C7_2" data-languageSpecificText="cs=&lt;|vb=(Of |cpp=&lt;|nu=(|fs=&lt;'"></span>T<span id="LSTA973D0C7_3" data-languageSpecificText="cs=&gt;|vb=)|cpp=&gt;|nu=)|fs=&gt;"></span></a></td><td>
+            Třída pole pro konkrétní hodnotu.
+            </td></tr><tr><td><a href="5461e5eb-5405-4cba-b818-6e7fd22b84dd.htm">ParentField</a></td><td>
+            Mateřská třída pole umožňující polymorfismus.
+            </td></tr><tr><td><a href="dd104f96-249b-6ed8-8b7f-52cffe66f83b.htm">Program</a></td><td>
+            Program pro demonstraci databáze.
+            </td></tr></table></div><h2 class="quickLinkHeader"><span class="icon toggleSection" tabindex="0"><i class="fa fa-angle-down"></i></span>Interfaces</h2><div id="IDACASection"><table id="interfaceList" class="table is-hoverable"><tr><td><a href="d216a1ac-6f71-a87f-e312-ebec07c90547.htm">ITree<span id="LSTA973D0C7_4" data-languageSpecificText="cs=&lt;|vb=(Of |cpp=&lt;|nu=(|fs=&lt;'"></span>T<span id="LSTA973D0C7_5" data-languageSpecificText="cs=&gt;|vb=)|cpp=&gt;|nu=)|fs=&gt;"></span></a></td><td>
+            Interface pro konkrétní vyhledávací strom.
+            </td></tr></table></div></div><div id="InThisArticleColumn" class="column is-hidden-mobile"><nav class="menu sticky is-hidden"><p class="menu-label"><strong>In This Article</strong></p><ul id="InThisArticleMenu" class="menu-list"><li><a class="quickLink">Classes</a></li><li><a class="quickLink">Interfaces</a></li></ul></nav></div></div></div><footer id="PageFooter" class="footer border-top py-3 fixedFooter"><div class="columns"><div class="column"> 
+				</div><div class="column"> 
+				</div></div></footer></div><script>$(function(){
+SetDefaultLanguage("cs");
+LoadTocFile(null, null);
+InitializeQuickLinks();
+
+$(".toggleSection" ).click(function () {
+    SectionExpandCollapse(this);
+});
+
+$(".toggleSection").keypress(function () {
+    SectionExpandCollapseCheckKey(this, event)
+});
+});</script></body></html>
