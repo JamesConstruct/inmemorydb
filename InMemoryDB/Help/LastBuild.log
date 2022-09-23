@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<shfbBuild product="Sandcastle Help File Builder and Tools" version="2022.8.14.1" projectFile="C:\Users\kuban\source\repos\InMemoryDB\InMemoryDB\Docs.shfbproj" started="23.09.2022 6:28:22">
+<shfbBuild product="Sandcastle Help File Builder and Tools" version="2022.8.14.1" projectFile="C:\Users\kuban\source\repos\InMemoryDB\InMemoryDB\Docs.shfbproj" started="23.09.2022 7:17:23">
 <buildStep step="Initializing">
 The Sandcastle tools are located in &#39;C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder&#39;
 Locating components in the following folder(s):
@@ -7,10 +7,7 @@ Locating components in the following folder(s):
     C:\ProgramData\EWSoftware\Sandcastle Help File Builder\Components and Plug-Ins
     C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components
 Using framework reflection data for &#39;.NET Core/.NET Standard/.NET 5.0+&#39; located in &#39;C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Data\.NET&#39;
-Using presentation style &#39;Default2022&#39; located in &#39;C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\Default2022&#39;
-Loading and initializing plug-ins...
-Website Table of Contents Generator Version 2022.8.14.1
-Copyright &#169; 2006-2022, Eric Woodruff, All Rights Reserved
+Using presentation style &#39;Markdown&#39; located in &#39;C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\Markdown&#39;
 -------------------------------
 Clearing any prior web/markdown output...
 </buildStep>
@@ -29,13 +26,13 @@ Generating shared content files (en-US, Angličtina (Spojen&#233; st&#225;ty))..
 </buildStep>
 <buildStep step="GenerateApiFilter">
 Generating API filter for MRefBuilder...
-    Last step completed in 00:00:00,0080
+    Last step completed in 00:00:00,0075
 </buildStep>
 <buildStep step="GenerateReflectionInfo">
 Generating reflection information...
-[C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Current\Bin\amd64\MSBuild.exe - GenerateRefInfo-b9b5316b-a60e-4cc7-af05-b4e66b154eb4.proj]
-Vytv&#160;&#253;enˇ sestavenˇ bylo zah&#160;jeno 23.09.2022 6:28:23.
-Projekt C:\Users\kuban\source\repos\InMemoryDB\InMemoryDB\Help\Working\GenerateRefInfo-b9b5316b-a60e-4cc7-af05-b4e66b154eb4.proj v uzlu 1 (věchozˇ cˇle).
+[C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Current\Bin\amd64\MSBuild.exe - GenerateRefInfo-9faf115f-a041-47ee-af8b-70bb583b3755.proj]
+Vytv&#160;&#253;enˇ sestavenˇ bylo zah&#160;jeno 23.09.2022 7:17:24.
+Projekt C:\Users\kuban\source\repos\InMemoryDB\InMemoryDB\Help\Working\GenerateRefInfo-9faf115f-a041-47ee-af8b-70bb583b3755.proj v uzlu 1 (věchozˇ cˇle).
 PrepareForBuild:
   Probˇh&#160; vytv&#160;&#253;enˇ adres&#160;&#253;e obj\Debug\.
 GenerateBindingRedirects:
@@ -47,27 +44,27 @@ GenerateRefInfo:
   Loaded 1 assemblies for reflection and 1 dependency assemblies.
   Using framework redirect &#39;System.Linq.Expressions, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a&#39; in place of &#39;System.Linq.Expressions, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a&#39;
   Using framework redirect &#39;System.Collections, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a&#39; in place of &#39;System.Collections, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a&#39;
-  Wrote information on 1 namespaces, 7 types, and 26 members
+  Wrote information on 1 namespaces, 5 types, and 28 members
   Merging duplicate type and member information
   Merged 0 duplicate type(s) and 0 duplicate member(s)
-Sestavenˇ projektu C:\Users\kuban\source\repos\InMemoryDB\InMemoryDB\Help\Working\GenerateRefInfo-b9b5316b-a60e-4cc7-af05-b4e66b154eb4.proj (s věchozˇmi cˇli) bylo dokonźeno.
-    Last step completed in 00:00:00,6712
+Sestavenˇ projektu C:\Users\kuban\source\repos\InMemoryDB\InMemoryDB\Help\Working\GenerateRefInfo-9faf115f-a041-47ee-af8b-70bb583b3755.proj (s věchozˇmi cˇli) bylo dokonźeno.
+    Last step completed in 00:00:00,7152
 </buildStep>
 <buildStep step="ApplyDocumentModel">
 Applying document model to reflection output...
-    Last step completed in 00:00:00,0668
+    Last step completed in 00:00:00,0489
 </buildStep>
 <buildStep step="AddApiTopicFilenames">
 Adding topic filenames to API members...
-    Last step completed in 00:00:00,0170
+    Last step completed in 00:00:00,0209
 </buildStep>
 <buildStep step="GenerateApiTopicManifest">
 Generating API topic manifest...
-    Last step completed in 00:00:00,0209
+    Last step completed in 00:00:00,0150
 </buildStep>
 <buildStep step="GenerateNamespaceSummaries">
 Generating namespace summary information...
-    Last step completed in 00:00:00,0209
+    Last step completed in 00:00:00,0180
 </buildStep>
 <buildStep step="CopyAdditionalContent">
 Copying additional content files...
@@ -81,28 +78,26 @@ Merging conceptual and additional tables of contents...
 <buildStep step="GenerateIntermediateTableOfContents">
 Generating intermediate table of contents file for API content...
 Generating conceptual content intermediate TOC file...
-    Last step completed in 00:00:00,0229
+    Last step completed in 00:00:00,0259
 </buildStep>
 <buildStep step="CreateBuildAssemblerConfigs">
 Creating Sandcastle configuration files...
-    Last step completed in 00:00:00,0908
+    Last step completed in 00:00:00,0868
 </buildStep>
 <buildStep step="CombiningIntermediateTocFiles">
 Combining conceptual and API intermediate TOC files...
-    Last step completed in 00:00:00,0080
+    Last step completed in 00:00:00,0100
 </buildStep>
 <buildStep step="MergeCustomConfigs">
 Merging custom build component configurations
 C:\Users\kuban\source\repos\InMemoryDB\InMemoryDB\Help\Working\BuildAssembler.config
   Updating reference topic configurations.
   No conceptual content.  Removing conceptual content components.
-    Last step completed in 00:00:00,0160
+    Last step completed in 00:00:00,0179
 </buildStep>
 <buildStep step="BuildTopics">
 Building help topics...
-<plugIn name="Website Table of Contents Generator" behavior="Before" priority="1000">
-Loading TOC info and adding unique IDs to parent nodes
-</plugIn>Loading configuration...
+Loading configuration...
 Processing topics...
 SHFB: Warning BE0066: ShowMissingComponent: [N:InMemoryDB] Missing &lt;summary&gt; documentation
 SHFB: Warning BE0066: ShowMissingComponent: [M:InMemoryDB.Db.RecordWrapper.GetDynamicMemberNames] Missing &lt;summary&gt; documentation
@@ -128,68 +123,40 @@ SHFB: Warning BE0066: ShowMissingComponent: [M:InMemoryDB.Field`1.op_Inequality(
 SHFB: Warning BE0066: ShowMissingComponent: [M:InMemoryDB.Field`1.op_Inequality(InMemoryDB.Field{`0},InMemoryDB.Field{`0})] Missing &lt;returns&gt; documentation
 SHFB: Warning BE0066: ShowMissingComponent: [M:InMemoryDB.Field`1.op_Inequality(InMemoryDB.Field{`0},InMemoryDB.Field{`0})] Missing &lt;param name=&quot;a&quot;/&gt; documentation
 SHFB: Warning BE0066: ShowMissingComponent: [M:InMemoryDB.Field`1.op_Inequality(InMemoryDB.Field{`0},InMemoryDB.Field{`0})] Missing &lt;param name=&quot;b&quot;/&gt; documentation
-Processed 44 topic(s)
+Processed 43 topic(s)
 24 warning(s)
 CopyFromIndexComponent: &quot;reflection&quot; in-memory cache entries used: 4 of 15.
 CopyFromIndexComponent: &quot;comments&quot; in-memory cache entries used: 3 of 30.
-<plugIn name="Website Table of Contents Generator" behavior="After" priority="1000">
-Generating TOC fragment files
-</plugIn>    Last step completed in 00:00:02,5532
+    Last step completed in 00:00:02,3545
 </buildStep>
 <buildStep step="CopyStandardHelpContent">
 Copying standard help content...
-C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\Default2022\css\bulma.css -&gt; C:\Users\kuban\source\repos\InMemoryDB\InMemoryDB\Help\Working\Output\Website\css\bulma.css
-C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\Default2022\css\bulma.css.map -&gt; C:\Users\kuban\source\repos\InMemoryDB\InMemoryDB\Help\Working\Output\Website\css\bulma.css.map
-C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\Default2022\css\bulma.min.css -&gt; C:\Users\kuban\source\repos\InMemoryDB\InMemoryDB\Help\Working\Output\Website\css\bulma.min.css
-C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\Default2022\css\font-awesome.css -&gt; C:\Users\kuban\source\repos\InMemoryDB\InMemoryDB\Help\Working\Output\Website\css\font-awesome.css
-C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\Default2022\css\font-awesome.min.css -&gt; C:\Users\kuban\source\repos\InMemoryDB\InMemoryDB\Help\Working\Output\Website\css\font-awesome.min.css
-C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\Default2022\css\ja-JP.css -&gt; C:\Users\kuban\source\repos\InMemoryDB\InMemoryDB\Help\Working\Output\Website\css\ja-JP.css
-C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\Default2022\css\ko-KR.css -&gt; C:\Users\kuban\source\repos\InMemoryDB\InMemoryDB\Help\Working\Output\Website\css\ko-KR.css
-C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\Default2022\css\presentationStyle.css -&gt; C:\Users\kuban\source\repos\InMemoryDB\InMemoryDB\Help\Working\Output\Website\css\presentationStyle.css
-C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\Default2022\css\vs.min.css -&gt; C:\Users\kuban\source\repos\InMemoryDB\InMemoryDB\Help\Working\Output\Website\css\vs.min.css
-C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\Default2022\css\zh-CN.css -&gt; C:\Users\kuban\source\repos\InMemoryDB\InMemoryDB\Help\Working\Output\Website\css\zh-CN.css
-C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\Default2022\css\zh-TW.css -&gt; C:\Users\kuban\source\repos\InMemoryDB\InMemoryDB\Help\Working\Output\Website\css\zh-TW.css
-C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\Default2022\icons\favicon.ico -&gt; C:\Users\kuban\source\repos\InMemoryDB\InMemoryDB\Help\Working\Output\Website\icons\favicon.ico
-C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\Default2022\scripts\clipboard.min.js -&gt; C:\Users\kuban\source\repos\InMemoryDB\InMemoryDB\Help\Working\Output\Website\scripts\clipboard.min.js
-C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\Default2022\scripts\highlight.min.js -&gt; C:\Users\kuban\source\repos\InMemoryDB\InMemoryDB\Help\Working\Output\Website\scripts\highlight.min.js
-C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\Default2022\scripts\jquery-3.5.1.min.js -&gt; C:\Users\kuban\source\repos\InMemoryDB\InMemoryDB\Help\Working\Output\Website\scripts\jquery-3.5.1.min.js
-C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\Default2022\scripts\presentationStyle.js -&gt; C:\Users\kuban\source\repos\InMemoryDB\InMemoryDB\Help\Working\Output\Website\scripts\presentationStyle.js
-C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\Default2022\webfonts\fa-brands-400.ttf -&gt; C:\Users\kuban\source\repos\InMemoryDB\InMemoryDB\Help\Working\Output\Website\webfonts\fa-brands-400.ttf
-C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\Default2022\webfonts\fa-brands-400.woff2 -&gt; C:\Users\kuban\source\repos\InMemoryDB\InMemoryDB\Help\Working\Output\Website\webfonts\fa-brands-400.woff2
-C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\Default2022\webfonts\fa-regular-400.ttf -&gt; C:\Users\kuban\source\repos\InMemoryDB\InMemoryDB\Help\Working\Output\Website\webfonts\fa-regular-400.ttf
-C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\Default2022\webfonts\fa-regular-400.woff2 -&gt; C:\Users\kuban\source\repos\InMemoryDB\InMemoryDB\Help\Working\Output\Website\webfonts\fa-regular-400.woff2
-C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\Default2022\webfonts\fa-solid-900.ttf -&gt; C:\Users\kuban\source\repos\InMemoryDB\InMemoryDB\Help\Working\Output\Website\webfonts\fa-solid-900.ttf
-C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\Default2022\webfonts\fa-solid-900.woff2 -&gt; C:\Users\kuban\source\repos\InMemoryDB\InMemoryDB\Help\Working\Output\Website\webfonts\fa-solid-900.woff2
-C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\Default2022\webfonts\fa-v4compatibility.ttf -&gt; C:\Users\kuban\source\repos\InMemoryDB\InMemoryDB\Help\Working\Output\Website\webfonts\fa-v4compatibility.ttf
-C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\Default2022\webfonts\fa-v4compatibility.woff2 -&gt; C:\Users\kuban\source\repos\InMemoryDB\InMemoryDB\Help\Working\Output\Website\webfonts\fa-v4compatibility.woff2
-C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\Default2022\RootWebsiteContent\GeneralError.html -&gt; C:\Users\kuban\source\repos\InMemoryDB\InMemoryDB\Help\Working\Output\Website\GeneralError.html
-C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\Default2022\RootWebsiteContent\index.html -&gt; C:\Users\kuban\source\repos\InMemoryDB\InMemoryDB\Help\Working\Output\Website\index.html
-C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\Default2022\RootWebsiteContent\PageNotFound.html -&gt; C:\Users\kuban\source\repos\InMemoryDB\InMemoryDB\Help\Working\Output\Website\PageNotFound.html
-C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\Default2022\RootWebsiteContent\search.html -&gt; C:\Users\kuban\source\repos\InMemoryDB\InMemoryDB\Help\Working\Output\Website\search.html
-C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\Default2022\RootWebsiteContent\SearchHelp.aspx -&gt; C:\Users\kuban\source\repos\InMemoryDB\InMemoryDB\Help\Working\Output\Website\SearchHelp.aspx
-C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\Default2022\RootWebsiteContent\SearchHelp.inc.php -&gt; C:\Users\kuban\source\repos\InMemoryDB\InMemoryDB\Help\Working\Output\Website\SearchHelp.inc.php
-C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\Default2022\RootWebsiteContent\SearchHelp.php -&gt; C:\Users\kuban\source\repos\InMemoryDB\InMemoryDB\Help\Working\Output\Website\SearchHelp.php
-C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\Default2022\RootWebsiteContent\Web.Config -&gt; C:\Users\kuban\source\repos\InMemoryDB\InMemoryDB\Help\Working\Output\Website\Web.Config
-    Last step completed in 00:00:00,1180
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\Markdown\media\AlertCaution.png -&gt; C:\Users\kuban\source\repos\InMemoryDB\InMemoryDB\Help\Working\Output\Markdown\media\AlertCaution.png
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\Markdown\media\AlertLanguage.png -&gt; C:\Users\kuban\source\repos\InMemoryDB\InMemoryDB\Help\Working\Output\Markdown\media\AlertLanguage.png
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\Markdown\media\AlertNote.png -&gt; C:\Users\kuban\source\repos\InMemoryDB\InMemoryDB\Help\Working\Output\Markdown\media\AlertNote.png
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\Markdown\media\AlertSecurity.png -&gt; C:\Users\kuban\source\repos\InMemoryDB\InMemoryDB\Help\Working\Output\Markdown\media\AlertSecurity.png
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\Markdown\media\AlertToDo.png -&gt; C:\Users\kuban\source\repos\InMemoryDB\InMemoryDB\Help\Working\Output\Markdown\media\AlertToDo.png
+C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\Markdown\MarkdownContent\_Footer.md -&gt; C:\Users\kuban\source\repos\InMemoryDB\InMemoryDB\Help\Working\Output\Markdown\_Footer.md
+    Last step completed in 00:00:00,0070
 </buildStep>
-<buildStep step="GenerateFullTextIndex">
-Generating full-text index for the website...
-
-    Last step completed in 00:00:00,1197
+<buildStep step="GenerateHelpProject">
+Executing informational Generate Help Project build step for plug-ins (not used for Markdown)
+    Last step completed in 00:00:00,0000
 </buildStep>
-<buildStep step="CopyingWebsiteFiles">
-Copying website files to output folder...
-
-Copied 120 files for the website content
-    Last step completed in 00:00:00,2164
+<buildStep step="CompilingHelpFile">
+Generating markdown content...
+Finished generating 43 topics
+Copying content to output folder...
+Finished copying 51 files
+    Last step completed in 00:00:00,2462
 </buildStep>
 <buildStep step="CleanIntermediates">
 Removing intermediate files...
-    Last step completed in 00:00:00,0160
+    Last step completed in 00:00:00,0090
 </buildStep>
 <buildStep step="Completed">
 
-Build completed successfully at 23.09.2022 6:28:27.  Total time: 00:00:04,4112
+Build completed successfully at 23.09.2022 7:17:27.  Total time: 00:00:04,0351
 
 </buildStep>
 </shfbBuild>
