@@ -13,3 +13,5 @@ C:\Users\kuban\source\repos\InMemoryDB\InMemoryDB\obj\Debug\net6.0\refint\InMemo
 C:\Users\kuban\source\repos\InMemoryDB\InMemoryDB\obj\Debug\net6.0\InMemoryDB.pdb
 C:\Users\kuban\source\repos\InMemoryDB\InMemoryDB\obj\Debug\net6.0\InMemoryDB.genruntimeconfig.cache
 C:\Users\kuban\source\repos\InMemoryDB\InMemoryDB\obj\Debug\net6.0\ref\InMemoryDB.dll
+C:\Users\kuban\source\repos\InMemoryDB\InMemoryDB\bin\Debug\net6.0\InMemoryDB.xml
+C:\Users\kuban\source\repos\InMemoryDB\InMemoryDB\obj\Debug\net6.0\InMemoryDB.xml

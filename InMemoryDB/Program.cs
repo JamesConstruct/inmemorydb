@@ -3,6 +3,10 @@ using InMemoryDB;
 
 namespace InMemoryDB
 {
+
+    /// <summary>
+    /// Program pro demonstraci databáze.
+    /// </summary>
     public class Program
     {
 
@@ -29,7 +33,7 @@ namespace InMemoryDB
             dynamic r = db.SelectWhere("Name", "Ziki");
 
             // System.Console.WriteLine(((InMemoryDB.Db.Field<double>)r.Fields.ElementAt(2)).Value);
-            System.Console.WriteLine(r.Balance);
+            System.Console.WriteLine(r.Name);
             System.Console.WriteLine(r.Balance.GetType());
 
             System.Console.WriteLine(db.GetSum<double>("Balance"));

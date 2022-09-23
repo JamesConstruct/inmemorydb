@@ -6,13 +6,22 @@ using System.Threading.Tasks;
 
 namespace InMemoryDB
 {
-
+    /// <summary>
+    /// Obecná třída vyhledávacích stromů.
+    /// </summary>
     internal abstract class BST {}
 
 
+    /// <summary>
+    /// Vyhledávací strom daného typu - s hodnotami typu T.
+    /// </summary>
+    /// <typeparam name="T">Všechny uzlu stromu mají hodnotu tohoto typu.</typeparam>
     internal class BST<T> : BST where T : IComparable<T>
     {
 
+        /// <summary>
+        /// Třída uzlu ve vyhledávácím stromě.
+        /// </summary>
         class Node
         {
 
@@ -73,8 +82,12 @@ namespace InMemoryDB
             }
         }
 
-        Node? root = null;
-
+        /// <summary>
+        /// Najde první uzel s danou hodnotou a vrátí Id záznamu, na který ukazuje.
+        /// </summary>
+        /// <param name="value">Hodnota, kterou hledáme.</param>
+        /// <returns>Id záznamu, na který uzel ukazuje.</returns>
+        /// <exception cref="Exception">Vyhodí exception, pokud daná hodnota ve stromě (tedy v databázi) neexistuje.</exception>
         public int Find(T value)
         {
 
@@ -100,6 +113,11 @@ namespace InMemoryDB
 
         }
 
+        /// <summary>
+        /// Vloží nový uzel odkazující na záznam do stromu.
+        /// </summary>
+        /// <param name="value">Hodnota pro vyhledávání.</param>
+        /// <param name="id">Id záznamu, na který má uzel ukazovat (jež koresponduje s hodnotou).</param>
         public void Insert(T value, int id)
         {
 
@@ -139,10 +157,20 @@ namespace InMemoryDB
 
         }
 
+
+        /// <summary>
+        /// Vytvoří nový prázdný vyhledávací stromu typu T.
+        /// </summary>
         public BST()
         {
 
         }
+
+        /// <summary>
+        /// Kořen stromu. Může být null, když je strom prázdný.
+        /// </summary>
+        Node? root = null;
+
 
     }
 }

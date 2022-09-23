@@ -1,0 +1,195 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>InMemoryDB</name>
+    </assembly>
+    <members>
+        <member name="T:InMemoryDB.BST">
+            <summary>
+            Obecná třída vyhledávacích stromů.
+            </summary>
+        </member>
+        <member name="T:InMemoryDB.BST`1">
+            <summary>
+            Vyhledávací strom daného typu - s hodnotami typu T.
+            </summary>
+            <typeparam name="T">Všechny uzlu stromu mají hodnotu tohoto typu.</typeparam>
+        </member>
+        <member name="T:InMemoryDB.BST`1.Node">
+            <summary>
+            Třída uzlu ve vyhledávácím stromě.
+            </summary>
+        </member>
+        <member name="M:InMemoryDB.BST`1.Node.#ctor(`0,System.Int32)">
+            <summary>
+            Inicializuje nový uzel s hodnotou typu T (value) odkazující na záznam s daným id.
+            </summary>
+            <param name="value">Hodnota uzlu</param>
+            <param name="id">Id záznamu</param>
+        </member>
+        <member name="M:InMemoryDB.BST`1.Find(`0)">
+            <summary>
+            Najde první uzel s danou hodnotou a vrátí Id záznamu, na který ukazuje.
+            </summary>
+            <param name="value">Hodnota, kterou hledáme.</param>
+            <returns>Id záznamu, na který uzel ukazuje.</returns>
+            <exception cref="T:System.Exception">Vyhodí exception, pokud daná hodnota ve stromě (tedy v databázi) neexistuje.</exception>
+        </member>
+        <member name="M:InMemoryDB.BST`1.Insert(`0,System.Int32)">
+            <summary>
+            Vloží nový uzel odkazující na záznam do stromu.
+            </summary>
+            <param name="value">Hodnota pro vyhledávání.</param>
+            <param name="id">Id záznamu, na který má uzel ukazovat (jež koresponduje s hodnotou).</param>
+        </member>
+        <member name="M:InMemoryDB.BST`1.#ctor">
+            <summary>
+            Vytvoří nový prázdný vyhledávací stromu typu T.
+            </summary>
+        </member>
+        <member name="F:InMemoryDB.BST`1.root">
+            <summary>
+            Kořen stromu. Může být null, když je strom prázdný.
+            </summary>
+        </member>
+        <member name="T:InMemoryDB.ParentField">
+            <summary>
+            Mateřská třída pole umožňující polymorfismus.
+            </summary>
+        </member>
+        <member name="T:InMemoryDB.Field`1">
+            <summary>
+            Třída pole pro konkrétní hodnotu.
+            </summary>
+            <typeparam name="T">Typ hodnoty pole.</typeparam>
+        </member>
+        <member name="P:InMemoryDB.Field`1.Value">
+            <summary>
+            Hodnota pole.
+            </summary>
+        </member>
+        <member name="M:InMemoryDB.Field`1.#ctor(`0)">
+            <summary>
+            Vytvoří pole dané hodnoty typu T.
+            </summary>
+            <param name="value">Hodnota pole.</param>
+        </member>
+        <member name="T:InMemoryDB.Db">
+            <summary>
+            Hlavní třída databáze.
+            </summary>
+        </member>
+        <member name="T:InMemoryDB.Db.FieldConvertor">
+            <summary>
+            Tato třída převádí typ pole konrkétní hodnoty na obecného předka ParentField. Zde je třeba přidat funkce pro další datové typy v případě rozšiřování.
+            </summary>
+        </member>
+        <member name="T:InMemoryDB.Db.RecordWrapper">
+            <summary>
+            Tato třída uzavírá Record a přidává mu dynamické rozhraní pro přístup k hodnotám dle jmen sloupců v databází.
+            </summary>
+        </member>
+        <member name="M:InMemoryDB.Db.RecordWrapper.#ctor(System.Collections.Generic.List{InMemoryDB.ParentField},InMemoryDB.Db)">
+            <summary>
+            Vytvoří nový wrapper.
+            </summary>
+            <param name="record">Záznam z databáze.</param>
+            <param name="db">Databáze, ze které záznam pochází.</param>
+        </member>
+        <member name="M:InMemoryDB.Db.SelectWhere``1(System.String,``0)">
+            <summary>
+            Vyhledá záznam v databázi, kde se daný sloupec <b>rovná</b> udané hodnotě. V případě, že hledáme dle indexu vyhledává logaritmicky, jinak lineárně. Vrátí první nalezený
+            výsledek, nemusí se jednat o první v pořadí, v jakém byly záznamy přidávány.
+            </summary>
+            <typeparam name="T">Typ hodnoty, dle které vyhledáváme.</typeparam>
+            <param name="column">Název sloupce, dle kterého vyhledáváme.</param>
+            <param name="val">Hodnota, kterou chceme nalézt.</param>
+            <returns>Vrací RecordWrapper nesoucí daný záznam.</returns>
+            <exception cref="T:System.ArgumentException">ArgumentException v případě špatného typu sloupce.</exception>
+            <exception cref="T:System.Exception">Exception v případě, že záznam není nalezen.</exception>
+        </member>
+        <member name="M:InMemoryDB.Db.GetSum``1(System.String)">
+            <summary>
+            Vypočte kumulativní sumu všech polí v daném sloupci.
+            </summary>
+            <typeparam name="T">Typ hodnot, které sčítáme.</typeparam>
+            <param name="column">Název sčítaného sloupce.</param>
+            <returns>Vrací kumulativní sumu.</returns>
+            <exception cref="T:System.ArgumentException">ArgumentException v případě nekorespondujícího typu sloupce a typu T.</exception>
+        </member>
+        <member name="M:InMemoryDB.Db.AddColumn``1(System.String)">
+            <summary>
+            Přidá do tabulky sloupec daného typu s daným názvem, jež musí být unikátní v rámci tabulky.
+            </summary>
+            <typeparam name="T">Typ hodnot sloupce.</typeparam>
+            <param name="name">Název sloupce.</param>
+            <exception cref="T:System.Exception">Vrací exception v případě, že tabulka není prázdná nebo název sloupce není unikátní.</exception>
+        </member>
+        <member name="M:InMemoryDB.Db.RemoveColumnAt(System.Int32)">
+            <summary>
+            Odebere sloupec v tabulce na dané pozici.
+            </summary>
+            <param name="index">Pozice sloupce, jež chceme odebrat.</param>
+            <exception cref="T:System.Exception">Vrací Exception v případě, že tabulka není prázdná, nebo index není platný.</exception>
+        </member>
+        <member name="M:InMemoryDB.Db.RemoveColumn(System.String)">
+            <summary>
+            Odebere sloupec z tabulky dle jména.
+            </summary>
+            <param name="name">Název sloupce, jež má být odebrán.</param>
+            <exception cref="T:System.Exception">Vrací Exception v případě, že tabulka není prázdná, nebo neobsahuje sloupec s daným názvem.</exception>
+        </member>
+        <member name="M:InMemoryDB.Db.MakeIndex``1(System.String)">
+            <summary>
+            Vytvoří z daného sloupce sloupec pro indexaci, čímž umožní binární vyhledávání.
+            </summary>
+            <typeparam name="T">Typ sloupce, podle kterého chceme indexovat.</typeparam>
+            <param name="column">Název sloupce, dle kterého chceme indexovat.</param>
+            <exception cref="T:System.ArgumentException">Vrací ArgumentException v případě, že nesedí typ hodnoty sloupce a T.</exception>
+            <exception cref="T:System.Exception">Vrací Exception, když databáze není prázdná.</exception>
+        </member>
+        <member name="M:InMemoryDB.Db.Insert(System.Object[])">
+            <summary>
+            Vloží do databáze nový záznam obsahující zadané hodnoty. Typ hodnoty musí korespondovat s typem sloupce.
+            </summary>
+            <param name="values">Hodnoty jednoho záznamu.</param>
+            <exception cref="T:System.Exception">Vrací Exception v případě, že je zadán špatný počet argumentů, nebo nesedí jejich typ.</exception>
+        </member>
+        <member name="M:InMemoryDB.Db.#ctor">
+            <summary>
+            Vytvoří prázdnou databázi.
+            </summary>
+        </member>
+        <member name="P:InMemoryDB.Db.Count">
+            <summary>
+            Vrátí velikost databáze, tedy počet záznamů v databázi..
+            </summary>
+        </member>
+        <member name="M:InMemoryDB.Db.ColumnType(System.String)">
+            <summary>
+            Vrátí typ sloupce s daným názvem.
+            </summary>
+            <param name="name">Název sloupce.</param>
+            <returns>Typ hodnot v daném sloupci.</returns>
+            <exception cref="T:System.Exception">Vrací Exception, pokud daný sloupec v tabulce není.</exception>
+        </member>
+        <member name="M:InMemoryDB.Db.ColumnIndex(System.String)">
+            <summary>
+            Vrací index sloupce s daným názvem.
+            </summary>
+            <param name="name">Název sloupce.</param>
+            <returns>Index sloupce = pořadí sloupce v tabulce.</returns>
+            <exception cref="T:System.Exception">Vrací Exception, pokud daný sloupec neexistuje.</exception>
+        </member>
+        <member name="T:InMemoryDB.Program">
+            <summary>
+            Program pro demonstraci databáze.
+            </summary>
+        </member>
+        <member name="M:InMemoryDB.Program.Main">
+            <summary>
+            Hlavní funkce programu.
+            </summary>
+        </member>
+    </members>
+</doc>
