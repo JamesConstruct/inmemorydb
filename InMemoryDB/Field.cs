@@ -2,7 +2,7 @@
 {
 
     /// <summary>
-    /// Mateřská třída pole umožňující polymorfismus.
+    /// Abstract class for polymorphism.
     /// </summary>
     public abstract class ParentField
     {
@@ -17,13 +17,13 @@
 
 
     /// <summary>
-    /// Třída pole pro konkrétní hodnotu.
+    /// Field with value of the given type T.
     /// </summary>
-    /// <typeparam name="T">Typ hodnoty pole.</typeparam>
+    /// <typeparam name="T">Type of value of the field.</typeparam>
     public class Field<T> : ParentField where T : IComparable<T>
     {
         /// <summary>
-        /// Hodnota pole.
+        /// The value of the field.
         /// </summary>
         public T Value { get; set; }
 
@@ -69,9 +69,9 @@
 
 
         /// <summary>
-        /// Vytvoří pole dané hodnoty typu T.
+        /// Instantiates the field with the given value.
         /// </summary>
-        /// <param name="value">Hodnota pole.</param>
+        /// <param name="value">Value of the field.</param>
         public Field(T value)
         {
             Value = value;

@@ -2,42 +2,42 @@
 {
 
     /// <summary>
-    /// Interface pro konkrétní vyhledávací strom.
+    /// Interface for general search tree.
     /// </summary>
     public interface ITree<T>
     {
         /// <summary>
-        /// Vyhledá první prvek s danou hodnotou ve stromě a vrátí jeho id
+        /// Finds the first element of the given value in the tree and returns its id.
         /// </summary>
-        /// <param name="value">Hodnota, kterou hledáme.</param>
-        /// <returns>Int Id daného záznamu.</returns>
+        /// <param name="value">The searched value.</param>
+        /// <returns>ID of the searched element.</returns>
         public int Find(T value);
 
         /// <summary>
-        /// Vyhledá všechny prvky s danou hodnotou ve stromě a vrátí seznam jejich id.
+        /// Finds all elements of the given value in the tree and returns their ids as a list.
         /// </summary>
-        /// <param name="value">Hodnota, kterou hledáme.</param>
-        /// <returns>List of ints Id daných záznamů.</returns>
+        /// <param name="value">The searched value.</param>
+        /// <returns>List of ids of the searched elements.</returns>
         public List<int> FindAll(T value);
 
         /// <summary>
-        /// Umožňuje vložit nový uzel do stromu s hodnotou value odkazující na záznam s daným Id.
+        /// Allows to insert a new element into the tree with given value and id.
         /// </summary>
-        /// <param name="value">Hodnota uzlu pro vyhledávání.</param>
-        /// <param name="id">Id na které odkazuje.</param>
+        /// <param name="value">The value of the element.</param>
+        /// <param name="id">The id of the element.</param>
         public void Insert(T value, int id);
     }
 
     /// <summary>
-    /// Obecná třída vyhledávacích stromů. Kvůli polymorfismu.
+    /// Abstract Binary Search Tree class (allows polymorphism).
     /// </summary>
     internal abstract class BST { }
 
 
     /// <summary>
-    /// Vyhledávací strom daného typu - s hodnotami typu T.
+    /// Binary Search Tree of values of type T.
     /// </summary>
-    /// <typeparam name="T">Všechny uzlu stromu mají hodnotu tohoto typu.</typeparam>
+    /// <typeparam name="T">Type of the value of the elements in the tree.</typeparam>
     internal class BST<T> : BST, ITree<T> where T : IComparable<T>
     {
 

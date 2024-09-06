@@ -6,40 +6,40 @@
     <members>
         <member name="T:InMemoryDB.ITree`1">
             <summary>
-            Interface pro konkrétní vyhledávací strom.
+            Interface for general search tree.
             </summary>
         </member>
         <member name="M:InMemoryDB.ITree`1.Find(`0)">
             <summary>
-            Vyhledá první prvek s danou hodnotou ve stromě a vrátí jeho id
+            Finds the first element of the given value in the tree and returns its id.
             </summary>
-            <param name="value">Hodnota, kterou hledáme.</param>
-            <returns>Int Id daného záznamu.</returns>
+            <param name="value">The searched value.</param>
+            <returns>ID of the searched element.</returns>
         </member>
         <member name="M:InMemoryDB.ITree`1.FindAll(`0)">
             <summary>
-            Vyhledá všechny prvky s danou hodnotou ve stromě a vrátí seznam jejich id.
+            Finds all elements of the given value in the tree and returns their ids as a list.
             </summary>
-            <param name="value">Hodnota, kterou hledáme.</param>
-            <returns>List of ints Id daných záznamů.</returns>
+            <param name="value">The searched value.</param>
+            <returns>List of ids of the searched elements.</returns>
         </member>
         <member name="M:InMemoryDB.ITree`1.Insert(`0,System.Int32)">
             <summary>
-            Umožňuje vložit nový uzel do stromu s hodnotou value odkazující na záznam s daným Id.
+            Allows to insert a new element into the tree with given value and id.
             </summary>
-            <param name="value">Hodnota uzlu pro vyhledávání.</param>
-            <param name="id">Id na které odkazuje.</param>
+            <param name="value">The value of the element.</param>
+            <param name="id">The id of the element.</param>
         </member>
         <member name="T:InMemoryDB.BST">
             <summary>
-            Obecná třída vyhledávacích stromů. Kvůli polymorfismu.
+            Abstract Binary Search Tree class (allows polymorphism).
             </summary>
         </member>
         <member name="T:InMemoryDB.BST`1">
             <summary>
-            Vyhledávací strom daného typu - s hodnotami typu T.
+            Binary Search Tree of values of type T.
             </summary>
-            <typeparam name="T">Všechny uzlu stromu mají hodnotu tohoto typu.</typeparam>
+            <typeparam name="T">Type of the value of the elements in the tree.</typeparam>
         </member>
         <member name="T:InMemoryDB.BST`1.Node">
             <summary>
@@ -524,7 +524,7 @@
         </member>
         <member name="T:InMemoryDB.ParentField">
             <summary>
-            Mateřská třída pole umožňující polymorfismus.
+            Abstract class for polymorphism.
             </summary>
         </member>
         <member name="M:InMemoryDB.ParentField.ToString">
@@ -535,13 +535,13 @@
         </member>
         <member name="T:InMemoryDB.Field`1">
             <summary>
-            Třída pole pro konkrétní hodnotu.
+            Field with value of the given type T.
             </summary>
-            <typeparam name="T">Typ hodnoty pole.</typeparam>
+            <typeparam name="T">Type of value of the field.</typeparam>
         </member>
         <member name="P:InMemoryDB.Field`1.Value">
             <summary>
-            Hodnota pole.
+            The value of the field.
             </summary>
         </member>
         <member name="M:InMemoryDB.Field`1.op_Equality(InMemoryDB.Field{`0},InMemoryDB.Field{`0})">
@@ -572,9 +572,9 @@
         </member>
         <member name="M:InMemoryDB.Field`1.#ctor(`0)">
             <summary>
-            Vytvoří pole dané hodnoty typu T.
+            Instantiates the field with the given value.
             </summary>
-            <param name="value">Hodnota pole.</param>
+            <param name="value">Value of the field.</param>
         </member>
         <member name="M:InMemoryDB.Field`1.ToString">
             <summary>
@@ -584,12 +584,12 @@
         </member>
         <member name="T:InMemoryDB.Program">
             <summary>
-            Program pro demonstraci databáze.
+            Program for demonstration of the database class.
             </summary>
         </member>
         <member name="M:InMemoryDB.Program.Main">
             <summary>
-            Hlavní funkce programu.
+            The main showcase function.
             </summary>
         </member>
         <member name="T:InMemoryDB.Stringifier">

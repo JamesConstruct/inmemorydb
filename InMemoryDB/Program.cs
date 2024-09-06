@@ -2,18 +2,18 @@
 {
 
     /// <summary>
-    /// Program pro demonstraci databáze.
+    /// Program for demonstration of the database class.
     /// </summary>
     public class Program
     {
 
         /// <summary>
-        /// Hlavní funkce programu.
+        /// The main showcase function.
         /// </summary>
         public static void Main()
         {
 
-            // Jednoduchá tabulka, výběr dle jména a součet
+            // Simple table, demonstrating basic functionality
 
             Console.WriteLine("Simple table:\n*************");
 
@@ -34,26 +34,27 @@
 
             Console.WriteLine(db);
 
+            // Select one row
             dynamic r = db.SelectOneWhere("Name", "Ziki");
             System.Console.WriteLine("Ziki, balance: " + r.Balance);
-            System.Console.WriteLine("Typ hodnoty: " + r.Balance.GetType());
+            System.Console.WriteLine("Type of the value: " + r.Balance.GetType());
 
-            // Selekce více řádků
+            // Selection of multiple rows
             Db sub_table = db.SelectAllWhere("Name", "Emily");
-            System.Console.WriteLine("Počet vybraných: " + sub_table.Count);
-            System.Console.WriteLine("Součet vybraných: " + sub_table.GetSum<double>("Balance"));
+            System.Console.WriteLine("Number of selected rows: " + sub_table.Count);
+            System.Console.WriteLine("The sum of selected rows: " + sub_table.GetSum<double>("Balance"));
 
-
+            // Simple calculations
             sub_table = sub_table.SelectAllWhere("Id", 44);
-            System.Console.WriteLine("Počet vybraných: " + sub_table.Count);
+            System.Console.WriteLine("Number of selected rows: " + sub_table.Count);
             System.Console.WriteLine("Balance: " + ((dynamic)sub_table.First()).Balance);
 
-            System.Console.WriteLine("Celkový součet: " + db.GetSum<double>("Balance"));
+            System.Console.WriteLine("Sum: " + db.GetSum<double>("Balance"));
 
-            System.Console.WriteLine("Celkový počet: " + db.Count);
+            System.Console.WriteLine("Total count: " + db.Count);
 
 
-            // složitější tabulka
+            // More complicated table with queries
 
             db.Drop();
 
@@ -83,18 +84,17 @@
 
 
 
-            // demonstrace filtrů
+            // Basic demonstration of the filters
 
             Console.WriteLine("\n\nFilters:\n*************");
 
-
-            // vyber platby s id 0, jež jsou ověřené, anebo vyber platby které odesílá "Unknown"
+            // select all verified payments with id 0, or select all payments from "Unknown"
             Console.WriteLine("Verified payments with ID 0 or payments from sender unknown:");
             var filter = (((dynamic)db).Id == 0 & ((dynamic)db).Verified) | ((dynamic)db).Sender == "Unknown";
             var result = db[filter];
             Console.WriteLine(result);
 
-            // vyber všechny platby, kde příjemce odeslal alespoň jednu ověřenou platbu
+            // Select all payments, where the sender sent at least one verified payment
             Console.WriteLine("All payments, where the receiver sent at least one verified payment:");
             var verifiedPeople = db[((dynamic)db).Verified].Sender;
             Func<string, bool> IsVerified = x => verifiedPeople.Contents.Contains(x);
