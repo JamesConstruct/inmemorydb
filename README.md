@@ -92,7 +92,7 @@ Příkladový zdrojový kód naleznete v souboru [Program.cs](https://github.com
 
 ## Docs
 
-[Dokumentace Zde](https://github.com/JamesConstruct/inmemorydb/blob/main/InMemoryDB/HtmlHelp/Home.md).
+[Dokumentace Zde](https://jamesconstruct.github.io/inmemorydb).
 
 ## Tests
 
