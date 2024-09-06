@@ -41,6 +41,8 @@ namespace InMemoryDB
             Db sub_table = db.SelectAllWhere("Name", "Emily");
             System.Console.WriteLine("Počet vybraných: " + sub_table.Count);
             System.Console.WriteLine("Součet vybraných: " + sub_table.GetSum<double>("Balance"));
+
+
             sub_table = sub_table.SelectAllWhere("Id", 44);
             System.Console.WriteLine("Počet vybraných: " + sub_table.Count);
             System.Console.WriteLine("Balance: " + ((dynamic)sub_table.First()).Balance);
@@ -65,12 +67,34 @@ namespace InMemoryDB
             db.Insert(1, "Jimmi", "Ian", 6, true);
             db.Insert(2, "Jimmi", "John", 15, true);
             db.Insert(3, "Unknown", "Jimmi", 10000, false);
+            db.Insert(4, "Ian", "Unknown", 1, false);
+
+            Console.WriteLine(db);
 
             int income = db.SelectAllWhere("Receiver", "Jimmi").SelectAllWhere("Verified", true).GetSum<int>("Amount");
             int outcome = db.SelectAllWhere("Sender", "Jimmi").SelectAllWhere("Verified", true).GetSum<int>("Amount");
             // int to_self = db.SelectAllWhere("Sender", "Jimmi").SelectAllWhere("Receiver", "Jimmi").SelectAllWhere("Verified", "true").GetSum<int>("Amount");
 
             Console.WriteLine("Jimmi's balance = " + (income - outcome));
+
+            // demonstrace filtrů
+
+            Console.WriteLine("Filters:");
+
+            // vyber platby s id 0, jež jsou ověřené, anebo vyber platby které odesílá "Unknown"
+            var filter = ( ((dynamic)db).Id == 0 & ((dynamic)db).Verified ) | ((dynamic)db).Sender == "Unknown";
+            var result = db[filter];
+            Console.WriteLine(result);
+
+            // vyber všechny platby, kde příjemce odeslal alespoň jednu ověřenou platbu
+            var verifiedPeople = db[((dynamic)db).Verified].Sender;
+            Func<string, bool> IsVerified = x => verifiedPeople.Contents.Contains(x);
+
+            var filter2 = ((dynamic)db).Receiver.TransformTo(IsVerified) == true;
+            var result2 = db[filter2];
+
+            // Console.WriteLine(verifiedPeople);
+            Console.WriteLine(result2);
 
         }
 

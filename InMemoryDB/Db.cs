@@ -5,80 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Dynamic;
+using System.Collections;
+using System.Reflection;
+using System.ComponentModel.Design;
 
 
-/// <summary>
-/// Jednoduchá in-memory databáze napsaná v C# jako zápočtový projekt do Programování II.
-/// Databáze má polymorfní strukturu a může obsahovat libovolný počet sloupců (omezení pamětí) různého druhu. Databáze nativně podporuje základní datové typy C#, avšak
-/// je možné ji snadno rozšířit tak, aby pracovala s jakýmkoli typem implementujícím IComparable interface. Databáze podporuje indexování a binární vyhledávání
-/// v logaritmickém čase.
-/// 
-/// 
-/// <h1>Inicializace</h1>
-/// 
-/// Databáze se inicializuje pomocí Db db = new Db();
-/// Dojde k inicializaci prázdné tabulky neobsahující žádné sloupce ani data.
-/// 
-/// 
-/// <h1>Struktura</h1>
-/// 
-/// Strukturu databáze lze libovolně měnit, dokud je prázdná, poté tento pokus vyústí v Exception. Sloupce lze přidávat pomocí metody <code>AddColumn<T>(string name)</code>,
-/// jež přiřadí sloupci jak název tak datový typ, ten je pro daný sloupec již neměnný, avšak sloupec lze později odstranit pomocí metod RemoveColumn a RemoveColumnAt.
-/// Pro vytvoření indexu slouží metoda MakeIndex<T>(string column_name), která přijímá název sloupce. Automaticky se tak namapuje binární vyhledávací strom (třída BST)
-/// na daný index a při každém přidání prvku se hodnota v daném sloupci zařadí do stromu spolu s odkazem na konkrétní řádek.
-/// 
-/// 
-/// <h1>Runtime</h1>
-/// 
-/// Pro přidání slouží metoda Insert, celkový počet řádků vyjadřuje vlastnost Count. Pro vyhledávání existují dvě základní metody SelectOneWhere a SelectAllWhere,
-/// které vrací výsledky, jež se na daném sloupci shodují s hledanou hodnotou. SelectOneWhere vrací tzv. RecordWrapper, který zabaluje Record tak, aby se k jeho polím
-/// dalo dynamicky přistupovat jako k vlastnostem (avšak neobsahuje jakoukoli komplilační kontrolu existence sloupců). SelectAllWhere vrací všechny výsledky, které se
-/// shodují na daném sloupci s hledanou hodnotou ve formě pod-tabulky: opět třídy Db, která však obsahuje jen hledané řádky. Při tomto výběru se automaticky vybudují
-/// všechny indexy pro pod-tabulku znovu a umožňují stejné binární vyhledávání jako na mateřské tabulce. 
-/// 
-/// 
-/// <h2>Binární vyhledání</h2>
-/// 
-/// O binární vyhledávání se starají binární vyhledávací stromy, jež se budují během přidávání prvků. Třída BST představuje jednoduchý nevyvážený strom, avšak lze ji
-/// nahradit jakoukoli třídou, jež implementuje interface ITree a je potomkem třídy BST. Tedy ji lze jednoduše vyměnit např. za AVL strom a zajistit si tak lepší
-/// složitost v nejhorším případě (v původní implementaci až lineární složitost).
-/// 
-/// 
-/// <h2>Více-sloupcové vyhledávání</h2>
-/// 
-/// Více sloupcového vyhledávání lze dosáhnout pomocí SelectAllWhere, jež vrací tabulku, na které se opět dá spustit vyhledávání. Obdobně se dá postupovat při
-/// přidání dalších vyhledávácích metod.
-/// 
-/// 
-/// <h2>Rozšiřitelnost</h2>
-/// 
-/// Databázi lze snadno rozšířit o další datové typy, stačí pouze rozšířit třídu FieldConvertor o funkci GetField:
-/// 
-/// <code>
-/// 
-/// public static ParentField GetField(bool val)
-/// {
-///    return new Field<bool>(val);
-/// }
-/// 
-/// </code>
-/// 
-/// Rozšíření o další možnosti Selektování lze jednoduše, pokud stačí lineární čas, avšak pro práci s binárním vyhledáváním je třeba vzít do úvahy slovník _indexes a pracovat
-/// s vyhledávacími stromy, to je asi nejvíce problematická část, co se rozšíření kódu týče, celková implementace stromů je pro další vývojáře možná zbytečně komplikovaná a
-/// specifická. Slovník _indexes obsahuje jako klíč pozici sloupce v tabulce a jako hodnotu příslušící vyhledávací strom uložený v polymorfním kontejneru obsahujícím mateřský
-/// typ BTS.
-/// 
-/// Pro implementaci dalších operací by také bylo třeba upravit BTS, avšak lze k tomu použít standardní metody práce s BVS. Při mazání je nutno synchronizovat mazání v tabulce a
-/// indexovacích stromech, elegantním řešením by byl další "neviditelný" sloupec, jež by označoval, zda-li byl záznam smazán, a tabulka by se čas od času pročistila od těchto
-/// záznamů. Výhodou tohoto řešení je, že by se nemusely všechny prvky posouvat tak často.
-/// 
-/// Změna vyhledávacího stromu je však jednoduchá, stačí změna v souboru Db.cs, nový strom musí být potomkem třídy BTS z BTS.cs a musí implementovat základní rozhraní ITree.
-/// 
-/// <h1>Příklad</h1>
-/// 
-/// Příkladový zdrojový kód naleznete v souboru Program.cs
-/// 
-/// </summary>
 namespace InMemoryDB
 {
 
@@ -86,108 +17,91 @@ namespace InMemoryDB
 
 
     /// <summary>
-    /// Mateřská třída pole umožňující polymorfismus.
+    /// Jednoduchá in-memory databáze napsaná v C# jako zápočtový projekt do Programování II.
+    /// Databáze má polymorfní strukturu a může obsahovat libovolný počet sloupců (omezení pamětí) různého druhu. Databáze nativně podporuje základní datové typy C#, avšak
+    /// je možné ji snadno rozšířit tak, aby pracovala s jakýmkoli typem implementujícím IComparable interface. Databáze podporuje indexování a binární vyhledávání
+    /// v logaritmickém čase.
+    /// 
+    /// 
+    /// <h1>Inicializace</h1>
+    /// 
+    /// Databáze se inicializuje pomocí Db db = new Db();
+    /// Dojde k inicializaci prázdné tabulky neobsahující žádné sloupce ani data.
+    /// 
+    /// 
+    /// <h1>Struktura</h1>
+    ///
+    /// Strukturu databáze lze libovolně měnit, dokud je prázdná, poté tento pokus vyústí v Exception. Sloupce lze přidávat pomocí metody `AddColumn T (string name)`,
+    /// jež přiřadí sloupci jak název tak datový typ, ten je pro daný sloupec již neměnný, avšak sloupec lze později odstranit pomocí metod RemoveColumn a RemoveColumnAt.
+    /// Pro vytvoření indexu slouží metoda `MakeIndex T (string column_name)`, která přijímá název sloupce. Automaticky se tak namapuje binární vyhledávací strom (třída BST)
+    /// na daný index a při každém přidání prvku se hodnota v daném sloupci zařadí do stromu spolu s odkazem na konkrétní řádek.
+    /// 
+    /// 
+    /// <h1>Runtime</h1>
+    /// 
+    /// Pro přidání slouží metoda Insert, celkový počet řádků vyjadřuje vlastnost Count. Pro vyhledávání existují dvě základní metody SelectOneWhere a SelectAllWhere,
+    /// které vrací výsledky, jež se na daném sloupci shodují s hledanou hodnotou. SelectOneWhere vrací tzv. RecordWrapper, který zabaluje Record tak, aby se k jeho polím
+    /// dalo dynamicky přistupovat jako k vlastnostem (avšak neobsahuje jakoukoli komplilační kontrolu existence sloupců). SelectAllWhere vrací všechny výsledky, které se
+    /// shodují na daném sloupci s hledanou hodnotou ve formě pod-tabulky: opět třídy Db, která však obsahuje jen hledané řádky. Při tomto výběru se automaticky vybudují
+    /// všechny indexy pro pod-tabulku znovu a umožňují stejné binární vyhledávání jako na mateřské tabulce. 
+    /// 
+    /// 
+    /// <h2>Binární vyhledání</h2>
+    /// 
+    /// O binární vyhledávání se starají binární vyhledávací stromy, jež se budují během přidávání prvků. Třída BST představuje jednoduchý nevyvážený strom, avšak lze ji
+    /// nahradit jakoukoli třídou, jež implementuje interface ITree a je potomkem třídy BST. Tedy ji lze jednoduše vyměnit např. za AVL strom a zajistit si tak lepší
+    /// složitost v nejhorším případě (v původní implementaci až lineární složitost).
+    /// 
+    /// 
+    /// <h2>Více-sloupcové vyhledávání</h2>
+    /// 
+    /// Více sloupcového vyhledávání lze dosáhnout pomocí SelectAllWhere, jež vrací tabulku, na které se opět dá spustit vyhledávání. Obdobně se dá postupovat při
+    /// přidání dalších vyhledávácích metod.
+    /// 
+    /// 
+    /// <h2>Rozšiřitelnost</h2>
+    /// 
+    /// Databázi lze snadno rozšířit o další datové typy, stačí pouze rozšířit třídu FieldConvertor o funkci GetField:
+    /// 
+    /// 
+    /// 
+    /// public static ParentField GetField(bool val)
+    /// {
+    ///    return new Fiel bool (val);
+    /// }
+    /// 
+    /// 
+    /// 
+    /// Rozšíření o další možnosti Selektování lze jednoduše, pokud stačí lineární čas, avšak pro práci s binárním vyhledáváním je třeba vzít do úvahy slovník _indexes a pracovat
+    /// s vyhledávacími stromy, to je asi nejvíce problematická část, co se rozšíření kódu týče, celková implementace stromů je pro další vývojáře možná zbytečně komplikovaná a
+    /// specifická. Slovník _indexes obsahuje jako klíč pozici sloupce v tabulce a jako hodnotu příslušící vyhledávací strom uložený v polymorfním kontejneru obsahujícím mateřský
+    /// typ BTS.
+    /// 
+    /// Pro implementaci dalších operací by také bylo třeba upravit BTS, avšak lze k tomu použít standardní metody práce s BVS. Při mazání je nutno synchronizovat mazání v tabulce a
+    /// indexovacích stromech, elegantním řešením by byl další "neviditelný" sloupec, jež by označoval, zda-li byl záznam smazán, a tabulka by se čas od času pročistila od těchto
+    /// záznamů. Výhodou tohoto řešení je, že by se nemusely všechny prvky posouvat tak často.
+    /// 
+    /// Změna vyhledávacího stromu je však jednoduchá, stačí změna v souboru Db.cs, nový strom musí být potomkem třídy BTS z BTS.cs a musí implementovat základní rozhraní ITree.
+    /// 
+    /// <h1>Příklad</h1>
+    /// 
+    /// Příkladový zdrojový kód naleznete v souboru Program.cs
+    /// 
     /// </summary>
-    public abstract class ParentField { }
-
-
-    /// <summary>
-    /// Třída pole pro konkrétní hodnotu.
-    /// </summary>
-    /// <typeparam name="T">Typ hodnoty pole.</typeparam>
-    public class Field<T> : ParentField where T : IComparable<T>
-    {
-        /// <summary>
-        /// Hodnota pole.
-        /// </summary>
-        public T Value { get; set; }
-
-        public static bool operator ==(Field<T> a, Field<T> b)
-        {
-            return EqualityComparer<T>.Default.Equals(a.Value, b.Value);
-        }
-
-        public static bool operator !=(Field<T> a, Field<T> b)
-        {
-            return !EqualityComparer<T>.Default.Equals(a.Value, b.Value);
-        }
-
-        public override bool Equals(object? o)
-        {
-            if (o == null) return false;
-            if (o.GetType() != typeof(Field<T>)) return false;
-            return this == o;
-        }
-
-        public override int GetHashCode()
-        {
-            return Value.GetHashCode();
-        }
-
-
-        /// <summary>
-        /// Vytvoří pole dané hodnoty typu T.
-        /// </summary>
-        /// <param name="value">Hodnota pole.</param>
-        public Field(T value)
-        {
-            Value = value;
-        }
-
-    }
-
-
-    /// <summary>
-    /// Hlavní třída databáze.
-    /// </summary>
-    public class Db
+    public class Db : DynamicObject, IEnumerable
     {
 
         /// <summary>
         /// Tato třída převádí typ pole konrkétní hodnoty na obecného předka ParentField. Zde je třeba přidat funkce pro další datové typy v případě rozšiřování.
         /// </summary>
-        public static class FieldConvertor  // public aby šly připisovat další Convertory
+        internal static class FieldConvertor  // public aby šly připisovat další Convertory
         {
 
-            public static ParentField GetField<T>(T val)
+            public static ParentField GetField<T>(T val) where T : IComparable<T>
             {
 
-                throw new NotImplementedException("Type " + typeof(T) + " is not implemented yet!");
-            }
+                return new Field<T>(val);
 
-            public static ParentField GetField(int val)
-            {
-
-                return new Field<int>(val);
-            }
-
-            public static ParentField GetField(string val)
-            {
-
-                return new Field<string>(val);
-            }
-
-            public static ParentField GetField(double val)
-            {
-
-                return new Field<double>(val);
-            }
-
-            public static ParentField GetField(float val)
-            {
-
-                return new Field<float>(val);
-            }
-
-            public static ParentField GetField(char val)
-            {
-
-                return new Field<char>(val);
-            }
-
-            public static ParentField GetField(bool val)
-            {
-                return new Field<bool>(val);
             }
 
         }
@@ -256,6 +170,15 @@ namespace InMemoryDB
 
                 return false;   // nastavovat hodnotu sloupců takto nejde
             }
+
+            public override string ToString()
+            {
+                var strngfr = new Stringifier(_db._columns.Count);
+                strngfr.PushHeader(_db._columns);
+                strngfr.PushFields(_record);
+                return strngfr.ToString();
+
+            }
         }
 
 
@@ -291,6 +214,14 @@ namespace InMemoryDB
 
             return new RecordWrapper(_records.ElementAt(i), this);
         }
+
+        public RecordWrapper this[int index]
+        {
+            get
+            {
+                return RecordAt(index);
+            }
+        } 
 
 
         /// <summary>
@@ -404,6 +335,27 @@ namespace InMemoryDB
 
         }
 
+        public Db this[BooleanColumn filter]
+        {
+            get
+            {
+                if (filter.Length != _records.Count)
+                    throw new ArgumentException("The filter length doesn't match the number of rows in the database!");
+
+                Db sub_db = new Db();
+                sub_db.CopyStructure(this);
+                for (int i = 0; i < filter.Length; i++)
+                {
+                    if (filter[i])
+                    {
+                        sub_db.Insert(_records[i]);
+                    }
+                }
+
+                return sub_db;
+            }
+        }
+
 
 
         /// <summary>
@@ -431,6 +383,8 @@ namespace InMemoryDB
             return sum;
 
         }
+
+
 
 
         /// <summary>
@@ -625,6 +579,84 @@ namespace InMemoryDB
 
         }
 
+
+        public override IEnumerable<string> GetDynamicMemberNames()
+        {
+            return new List<String>{ "Sender", "Receiver" }; // _columns;
+        }
+
+        public override bool TryGetMember(GetMemberBinder binder, out object? result)
+        {
+
+            if (_columns.Contains(binder.Name))
+            {
+
+                int index = _columns.IndexOf(binder.Name);
+
+
+                if (_fields[index] == typeof(bool))
+                {
+
+                    List<bool> list = new();
+
+                    foreach (Record rec in _records)
+                        list.Add(((dynamic)rec[index]).Value);
+
+                    result = new BooleanColumn(list);
+
+                    return true;
+
+                }
+                else
+                {
+
+                    var listType = typeof(List<>).MakeGenericType(_fields[index]);
+                    var listInstance = (IList)Activator.CreateInstance(listType);
+
+                    foreach (Record rec in _records)
+                    {
+                        listInstance.Add(((dynamic)rec[index]).Value);
+                    }
+
+
+                    Type genericColumn = typeof(Column<>).MakeGenericType(_fields[index]);
+
+                    // Create an instance of the generic class
+                    ConstructorInfo constructorInfo = genericColumn.GetConstructor(new Type[] { listInstance.GetType() });
+
+                    // Create an instance of the generic class using the constructor
+                    object genericColumnInstance = constructorInfo.Invoke(new object[] { listInstance });
+
+                    result = genericColumnInstance;
+
+                    return true;
+
+                }
+
+            }
+
+            else // sloupce jsme nenalezli
+            {
+
+                result = null;
+
+                return false;   // neúspěch
+
+            }
+
+        }
+
+        public override string ToString()
+        {
+            var stringifier = new Stringifier(_columns.Count);
+            stringifier.PushHeader(_columns);
+            foreach (Record rec in _records)
+                stringifier.PushFields(rec);
+
+            return stringifier.ToString();
+        }
+
+
         /// <summary>
         /// Zkopíruje strukturu jiné databáze, tedy typy a názvy sloupců a indexovací sloupce. Lze pouze, pokud je tabulka prázdná.
         /// </summary>
@@ -658,6 +690,8 @@ namespace InMemoryDB
         /// </summary>
         public int Count { get { return _records.Count; } }
 
+        public int ColumnCount { get { return _columns.Count; } }
+
 
         /// <summary>
         /// Vrátí typ sloupce s daným názvem.
@@ -683,6 +717,19 @@ namespace InMemoryDB
             if (!_columns.Contains(name)) throw new Exception("Invalid column!");
 
             return _columns.IndexOf(name);
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
+
+        public IEnumerator<RecordWrapper> GetEnumerator()
+        {
+            foreach (Record rec in  _records)
+            {
+                yield return new RecordWrapper(rec, this);
+            }
         }
 
         // seznam záznamů, pořadí je důležité kvůli indexování přes sloupce (pořadí záznamů drží uzly v BVS)

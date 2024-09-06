@@ -20,7 +20,7 @@
         </member>
         <member name="T:InMemoryDB.BST">
             <summary>
-            Obecná třída vyhledávacích stromů.
+            Obecná třída vyhledávacích stromů. Kvůli polymorfismu.
             </summary>
         </member>
         <member name="T:InMemoryDB.BST`1">
@@ -73,27 +73,18 @@
             Kořen stromu. Může být null, když je strom prázdný.
             </summary>
         </member>
-        <member name="T:InMemoryDB.ParentField">
+        <member name="T:InMemoryDB.IColumn`1">
             <summary>
-            Mateřská třída pole umožňující polymorfismus.
+            Column represents an entire column from table - list of values of the same type accross all rows in the database.
             </summary>
+            <typeparam name="T"></typeparam>
         </member>
-        <member name="T:InMemoryDB.Field`1">
+        <member name="P:InMemoryDB.IColumn`1.Item(System.Int32)">
             <summary>
-            Třída pole pro konkrétní hodnotu.
+            All columns have accessible items (rows)
             </summary>
-            <typeparam name="T">Typ hodnoty pole.</typeparam>
-        </member>
-        <member name="P:InMemoryDB.Field`1.Value">
-            <summary>
-            Hodnota pole.
-            </summary>
-        </member>
-        <member name="M:InMemoryDB.Field`1.#ctor(`0)">
-            <summary>
-            Vytvoří pole dané hodnoty typu T.
-            </summary>
-            <param name="value">Hodnota pole.</param>
+            <param name="index"></param>
+            <returns></returns>
         </member>
         <member name="T:InMemoryDB.Db">
             <summary>
@@ -252,6 +243,28 @@
             <returns>Index sloupce = pořadí sloupce v tabulce.</returns>
             <exception cref="T:System.Exception">Vrací Exception, pokud daný sloupec neexistuje.</exception>
         </member>
+        <member name="T:InMemoryDB.ParentField">
+            <summary>
+            Mateřská třída pole umožňující polymorfismus.
+            </summary>
+        </member>
+        <member name="T:InMemoryDB.Field`1">
+            <summary>
+            Třída pole pro konkrétní hodnotu.
+            </summary>
+            <typeparam name="T">Typ hodnoty pole.</typeparam>
+        </member>
+        <member name="P:InMemoryDB.Field`1.Value">
+            <summary>
+            Hodnota pole.
+            </summary>
+        </member>
+        <member name="M:InMemoryDB.Field`1.#ctor(`0)">
+            <summary>
+            Vytvoří pole dané hodnoty typu T.
+            </summary>
+            <param name="value">Hodnota pole.</param>
+        </member>
         <member name="T:InMemoryDB.Program">
             <summary>
             Program pro demonstraci databáze.
@@ -260,6 +273,18 @@
         <member name="M:InMemoryDB.Program.Main">
             <summary>
             Hlavní funkce programu.
+            </summary>
+        </member>
+        <member name="T:InMemoryDB.Stringifier">
+            <summary>
+            Given the rows, the table converted to:
+            
+            |-------|-------|
+            | head1 | head2 |
+            |===============|
+            |  val1 | val2  |
+            |-------|-------|
+            
             </summary>
         </member>
     </members>

@@ -3,7 +3,6 @@ C:\Users\kuban\source\repos\InMemoryDB\InMemoryDB\bin\Debug\net6.0\InMemoryDB.de
 C:\Users\kuban\source\repos\InMemoryDB\InMemoryDB\bin\Debug\net6.0\InMemoryDB.runtimeconfig.json
 C:\Users\kuban\source\repos\InMemoryDB\InMemoryDB\bin\Debug\net6.0\InMemoryDB.dll
 C:\Users\kuban\source\repos\InMemoryDB\InMemoryDB\bin\Debug\net6.0\InMemoryDB.pdb
-C:\Users\kuban\source\repos\InMemoryDB\InMemoryDB\obj\Debug\net6.0\InMemoryDB.csproj.AssemblyReference.cache
 C:\Users\kuban\source\repos\InMemoryDB\InMemoryDB\obj\Debug\net6.0\InMemoryDB.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\kuban\source\repos\InMemoryDB\InMemoryDB\obj\Debug\net6.0\InMemoryDB.AssemblyInfoInputs.cache
 C:\Users\kuban\source\repos\InMemoryDB\InMemoryDB\obj\Debug\net6.0\InMemoryDB.AssemblyInfo.cs

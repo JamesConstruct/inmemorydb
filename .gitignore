@@ -1,0 +1,9 @@
+.vs
+*.sln
+/TestInMemoryDB/bin/*
+/TestInMemoryDB/obj/*
+*.csproj
+/InMemoryDB/bin/*
+/InMemoryDB/obj/*
+*.rar
+*.zip

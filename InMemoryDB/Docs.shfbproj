@@ -35,13 +35,25 @@
     <SaveComponentCacheCapacity>100</SaveComponentCacheCapacity>
     <WarnOnMissingSourceContext>False</WarnOnMissingSourceContext>
     <TransformComponentArguments>
+      <Argument Key="RobotsMetadata" Value="" />
       <Argument Key="BibliographyDataFile" Value="" />
+      <Argument Key="RootBreadcrumbTitleText" Value="Docs" />
+      <Argument Key="CollapsibleSections" Value="True" />
+      <Argument Key="LogoFile" Value="" />
+      <Argument Key="LogoHeight" Value="" />
+      <Argument Key="LogoWidth" Value="" />
+      <Argument Key="LogoAltText" Value="" />
+      <Argument Key="LogoPlacement" Value="Left" />
+      <Argument Key="LogoAlignment" Value="Left" />
+      <Argument Key="LogoUrl" Value="" />
       <Argument Key="MaxVersionParts" Value="" />
+      <Argument Key="DefaultLanguage" Value="cs" />
       <Argument Key="IncludeEnumValues" Value="True" />
       <Argument Key="EnumMemberSortOrder" Value="Value" />
       <Argument Key="FlagsEnumValueFormat" Value="IntegerValue" />
       <Argument Key="FlagsEnumSeparatorSize" Value="0" />
-      <Argument Key="BaseSourceCodeUrl" Value="https://gitlab.mff.cuni.cz/teaching/nprg031/2022-summer/student-telcerj/-/tree/master/InMemoryDB/Help" />
+      <Argument Key="BaseSourceCodeUrl" Value="https://gitlab.mff.cuni.cz/teaching/nprg031/2022-summer/student-telcerj/-/tree/master/InMemoryDB/Help/" />
+      <Argument Key="RequestExampleUrl" Value="" />
     </TransformComponentArguments>
     <ProjectSummary> Jednoduch&amp;#225%3b in-memory datab&amp;#225%3bze napsan&amp;#225%3b v C# jako z&amp;#225%3bpočtov&amp;#253%3b projekt do Programov&amp;#225%3bn&amp;#237%3b II.
  Datab&amp;#225%3bze m&amp;#225%3b polymorfn&amp;#237%3b strukturu a může obsahovat libovoln&amp;#253%3b počet sloupců %28omezen&amp;#237%3b pamět&amp;#237%3b%29 různ&amp;#233%3bho druhu. Datab&amp;#225%3bze nativně podporuje z&amp;#225%3bkladn&amp;#237%3b datov&amp;#233%3b typy C#, avšak
@@ -260,6 +272,7 @@
     <MaximumGroupParts>2</MaximumGroupParts>
     <Preliminary>False</Preliminary>
     <SdkLinkTarget>Blank</SdkLinkTarget>
+    <VisibleItems>InheritedMembers, InheritedFrameworkMembers, Privates, PrivateFields, Protected, ProtectedInternalAsProtected, NonBrowsable</VisibleItems>
   </PropertyGroup>
   <!-- There are no properties for these groups.  AnyCPU needs to appear in order for Visual Studio to perform
 			 the build.  The others are optional common platform types that may appear. -->

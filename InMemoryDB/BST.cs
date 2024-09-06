@@ -35,7 +35,7 @@ namespace InMemoryDB
     }
 
     /// <summary>
-    /// Obecná třída vyhledávacích stromů.
+    /// Obecná třída vyhledávacích stromů. Kvůli polymorfismu.
     /// </summary>
     internal abstract class BST {}
 
