@@ -22,9 +22,9 @@
       <DocumentationSource sourceFile="obj\Debug\net6.0\InMemoryDB.xml" />
       <DocumentationSource sourceFile="obj\Debug\net6.0\InMemoryDB.dll" />
     </DocumentationSources>
-    <HelpFileFormat>Website</HelpFileFormat>
+    <HelpFileFormat>Markdown</HelpFileFormat>
     <SyntaxFilters>Standard</SyntaxFilters>
-    <PresentationStyle>Default2022</PresentationStyle>
+    <PresentationStyle>Markdown</PresentationStyle>
     <BuildLogFile>
     </BuildLogFile>
     <CleanIntermediates>True</CleanIntermediates>
@@ -194,7 +194,7 @@
  &lt;h1&gt;Příklad&lt;/h1&gt;
  
  Příkladový zdrojový kód naleznete v souboru Program.cs</NamespaceSummaryItem>
-<NamespaceSummaryItem name="(global)" isDocumented="True">Jednoduchá in-memory databáze napsaná v C# jako zápočtový projekt do Programování II.
+      <NamespaceSummaryItem name="(global)" isDocumented="True">Jednoduchá in-memory databáze napsaná v C# jako zápočtový projekt do Programování II.
  Databáze má polymorfní strukturu a může obsahovat libovolný počet sloupců (omezení pamětí) různého druhu. Databáze nativně podporuje základní datové typy C#, avšak
  je možné ji snadno rozšířit tak, aby pracovala s jakýmkoli typem implementujícím IComparable interface. Databáze podporuje indexování a binární vyhledávání
  v logaritmickém čase.
@@ -262,7 +262,8 @@
  
  &lt;h1&gt;Příklad&lt;/h1&gt;
  
- Příkladový zdrojový kód naleznete v souboru Program.cs</NamespaceSummaryItem></NamespaceSummaries>
+ Příkladový zdrojový kód naleznete v souboru Program.cs</NamespaceSummaryItem>
+    </NamespaceSummaries>
     <HelpTitle>In-Memory Datab&amp;#225%3bze v C#</HelpTitle>
     <HelpFileVersion>1.0.0.0</HelpFileVersion>
     <NamingMethod>Guid</NamingMethod>

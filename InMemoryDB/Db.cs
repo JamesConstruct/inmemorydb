@@ -10,6 +10,7 @@ using System.Reflection;
 using System.ComponentModel.Design;
 
 
+
 namespace InMemoryDB
 {
 
@@ -88,6 +89,12 @@ namespace InMemoryDB
     /// Příkladový zdrojový kód naleznete v souboru Program.cs
     /// 
     /// </summary>
+    [System.Runtime.CompilerServices.CompilerGenerated]
+    class NamespaceDoc
+    {
+    }
+
+
     public class Db : DynamicObject, IEnumerable
     {
 
