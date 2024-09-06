@@ -1,12 +1,11 @@
 # InMemoryDB Namespace
 
-Jednoduchá in-memory databáze napsaná v C# jako zápočtový projekt do Programování II.
+Jednoduchá **in-memory** databáze napsaná v C# jako zápočtový projekt do Programování II.
 Databáze má polymorfní strukturu a může obsahovat libovolný počet sloupců (omezení pamětí) různého druhu. Databáze nativně podporuje základní datové typy C#, avšak
 je možné ji snadno rozšířit tak, aby pracovala s jakýmkoli typem implementujícím IComparable interface. Databáze podporuje indexování a binární vyhledávání
 v logaritmickém čase.
 
-
-<h1>Inicializace</h1>
+## Inicializace
 
 Databáze se inicializuje pomocí Db db = new Db();
 Dojde k inicializaci prázdné tabulky neobsahující žádné sloupce ani data.
@@ -41,6 +40,34 @@ složitost v nejhorším případě (v původní implementaci až lineární slo
 Více sloupcového vyhledávání lze dosáhnout pomocí SelectAllWhere, jež vrací tabulku, na které se opět dá spustit vyhledávání. Obdobně se dá postupovat při
 přidání dalších vyhledávácích metod.
 
+### Přístup k položkám
+
+Přistupovat k položkám se dá pomocí indexeru, metod `First()` a `Last()`. Z tabulky lze získat jeden záznam pomocí metody `SelectOneWhere<T>(string col, T val)` nebo pod-tabulku pomocí `SelectAllWhere<T>(string col, T val)` (viz. dokumentace ohledně třídy Db). Získané záznamy jsou obalené wrapperem, který umožňuje dynamický přístup k položkám dle názvu sloupce (tedy například `db[0].firstname`).
+
+### Filtry
+
+Databáze podporuje dynamickou extrakci sloupců, jejich porovnávání / transformování a zpětné vyhledávání v databázi pomocí `BooleanColumn`. 
+Příklad:
+
+```
+var db = new Db();
+db.AddColumn<bool>("id");
+db.AddColumn<string>("username");
+db.AddColumn<bool>("active");
+db.MakeIndex("id");
+
+// add data
+
+var activeUsers = db[((dynamic)db).active].username;    // usernames of active users
+var activeJohns = db[activeUsers.username == "john"];   // table containing records only about users named "john" who are active
+```
+
+Filtry umožňují chaining pomocí logických operátorů a aplikaci různých porovnání či transformací (i do jiného typu dat).
+```
+Func<string, int> nameLength = x => x.Length;
+var longnameUsers = db[((dynamic)db).username.TransformTo<int>(nameLength) > 5];    // data o uživatelých se jménem delším než 5 znaků
+```
+
 
 ## Rozšiřitelnost
 
@@ -60,7 +87,7 @@ Změna vyhledávacího stromu je však jednoduchá, stačí změna v souboru Db.
 
 ## Příklad
 
-Příkladový zdrojový kód naleznete v souboru Program.cs
+Příkladový zdrojový kód naleznete v souboru [Program.cs](https://github.com/JamesConstruct/inmemorydb/blob/main/InMemoryDB/Program.cs).
 
 
 
