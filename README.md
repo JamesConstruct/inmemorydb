@@ -1,4 +1,4 @@
-# Zápočtový program, programování II.
+# In-Memory Database
 
 Jednoduchá **in-memory** databáze napsaná v C# jako zápočtový projekt do Programování v C#.
 Databáze má polymorfní strukturu a může obsahovat libovolný počet sloupců (omezení pamětí) různého druhu. Databáze nativně podporuje základní datové typy C#, avšak
