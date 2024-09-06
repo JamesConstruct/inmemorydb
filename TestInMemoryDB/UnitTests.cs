@@ -8,6 +8,9 @@ namespace TestInMemoryDB
     public class DBTests
     {
 
+        /// <summary>
+        /// Output instance to log data during testing.
+        /// </summary>
         private readonly ITestOutputHelper output;
 
         public DBTests(ITestOutputHelper output)
@@ -16,6 +19,9 @@ namespace TestInMemoryDB
         }
 
 
+        /// <summary>
+        /// Tests column addition to the database.
+        /// </summary>
         [Fact]
         public void TestColumns()
         {
@@ -29,6 +35,10 @@ namespace TestInMemoryDB
             Assert.Equal(2, db.ColumnCount);
         }
 
+
+        /// <summary>
+        /// Tests addition of entries and their order in the database.
+        /// </summary>
         [Fact]
         public void TestAddingIntEntries()
         {
@@ -47,6 +57,10 @@ namespace TestInMemoryDB
             }
         }
 
+
+        /// <summary>
+        /// Tests if making the column an index improves the lookup speed compared to non-indexed column.
+        /// </summary>
         [Fact]
         public void TestBSTEfficiency()
         {
@@ -61,10 +75,8 @@ namespace TestInMemoryDB
 
             stopwatch.Start();
 
-            // Call the method you want to measure
             for (int i = 0; i < 100; i++)
             {
-                // Call the method you want to measure
                 db.SelectAllWhere("id", "9999");
             }
 
@@ -86,7 +98,6 @@ namespace TestInMemoryDB
 
             for (int i = 0; i < 100; i++)
             {
-                // Call the method you want to measure
                 db.SelectAllWhere("id", "9999");
             }
 
@@ -101,6 +112,10 @@ namespace TestInMemoryDB
 
         }
 
+
+        /// <summary>
+        /// Tests the SelectOneWhere and SelectAllWhere methods for exceptions and basic validity.
+        /// </summary>
         [Fact]
         public void TestSelect()
         {
@@ -129,6 +144,10 @@ namespace TestInMemoryDB
 
         }
 
+
+        /// <summary>
+        /// Tests the basic functionality of filters along with some operators and transformation.
+        /// </summary>
         [Fact]
         public void TestFilters()
         {
@@ -164,6 +183,9 @@ namespace TestInMemoryDB
 
         }
 
+        /// <summary>
+        /// Tests the stringification of the database.
+        /// </summary>
         [Fact]
         public void TestDBToString()
         {
@@ -189,6 +211,10 @@ namespace TestInMemoryDB
 
         }
 
+
+        /// <summary>
+        /// Tests the database enumarator for data validity and correct order.
+        /// </summary>
         [Fact]
         public void TestEnumeration()
         {
@@ -213,6 +239,10 @@ namespace TestInMemoryDB
 
         }
 
+
+        /// <summary>
+        /// Tests whether the dropping of a database clears everything.
+        /// </summary>
         [Fact]
         public void TestDrop()
         {
@@ -227,6 +257,10 @@ namespace TestInMemoryDB
             Assert.Equal(0, db.ColumnCount);
         }
 
+
+        /// <summary>
+        /// Tests an exception for adding column to a database, which is not empty.
+        /// </summary>
         [Fact]
         public void TestInvalidColumnAddition()
         {
@@ -239,6 +273,10 @@ namespace TestInMemoryDB
             Assert.Equal("Database is not empty!", exception.Message);
         }
 
+
+        /// <summary>
+        /// Attempts to select non-existent data, invalid data and an invalid column.
+        /// </summary>
         [Fact]
         public void TestInvalidSelectOne()
         {
@@ -250,12 +288,19 @@ namespace TestInMemoryDB
             Exception exception = Assert.Throws<Exception>(act);
             Assert.Equal("Invalid column!", exception.Message);
 
+            act = () => db.SelectOneWhere("num", "not a number");
+            ArgumentException exception2 = Assert.Throws<ArgumentException>(act);
+            Assert.Equal("Invalid value type!", exception2.Message);
+
             act = () => db.SelectOneWhere("num", 12);
             exception = Assert.Throws<Exception>(act);
             Assert.Equal("Not found!", exception.Message);
 
         }
 
+        /// <summary>
+        /// Attempts to select invalid data (expects an empty table), invalid data and an invalid column.
+        /// </summary>
         [Fact]
         public void TestInvalidSelectAll()
         {
@@ -267,11 +312,19 @@ namespace TestInMemoryDB
             Exception exception = Assert.Throws<Exception>(act);
             Assert.Equal("Invalid column!", exception.Message);
 
+            act = () => db.SelectOneWhere("num", "not a number");
+            ArgumentException exception2 = Assert.Throws<ArgumentException>(act);
+            Assert.Equal("Invalid value type!", exception2.Message);
+
             dynamic r = db.SelectAllWhere("num", 12);
             Assert.Equal(0, r.Count);
 
         }
 
+
+        /// <summary>
+        /// Tries to insert data of invalid type.
+        /// </summary>
         [Fact]
         public void TestInvalidInsert()
         {
