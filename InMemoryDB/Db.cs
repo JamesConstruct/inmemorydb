@@ -31,7 +31,7 @@ namespace InMemoryDB
     {
 
         /// <summary>
-        /// Tato třída převádí typ pole konrkétní hodnoty na obecného předka ParentField. Zde je třeba přidat funkce pro další datové typy v případě rozšiřování.
+        /// This class converts values of specific type to the abstract ParentField.
         /// </summary>
         internal static class FieldConvertor  // public aby šly připisovat další Convertory
         {
@@ -47,7 +47,7 @@ namespace InMemoryDB
 
 
         /// <summary>
-        /// Tato třída uzavírá Record a přidává mu dynamické rozhraní pro přístup k hodnotám dle jmen sloupců v databází.
+        /// Class that wraps around the Record and allows for dynamic access of values by column names (based on the columns of the underlying database).
         /// </summary>
         public sealed class RecordWrapper : DynamicObject
         {
@@ -56,10 +56,10 @@ namespace InMemoryDB
 
 
             /// <summary>
-            /// Vytvoří nový wrapper.
+            /// Creates the new wrapper around the given record from the given database.
             /// </summary>
-            /// <param name="record">Záznam z databáze.</param>
-            /// <param name="db">Databáze, ze které záznam pochází.</param>
+            /// <param name="record">Record from a database.</param>
+            /// <param name="db">Database where the record belongs.</param>
             public RecordWrapper(Record record, Db db)
             {
                 _record = record;
@@ -142,9 +142,9 @@ namespace InMemoryDB
 
 
         /// <summary>
-        /// Vrátí první záznam v databázi.
+        /// Returns the first row in the database.
         /// </summary>
-        /// <returns>RecordWrapper obsahující první záznam v databázi.</returns>
+        /// <returns>RecordWrapper with the first record from the database.</returns>
         public RecordWrapper First()
         {
             return new RecordWrapper(_records.First(), this);
@@ -152,9 +152,9 @@ namespace InMemoryDB
 
 
         /// <summary>
-        /// Vrátí poslední záznam v databázi.
+        /// Returns the last record in the database.
         /// </summary>
-        /// <returns>RecordWrapper obsahující poslední záznam v databázi.</returns>
+        /// <returns>RecordWrapper with the last record from the database.</returns>
         public RecordWrapper Last()
         {
             return new RecordWrapper(_records.Last(), this);
@@ -162,11 +162,11 @@ namespace InMemoryDB
 
 
         /// <summary>
-        /// Vrátí záznam z databáze na definované pozici.
+        /// Returns the row on the specified position in the database.
         /// </summary>
-        /// <param name="i">Pozice záznamu.</param>
-        /// <returns>Vrátí RecordWrapper obsahující daný záznam.</returns>
-        /// <exception cref="Exception">Vrátí Exception, pokud je daná pozice neplatná.</exception>
+        /// <param name="i">Position of the record.</param>
+        /// <returns>RecordWrapper with the specified row.</returns>
+        /// <exception cref="Exception">Throws Exception, if the given position is invalid.</exception>
         public RecordWrapper RecordAt(int i)
         {
             if (i < 0 || i >= _records.Count) throw new Exception("Invalid index!");
@@ -189,15 +189,15 @@ namespace InMemoryDB
 
 
         /// <summary>
-        /// Vyhledá záznam v databázi, kde se daný sloupec <b>rovná</b> udané hodnotě. V případě, že hledáme dle indexu vyhledává logaritmicky, jinak lineárně. Vrátí <b>první</b> nalezený
-        /// výsledek, nemusí se jednat o první v pořadí, v jakém byly záznamy přidávány.
+        /// Finds a single record in the database, where its value <b>equals</b> the given value. In case of indexed columns, the search is logarithmic with respect to the number of
+        /// rows in the database. Otherwise, the search is linear. Returns the <b>first found</b> that satisfies the given condition, which might not be the first one added to the dabase.
         /// </summary>
-        /// <typeparam name="T">Typ hodnoty, dle které vyhledáváme.</typeparam>
-        /// <param name="column">Název sloupce, dle kterého vyhledáváme.</param>
-        /// <param name="val">Hodnota, kterou chceme nalézt.</param>
-        /// <returns>Vrací RecordWrapper nesoucí daný záznam.</returns>
-        /// <exception cref="ArgumentException">ArgumentException v případě špatného typu sloupce.</exception>
-        /// <exception cref="Exception">Exception v případě, že záznam není nalezen.</exception>
+        /// <typeparam name="T">Type of the column used to search the database.</typeparam>
+        /// <param name="column">Name of the column used to search the database.</param>
+        /// <param name="val">Searched value</param>
+        /// <returns>Returns RecordWrapper with the found record.</returns>
+        /// <exception cref="ArgumentException">ArgumentException in case of invalid type of the column.</exception>
+        /// <exception cref="Exception">Exception in case no record is found.</exception>
         public RecordWrapper SelectOneWhere<T>(string column, T val) where T : IComparable<T>
         {
 
@@ -244,14 +244,14 @@ namespace InMemoryDB
 
 
         /// <summary>
-        /// Vyhledá <b>všechny</b> záznamy v databázi, kde se daný sloupec <b>rovná</b> udané hodnotě. V případě, že hledáme dle indexu vyhledává logaritmicky, jinak lineárně. Vrátí všechny
-        /// výsledky v nedefinovaném pořadí. Může vracet prázdnou tabulku.
+        /// Finds a single record in the database, where its value <b>equals</b> the given value. In case of indexed columns, the search is logarithmic with respect to the number of
+        /// rows in the database. Otherwise, the search is linear. Returns a new database with all the found records. The returned table can be empty. 
         /// </summary>
-        /// <typeparam name="T">Typ hodnoty, dle které vyhledáváme.</typeparam>
-        /// <param name="column">Název sloupce, dle kterého vyhledáváme.</param>
-        /// <param name="val">Hodnota, kterou chceme nalézt.</param>
-        /// <returns>Vrací novou databázi se stejnou strukturou obsahující jen vyhledávané záznamy.</returns>
-        /// <exception cref="ArgumentException">ArgumentException v případě špatného typu sloupce.</exception>
+        /// <typeparam name="T">Type of the column used for searching.</typeparam>
+        /// <param name="column">Name of the column used for searching.</param>
+        /// <param name="val">The searched value.</param>
+        /// <returns>Returns a new Database object with identical structure containing only the found records.</returns>
+        /// <exception cref="ArgumentException">ArgumentException in case of invalid type of the column.</exception>
         public Db SelectAllWhere<T>(string column, T val) where T : IComparable<T>
         {
 
@@ -331,12 +331,12 @@ namespace InMemoryDB
 
 
         /// <summary>
-        /// Vypočte kumulativní sumu všech polí v daném sloupci.
+        /// Calculates the sum of all records in the given column.
         /// </summary>
-        /// <typeparam name="T">Typ hodnot, které sčítáme.</typeparam>
-        /// <param name="column">Název sčítaného sloupce.</param>
-        /// <returns>Vrací kumulativní sumu.</returns>
-        /// <exception cref="ArgumentException">ArgumentException v případě nekorespondujícího typu sloupce a typu T.</exception>
+        /// <typeparam name="T">Type of summed values.</typeparam>
+        /// <param name="column">The name of the summed column.</param>
+        /// <returns>Returns the cummulative sum of the entire column.</returns>
+        /// <exception cref="ArgumentException">ArgumentException in case of mismatch between the type of the column and provided type T.</exception>
         public T GetSum<T>(string column) where T : new()
         {
 
@@ -360,11 +360,11 @@ namespace InMemoryDB
 
 
         /// <summary>
-        /// Přidá do tabulky sloupec daného typu s daným názvem, jež musí být unikátní v rámci tabulky.
+        /// Adds a column of type T and the given name to the database. The name of the column has to be unique. The table has to be empty to add a new column.
         /// </summary>
-        /// <typeparam name="T">Typ hodnot sloupce.</typeparam>
-        /// <param name="name">Název sloupce.</param>
-        /// <exception cref="Exception">Vrací exception v případě, že tabulka není prázdná nebo název sloupce není unikátní.</exception>
+        /// <typeparam name="T">Type of the values in the new column.</typeparam>
+        /// <param name="name">The name of the new column.</param>
+        /// <exception cref="Exception">Throws exception in case of non-unique name of the column or non-empty table.</exception>
         public void AddColumn<T>(string name)
         {
             // Přidávat můžeme pouze do prázdné databáze
@@ -384,10 +384,10 @@ namespace InMemoryDB
 
 
         /// <summary>
-        /// Odebere sloupec v tabulce na dané pozici.
+        /// Removes the column on the given position in the database (position corresponds to the order of addition of the columns). The database has to be empty.
         /// </summary>
-        /// <param name="index">Pozice sloupce, jež chceme odebrat.</param>
-        /// <exception cref="Exception">Vrací Exception v případě, že tabulka není prázdná, nebo index není platný.</exception>
+        /// <param name="index">The position of the column to remove.</param>
+        /// <exception cref="Exception">Throws an Exception in case of non-empty database or invalid column index.</exception>
         public void RemoveColumnAt(int index)
         {
             // odebírat můžeme pouze v prázdné databázi
@@ -402,10 +402,10 @@ namespace InMemoryDB
 
 
         /// <summary>
-        /// Odebere sloupec z tabulky dle jména.
+        /// Removes the column of the given name from the database. The database has to be empty.
         /// </summary>
-        /// <param name="name">Název sloupce, jež má být odebrán.</param>
-        /// <exception cref="Exception">Vrací Exception v případě, že tabulka není prázdná, nebo neobsahuje sloupec s daným názvem.</exception>
+        /// <param name="name">The name of the column to remove.</param>
+        /// <exception cref="Exception">Throws an Exception in case of non-empty database or invalid column name.</exception>
         public void RemoveColumn(string name)
         {
             if (!_empty) throw new Exception("Database is not empty!");
@@ -420,12 +420,12 @@ namespace InMemoryDB
 
 
         /// <summary>
-        /// Vytvoří z daného sloupce sloupec pro indexaci, čímž umožní binární vyhledávání.
+        /// Turns the specified column to an index, allowing for binary search. The database has to be empty.
         /// </summary>
-        /// <typeparam name="T">Typ sloupce, podle kterého chceme indexovat.</typeparam>
-        /// <param name="column">Název sloupce, dle kterého chceme indexovat.</param>
-        /// <exception cref="ArgumentException">Vrací ArgumentException v případě, že nesedí typ hodnoty sloupce a T.</exception>
-        /// <exception cref="Exception">Vrací Exception, když databáze není prázdná.</exception>
+        /// <typeparam name="T">Type of the column.</typeparam>
+        /// <param name="column">Name of the column.</param>
+        /// <exception cref="ArgumentException">Throws ArgumentException in case of the column type and provided type T mismatch.</exception>
+        /// <exception cref="Exception">Throws an Exception if the database isn't empty.</exception>
         public void MakeIndex<T>(string column) where T : IComparable<T>
         {
 
@@ -443,10 +443,10 @@ namespace InMemoryDB
 
 
         /// <summary>
-        /// Vloží do databáze nový záznam obsahující zadané hodnoty. Typ hodnoty musí korespondovat s typem sloupce.
+        /// Inserts a new record to the database containing the given values. These values have to correspond to the types of their respective columns.
         /// </summary>
-        /// <param name="values">Hodnoty jednoho záznamu.</param>
-        /// <exception cref="Exception">Vrací Exception v případě, že je zadán špatný počet argumentů, nebo nesedí jejich typ.</exception>
+        /// <param name="values">Values of one record.</param>
+        /// <exception cref="Exception">Throws an Exception in case of invalid number of values or mismatch of the types.</exception>
         public void Insert(params object[] values)
         {
 
@@ -495,10 +495,10 @@ namespace InMemoryDB
 
 
         /// <summary>
-        /// Vloží do databáze nový záznam obsahující zadané hodnoty. Typ hodnoty musí korespondovat s typem sloupce.
+        /// Inserts the given record to the database. The types of fields in this record have to correspond to the types of the columns in the database.
         /// </summary>
-        /// <param name="record">Třída Record obsahující všechny hodnoty s typy korespondujícími s typem sloupců v tabulce.</param>
-        /// <exception cref="Exception">Vrací Exception v případě, že je zadán špatný počet argumentů, nebo nesedí jejich typ.</exception>
+        /// <param name="record">Record with matching field types.</param>
+        /// <exception cref="Exception">Throws an Exception in case of invalid number of fields or in case of type mismatch.</exception>
         public void Insert(Record record)
         {
 
@@ -645,9 +645,11 @@ namespace InMemoryDB
 
         /// <summary>
         /// Zkopíruje strukturu jiné databáze, tedy typy a názvy sloupců a indexovací sloupce. Lze pouze, pokud je tabulka prázdná.
+        /// Copies the structure of a different database to itself, including the types and names of columns and which columns are indexed. Only possible with an empty
+        /// database (the copied database does not have to be empty).
         /// </summary>
-        /// <exception cref="Exception">Vrací Exception, když databáze není prázdná.</exception>
-        /// <param name="other">Tabulka, jejíž strukturu chceme okopírovat.</param>
+        /// <exception cref="Exception">Throws an Exception in case of non-empty database.</exception>
+        /// <param name="other">Database to copy the structure from.</param>
         public void CopyStructure(Db other)
         {
             if (!_empty) throw new Exception("Database is not empty!");
@@ -683,11 +685,11 @@ namespace InMemoryDB
 
 
         /// <summary>
-        /// Vrátí typ sloupce s daným názvem.
+        /// Returns the type of the column with the given name.
         /// </summary>
-        /// <param name="name">Název sloupce.</param>
-        /// <returns>Typ hodnot v daném sloupci.</returns>
-        /// <exception cref="Exception">Vrací Exception, pokud daný sloupec v tabulce není.</exception>
+        /// <param name="name">Name of the column.</param>
+        /// <returns>Type of values in the specified column.</returns>
+        /// <exception cref="Exception">Throws an Exception in case of absence of the specified column in the database.</exception>
         private Type ColumnType(string name)
         {
             if (!_columns.Contains(name)) throw new Exception("Invalid column!");
@@ -696,11 +698,11 @@ namespace InMemoryDB
         }
 
         /// <summary>
-        /// Vrací index sloupce s daným názvem.
+        /// Returns the index of the column with the given name.
         /// </summary>
-        /// <param name="name">Název sloupce.</param>
-        /// <returns>Index sloupce = pořadí sloupce v tabulce.</returns>
-        /// <exception cref="Exception">Vrací Exception, pokud daný sloupec neexistuje.</exception>
+        /// <param name="name">Name of the column.</param>
+        /// <returns>Index of the specified column in the database (corresponds to the order of the addition of the columns).</returns>
+        /// <exception cref="Exception">Throws an Exception if column of such name doesn't exist.</exception>
         private int ColumnIndex(string name)
         {
             if (!_columns.Contains(name)) throw new Exception("Invalid column!");
