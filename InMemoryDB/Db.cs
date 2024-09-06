@@ -18,7 +18,7 @@ namespace InMemoryDB
 
 
     /// <summary>
-    /// Jednoduchá in-memory databáze napsaná v C# jako zápočtový projekt do Programování II.
+    /// Jednoduchá in-memory databáze napsaná v C# jako zápočtový projekt do Programování v C#.
     /// Databáze má polymorfní strukturu a může obsahovat libovolný počet sloupců(omezení pamětí) různého druhu.Databáze nativně podporuje základní datové typy C#, avšak
     /// je možné ji snadno rozšířit tak, aby pracovala s jakýmkoli typem implementujícím IComparable interface. Databáze podporuje indexování a binární vyhledávání
     /// v logaritmickém čase.
