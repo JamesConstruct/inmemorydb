@@ -23,7 +23,7 @@
       <DocumentationSource sourceFile="obj\Debug\net6.0\InMemoryDB.dll" />
     </DocumentationSources>
     <HelpFileFormat>Website</HelpFileFormat>
-    <SyntaxFilters>Standard</SyntaxFilters>
+    <SyntaxFilters>C#</SyntaxFilters>
     <PresentationStyle>Default2022</PresentationStyle>
     <BuildLogFile>
     </BuildLogFile>
@@ -55,215 +55,202 @@
       <Argument Key="BaseSourceCodeUrl" Value="https://gitlab.mff.cuni.cz/teaching/nprg031/2022-summer/student-telcerj/-/tree/master/InMemoryDB/Help/" />
       <Argument Key="RequestExampleUrl" Value="" />
     </TransformComponentArguments>
-    <ProjectSummary> Jednoduch&amp;#225%3b in-memory datab&amp;#225%3bze napsan&amp;#225%3b v C# jako z&amp;#225%3bpočtov&amp;#253%3b projekt do Programov&amp;#225%3bn&amp;#237%3b II.
- Datab&amp;#225%3bze m&amp;#225%3b polymorfn&amp;#237%3b strukturu a může obsahovat libovoln&amp;#253%3b počet sloupců %28omezen&amp;#237%3b pamět&amp;#237%3b%29 různ&amp;#233%3bho druhu. Datab&amp;#225%3bze nativně podporuje z&amp;#225%3bkladn&amp;#237%3b datov&amp;#233%3b typy C#, avšak
- je možn&amp;#233%3b ji snadno rozš&amp;#237%3břit tak, aby pracovala s jak&amp;#253%3bmkoli typem implementuj&amp;#237%3bc&amp;#237%3bm IComparable interface. Datab&amp;#225%3bze podporuje indexov&amp;#225%3bn&amp;#237%3b a bin&amp;#225%3brn&amp;#237%3b vyhled&amp;#225%3bv&amp;#225%3bn&amp;#237%3b
- v logaritmick&amp;#233%3bm čase.
- 
- 
- &amp;lt%3bh1&amp;gt%3bInicializace&amp;lt%3b/h1&amp;gt%3b
- 
- Datab&amp;#225%3bze se inicializuje pomoc&amp;#237%3b Db db = new Db%28%29%3b
- Dojde k inicializaci pr&amp;#225%3bzdn&amp;#233%3b tabulky neobsahuj&amp;#237%3bc&amp;#237%3b ž&amp;#225%3bdn&amp;#233%3b sloupce ani data.
- 
- 
- &amp;lt%3bh1&amp;gt%3bStruktura&amp;lt%3b/h1&amp;gt%3b
- 
- Strukturu datab&amp;#225%3bze lze libovolně měnit, dokud je pr&amp;#225%3bzdn&amp;#225%3b, pot&amp;#233%3b tento pokus vy&amp;#250%3bst&amp;#237%3b v Exception. Sloupce lze přid&amp;#225%3bvat pomoc&amp;#237%3b metody &amp;lt%3bcode&amp;gt%3bAddColumn&amp;lt%3bT&amp;gt%3b%28string name%29&amp;lt%3b/code&amp;gt%3b,
- jež přiřad&amp;#237%3b sloupci jak n&amp;#225%3bzev tak datov&amp;#253%3b typ, ten je pro dan&amp;#253%3b sloupec již neměnn&amp;#253%3b, avšak sloupec lze později odstranit pomoc&amp;#237%3b metod RemoveColumn a RemoveColumnAt.
- Pro vytvořen&amp;#237%3b indexu slouž&amp;#237%3b metoda MakeIndex&amp;lt%3bT&amp;gt%3b%28string column_name%29, kter&amp;#225%3b přij&amp;#237%3bm&amp;#225%3b n&amp;#225%3bzev sloupce. Automaticky se tak namapuje bin&amp;#225%3brn&amp;#237%3b vyhled&amp;#225%3bvac&amp;#237%3b strom %28tř&amp;#237%3bda BST%29
- na dan&amp;#253%3b index a při každ&amp;#233%3bm přid&amp;#225%3bn&amp;#237%3b prvku se hodnota v dan&amp;#233%3bm sloupci zařad&amp;#237%3b do stromu spolu s odkazem na konkr&amp;#233%3btn&amp;#237%3b ř&amp;#225%3bdek.
- 
- 
- &amp;lt%3bh1&amp;gt%3bRuntime&amp;lt%3b/h1&amp;gt%3b
- 
- Pro přid&amp;#225%3bn&amp;#237%3b slouž&amp;#237%3b metoda Insert, celkov&amp;#253%3b počet ř&amp;#225%3bdků vyjadřuje vlastnost Count. Pro vyhled&amp;#225%3bv&amp;#225%3bn&amp;#237%3b existuj&amp;#237%3b dvě z&amp;#225%3bkladn&amp;#237%3b metody SelectOneWhere a SelectAllWhere,
- kter&amp;#233%3b vrac&amp;#237%3b v&amp;#253%3bsledky, jež se na dan&amp;#233%3bm sloupci shoduj&amp;#237%3b s hledanou hodnotou. SelectOneWhere vrac&amp;#237%3b tzv. RecordWrapper, kter&amp;#253%3b zabaluje Record tak, aby se k jeho pol&amp;#237%3bm
- dalo dynamicky přistupovat jako k vlastnostem %28avšak neobsahuje jakoukoli komplilačn&amp;#237%3b kontrolu existence sloupců%29. SelectAllWhere vrac&amp;#237%3b všechny v&amp;#253%3bsledky, kter&amp;#233%3b se
- shoduj&amp;#237%3b na dan&amp;#233%3bm sloupci s hledanou hodnotou ve formě pod-tabulky: opět tř&amp;#237%3bdy Db, kter&amp;#225%3b však obsahuje jen hledan&amp;#233%3b ř&amp;#225%3bdky. Při tomto v&amp;#253%3bběru se automaticky vybuduj&amp;#237%3b
- všechny indexy pro pod-tabulku znovu a umožňuj&amp;#237%3b stejn&amp;#233%3b bin&amp;#225%3brn&amp;#237%3b vyhled&amp;#225%3bv&amp;#225%3bn&amp;#237%3b jako na mateřsk&amp;#233%3b tabulce. 
- 
- 
- &amp;lt%3bh2&amp;gt%3bBin&amp;#225%3brn&amp;#237%3b vyhled&amp;#225%3bn&amp;#237%3b&amp;lt%3b/h2&amp;gt%3b
- 
- O bin&amp;#225%3brn&amp;#237%3b vyhled&amp;#225%3bv&amp;#225%3bn&amp;#237%3b se staraj&amp;#237%3b bin&amp;#225%3brn&amp;#237%3b vyhled&amp;#225%3bvac&amp;#237%3b stromy, jež se buduj&amp;#237%3b během přid&amp;#225%3bv&amp;#225%3bn&amp;#237%3b prvků. Tř&amp;#237%3bda BST představuje jednoduch&amp;#253%3b nevyv&amp;#225%3bžen&amp;#253%3b strom, avšak lze ji
- nahradit jakoukoli tř&amp;#237%3bdou, jež implementuje interface ITree a je potomkem tř&amp;#237%3bdy BST. Tedy ji lze jednoduše vyměnit např. za AVL strom a zajistit si tak lepš&amp;#237%3b
- složitost v nejhorš&amp;#237%3bm př&amp;#237%3bpadě %28v původn&amp;#237%3b implementaci až line&amp;#225%3brn&amp;#237%3b složitost%29.
- 
- 
- &amp;lt%3bh2&amp;gt%3bV&amp;#237%3bce-sloupcov&amp;#233%3b vyhled&amp;#225%3bv&amp;#225%3bn&amp;#237%3b&amp;lt%3b/h2&amp;gt%3b
- 
- V&amp;#237%3bce sloupcov&amp;#233%3bho vyhled&amp;#225%3bv&amp;#225%3bn&amp;#237%3b lze dos&amp;#225%3bhnout pomoc&amp;#237%3b SelectAllWhere, jež vrac&amp;#237%3b tabulku, na kter&amp;#233%3b se opět d&amp;#225%3b spustit vyhled&amp;#225%3bv&amp;#225%3bn&amp;#237%3b. Obdobně se d&amp;#225%3b postupovat při
- přid&amp;#225%3bn&amp;#237%3b dalš&amp;#237%3bch vyhled&amp;#225%3bv&amp;#225%3bc&amp;#237%3bch metod.
- 
- 
- &amp;lt%3bh2&amp;gt%3bRozšiřitelnost&amp;lt%3b/h2&amp;gt%3b
- 
- Datab&amp;#225%3bzi lze snadno rozš&amp;#237%3břit o dalš&amp;#237%3b datov&amp;#233%3b typy, stač&amp;#237%3b pouze rozš&amp;#237%3břit tř&amp;#237%3bdu FieldConvertor o funkci GetField:
- 
- &amp;lt%3bcode&amp;gt%3b
- 
- public static ParentField GetField%28bool val%29
- {
-    return new Field&amp;lt%3bbool&amp;gt%3b%28val%29%3b
- }
- 
- &amp;lt%3b/code&amp;gt%3b
- 
- Rozš&amp;#237%3břen&amp;#237%3b o dalš&amp;#237%3b možnosti Selektov&amp;#225%3bn&amp;#237%3b lze jednoduše, pokud stač&amp;#237%3b line&amp;#225%3brn&amp;#237%3b čas, avšak pro pr&amp;#225%3bci s bin&amp;#225%3brn&amp;#237%3bm vyhled&amp;#225%3bv&amp;#225%3bn&amp;#237%3bm je třeba vz&amp;#237%3bt do &amp;#250%3bvahy slovn&amp;#237%3bk _indexes a pracovat
- s vyhled&amp;#225%3bvac&amp;#237%3bmi stromy, to je asi nejv&amp;#237%3bce problematick&amp;#225%3b č&amp;#225%3bst, co se rozš&amp;#237%3břen&amp;#237%3b k&amp;#243%3bdu t&amp;#253%3bče, celkov&amp;#225%3b implementace stromů je pro dalš&amp;#237%3b v&amp;#253%3bvoj&amp;#225%3bře možn&amp;#225%3b zbytečně komplikovan&amp;#225%3b a
- specifick&amp;#225%3b. Slovn&amp;#237%3bk _indexes obsahuje jako kl&amp;#237%3bč pozici sloupce v tabulce a jako hodnotu př&amp;#237%3bsluš&amp;#237%3bc&amp;#237%3b vyhled&amp;#225%3bvac&amp;#237%3b strom uložen&amp;#253%3b v polymorfn&amp;#237%3bm kontejneru obsahuj&amp;#237%3bc&amp;#237%3bm mateřsk&amp;#253%3b
- typ BTS.
- 
- Pro implementaci dalš&amp;#237%3bch operac&amp;#237%3b by tak&amp;#233%3b bylo třeba upravit BTS, avšak lze k tomu použ&amp;#237%3bt standardn&amp;#237%3b metody pr&amp;#225%3bce s BVS. Při maz&amp;#225%3bn&amp;#237%3b je nutno synchronizovat maz&amp;#225%3bn&amp;#237%3b v tabulce a
- indexovac&amp;#237%3bch stromech, elegantn&amp;#237%3bm řešen&amp;#237%3bm by byl dalš&amp;#237%3b &amp;quot%3bneviditeln&amp;#253%3b&amp;quot%3b sloupec, jež by označoval, zda-li byl z&amp;#225%3bznam smaz&amp;#225%3bn, a tabulka by se čas od času pročistila od těchto
- z&amp;#225%3bznamů. V&amp;#253%3bhodou tohoto řešen&amp;#237%3b je, že by se nemusely všechny prvky posouvat tak často.
- 
- Změna vyhled&amp;#225%3bvac&amp;#237%3bho stromu je však jednoduch&amp;#225%3b, stač&amp;#237%3b změna v souboru Db.cs, nov&amp;#253%3b strom mus&amp;#237%3b b&amp;#253%3bt potomkem tř&amp;#237%3bdy BTS z BTS.cs a mus&amp;#237%3b implementovat z&amp;#225%3bkladn&amp;#237%3b rozhran&amp;#237%3b ITree.
- 
- &amp;lt%3bh1&amp;gt%3bPř&amp;#237%3bklad&amp;lt%3b/h1&amp;gt%3b
- 
- Př&amp;#237%3bkladov&amp;#253%3b zdrojov&amp;#253%3b k&amp;#243%3bd naleznete v souboru Program.cs</ProjectSummary>
+    <ProjectSummary>Jednoduch&amp;#225%3b %2a%2ain-memory%2a%2a datab&amp;#225%3bze napsan&amp;#225%3b v C# jako z&amp;#225%3bpočtov&amp;#253%3b projekt do Programov&amp;#225%3bn&amp;#237%3b v C#.
+Datab&amp;#225%3bze m&amp;#225%3b polymorfn&amp;#237%3b strukturu a může obsahovat libovoln&amp;#253%3b počet sloupců %28omezen&amp;#237%3b pamět&amp;#237%3b%29 různ&amp;#233%3bho druhu. Datab&amp;#225%3bze nativně podporuje z&amp;#225%3bkladn&amp;#237%3b datov&amp;#233%3b typy C#, avšak
+je možn&amp;#233%3b ji snadno rozš&amp;#237%3břit tak, aby pracovala s jak&amp;#253%3bmkoli typem implementuj&amp;#237%3bc&amp;#237%3bm IComparable interface. Datab&amp;#225%3bze podporuje indexov&amp;#225%3bn&amp;#237%3b a bin&amp;#225%3brn&amp;#237%3b vyhled&amp;#225%3bv&amp;#225%3bn&amp;#237%3b
+v logaritmick&amp;#233%3bm čase.
+
+## Inicializace
+
+Datab&amp;#225%3bze se inicializuje pomoc&amp;#237%3b Db db = new Db%28%29%3b
+Dojde k inicializaci pr&amp;#225%3bzdn&amp;#233%3b tabulky neobsahuj&amp;#237%3bc&amp;#237%3b ž&amp;#225%3bdn&amp;#233%3b sloupce ani data.
+
+
+## Struktura
+
+Strukturu datab&amp;#225%3bze lze libovolně měnit, dokud je pr&amp;#225%3bzdn&amp;#225%3b, pot&amp;#233%3b tento pokus vy&amp;#250%3bst&amp;#237%3b v Exception. Sloupce lze přid&amp;#225%3bvat pomoc&amp;#237%3b metody `AddColumn&amp;lt%3bT&amp;gt%3b%28string name%29`,
+jež přiřad&amp;#237%3b sloupci jak n&amp;#225%3bzev tak datov&amp;#253%3b typ, ten je pro dan&amp;#253%3b sloupec již neměnn&amp;#253%3b, avšak sloupec lze později odstranit pomoc&amp;#237%3b metod RemoveColumn a RemoveColumnAt.
+Pro vytvořen&amp;#237%3b indexu slouž&amp;#237%3b metoda `MakeIndex&amp;lt%3bT&amp;gt%3b%28string column_name%29`, kter&amp;#225%3b přij&amp;#237%3bm&amp;#225%3b n&amp;#225%3bzev sloupce. Automaticky se tak namapuje bin&amp;#225%3brn&amp;#237%3b vyhled&amp;#225%3bvac&amp;#237%3b strom %28tř&amp;#237%3bda BST%29
+na dan&amp;#253%3b index a při každ&amp;#233%3bm přid&amp;#225%3bn&amp;#237%3b prvku se hodnota v dan&amp;#233%3bm sloupci zařad&amp;#237%3b do stromu spolu s odkazem na konkr&amp;#233%3btn&amp;#237%3b ř&amp;#225%3bdek.
+
+
+## Runtime
+
+Pro přid&amp;#225%3bn&amp;#237%3b slouž&amp;#237%3b metoda Insert, celkov&amp;#253%3b počet ř&amp;#225%3bdků vyjadřuje vlastnost Count. Pro vyhled&amp;#225%3bv&amp;#225%3bn&amp;#237%3b existuj&amp;#237%3b dvě z&amp;#225%3bkladn&amp;#237%3b metody SelectOneWhere a SelectAllWhere,
+kter&amp;#233%3b vrac&amp;#237%3b v&amp;#253%3bsledky, jež se na dan&amp;#233%3bm sloupci shoduj&amp;#237%3b s hledanou hodnotou. SelectOneWhere vrac&amp;#237%3b tzv. RecordWrapper, kter&amp;#253%3b zabaluje Record tak, aby se k jeho pol&amp;#237%3bm
+dalo dynamicky přistupovat jako k vlastnostem %28avšak neobsahuje jakoukoli komplilačn&amp;#237%3b kontrolu existence sloupců%29. SelectAllWhere vrac&amp;#237%3b všechny v&amp;#253%3bsledky, kter&amp;#233%3b se
+shoduj&amp;#237%3b na dan&amp;#233%3bm sloupci s hledanou hodnotou ve formě pod-tabulky: opět tř&amp;#237%3bdy Db, kter&amp;#225%3b však obsahuje jen hledan&amp;#233%3b ř&amp;#225%3bdky. Při tomto v&amp;#253%3bběru se automaticky vybuduj&amp;#237%3b
+všechny indexy pro pod-tabulku znovu a umožňuj&amp;#237%3b stejn&amp;#233%3b bin&amp;#225%3brn&amp;#237%3b vyhled&amp;#225%3bv&amp;#225%3bn&amp;#237%3b jako na mateřsk&amp;#233%3b tabulce. 
+
+
+## Bin&amp;#225%3brn&amp;#237%3b vyhled&amp;#225%3bn&amp;#237%3b
+
+O bin&amp;#225%3brn&amp;#237%3b vyhled&amp;#225%3bv&amp;#225%3bn&amp;#237%3b se staraj&amp;#237%3b bin&amp;#225%3brn&amp;#237%3b vyhled&amp;#225%3bvac&amp;#237%3b stromy, jež se buduj&amp;#237%3b během přid&amp;#225%3bv&amp;#225%3bn&amp;#237%3b prvků. Tř&amp;#237%3bda BST představuje jednoduch&amp;#253%3b nevyv&amp;#225%3bžen&amp;#253%3b strom, avšak lze ji
+nahradit jakoukoli tř&amp;#237%3bdou, jež implementuje interface ITree a je potomkem tř&amp;#237%3bdy BST. Tedy ji lze jednoduše vyměnit např. za AVL strom a zajistit si tak lepš&amp;#237%3b
+složitost v nejhorš&amp;#237%3bm př&amp;#237%3bpadě %28v původn&amp;#237%3b implementaci až line&amp;#225%3brn&amp;#237%3b složitost%29.
+
+
+## V&amp;#237%3bce-sloupcov&amp;#233%3b vyhled&amp;#225%3bv&amp;#225%3bn&amp;#237%3b
+
+V&amp;#237%3bce sloupcov&amp;#233%3bho vyhled&amp;#225%3bv&amp;#225%3bn&amp;#237%3b lze dos&amp;#225%3bhnout pomoc&amp;#237%3b SelectAllWhere, jež vrac&amp;#237%3b tabulku, na kter&amp;#233%3b se opět d&amp;#225%3b spustit vyhled&amp;#225%3bv&amp;#225%3bn&amp;#237%3b. Obdobně se d&amp;#225%3b postupovat při
+přid&amp;#225%3bn&amp;#237%3b dalš&amp;#237%3bch vyhled&amp;#225%3bv&amp;#225%3bc&amp;#237%3bch metod.
+
+### Př&amp;#237%3bstup k položk&amp;#225%3bm
+
+Přistupovat k položk&amp;#225%3bm se d&amp;#225%3b pomoc&amp;#237%3b indexeru, metod `First%28%29` a `Last%28%29`. Z tabulky lze z&amp;#237%3bskat jeden z&amp;#225%3bznam pomoc&amp;#237%3b metody `SelectOneWhere&amp;lt%3bT&amp;gt%3b%28string col, T val%29` nebo pod-tabulku pomoc&amp;#237%3b `SelectAllWhere&amp;lt%3bT&amp;gt%3b%28string col, T val%29` %28viz. dokumentace ohledně tř&amp;#237%3bdy Db%29. Z&amp;#237%3bskan&amp;#233%3b z&amp;#225%3bznamy jsou obalen&amp;#233%3b wrapperem, kter&amp;#253%3b umožňuje dynamick&amp;#253%3b př&amp;#237%3bstup k položk&amp;#225%3bm dle n&amp;#225%3bzvu sloupce %28tedy např&amp;#237%3bklad `db[0].firstname`%29.
+
+### Filtry
+
+Datab&amp;#225%3bze podporuje dynamickou extrakci sloupců, jejich porovn&amp;#225%3bv&amp;#225%3bn&amp;#237%3b / transformov&amp;#225%3bn&amp;#237%3b a zpětn&amp;#233%3b vyhled&amp;#225%3bv&amp;#225%3bn&amp;#237%3b v datab&amp;#225%3bzi pomoc&amp;#237%3b `BooleanColumn`. 
+Př&amp;#237%3bklad:
+
+```C#
+var db = new Db%28%29%3b
+db.AddColumn&amp;lt%3bbool&amp;gt%3b%28&amp;quot%3bid&amp;quot%3b%29%3b
+db.AddColumn&amp;lt%3bstring&amp;gt%3b%28&amp;quot%3busername&amp;quot%3b%29%3b
+db.AddColumn&amp;lt%3bbool&amp;gt%3b%28&amp;quot%3bactive&amp;quot%3b%29%3b
+db.MakeIndex%28&amp;quot%3bid&amp;quot%3b%29%3b
+
+// add data
+
+var activeUsers = db[%28%28dynamic%29db%29.active].username%3b    // usernames of active users
+var activeJohns = db[activeUsers.username == &amp;quot%3bjohn&amp;quot%3b]%3b   // table containing records only about users named &amp;quot%3bjohn&amp;quot%3b who are active
+```
+
+Filtry umožňuj&amp;#237%3b chaining pomoc&amp;#237%3b logick&amp;#253%3bch oper&amp;#225%3btorů a aplikaci různ&amp;#253%3bch porovn&amp;#225%3bn&amp;#237%3b či transformac&amp;#237%3b %28i do jin&amp;#233%3bho typu dat%29.
+
+```c#
+Func&amp;lt%3bstring, int&amp;gt%3b nameLength = x =&amp;gt%3b x.Length%3b
+var longnameUsers = db[%28%28dynamic%29db%29.username.TransformTo&amp;lt%3bint&amp;gt%3b%28nameLength%29 &amp;gt%3b 5]%3b    // data o uživatel&amp;#253%3bch se jm&amp;#233%3bnem delš&amp;#237%3bm než 5 znaků
+```
+
+
+## Rozšiřitelnost
+
+Datab&amp;#225%3bzi lze snadno rozš&amp;#237%3břit o dalš&amp;#237%3b datov&amp;#233%3b typy, jedin&amp;#233%3b podm&amp;#237%3bnky pro typ T jsou IComparable&amp;lt%3bT&amp;gt%3b, IEquatable&amp;lt%3bT&amp;gt%3b pokud je třeba bin&amp;#225%3brn&amp;#237%3b vyhled&amp;#225%3bvac&amp;#237%3b strom nebo filtrov&amp;#225%3bn&amp;#237%3b pomoc&amp;#237%3b filtrů či hled&amp;#225%3bn&amp;#237%3b v datab&amp;#225%3bzi.
+
+
+Rozš&amp;#237%3břen&amp;#237%3b o dalš&amp;#237%3b možnosti Selektov&amp;#225%3bn&amp;#237%3b lze jednoduše, pokud stač&amp;#237%3b line&amp;#225%3brn&amp;#237%3b čas, avšak pro pr&amp;#225%3bci s bin&amp;#225%3brn&amp;#237%3bm vyhled&amp;#225%3bv&amp;#225%3bn&amp;#237%3bm je třeba vz&amp;#237%3bt do &amp;#250%3bvahy slovn&amp;#237%3bk _indexes a pracovat
+s vyhled&amp;#225%3bvac&amp;#237%3bmi stromy, to je asi nejv&amp;#237%3bce problematick&amp;#225%3b č&amp;#225%3bst, co se rozš&amp;#237%3břen&amp;#237%3b k&amp;#243%3bdu t&amp;#253%3bče, celkov&amp;#225%3b implementace stromů je pro dalš&amp;#237%3b v&amp;#253%3bvoj&amp;#225%3bře možn&amp;#225%3b zbytečně komplikovan&amp;#225%3b a
+specifick&amp;#225%3b. Slovn&amp;#237%3bk _indexes obsahuje jako kl&amp;#237%3bč pozici sloupce v tabulce a jako hodnotu př&amp;#237%3bsluš&amp;#237%3bc&amp;#237%3b vyhled&amp;#225%3bvac&amp;#237%3b strom uložen&amp;#253%3b v polymorfn&amp;#237%3bm kontejneru obsahuj&amp;#237%3bc&amp;#237%3bm mateřsk&amp;#253%3b
+typ BTS.
+
+Pro implementaci dalš&amp;#237%3bch operac&amp;#237%3b by tak&amp;#233%3b bylo třeba upravit BTS, avšak lze k tomu použ&amp;#237%3bt standardn&amp;#237%3b metody pr&amp;#225%3bce s BVS. Při maz&amp;#225%3bn&amp;#237%3b je nutno synchronizovat maz&amp;#225%3bn&amp;#237%3b v tabulce a
+indexovac&amp;#237%3bch stromech, elegantn&amp;#237%3bm řešen&amp;#237%3bm by byl dalš&amp;#237%3b &amp;quot%3bneviditeln&amp;#253%3b&amp;quot%3b sloupec, jež by označoval, zda-li byl z&amp;#225%3bznam smaz&amp;#225%3bn, a tabulka by se čas od času pročistila od těchto
+z&amp;#225%3bznamů. V&amp;#253%3bhodou tohoto řešen&amp;#237%3b je, že by se nemusely všechny prvky posouvat tak často.
+
+Změna vyhled&amp;#225%3bvac&amp;#237%3bho stromu je však jednoduch&amp;#225%3b, stač&amp;#237%3b změna v souboru Db.cs, nov&amp;#253%3b strom mus&amp;#237%3b b&amp;#253%3bt potomkem tř&amp;#237%3bdy BTS z BTS.cs a mus&amp;#237%3b implementovat z&amp;#225%3bkladn&amp;#237%3b rozhran&amp;#237%3b ITree.
+
+## Př&amp;#237%3bklad
+
+Př&amp;#237%3bkladov&amp;#253%3b zdrojov&amp;#253%3b k&amp;#243%3bd naleznete v souboru [Program.cs]%28https://github.com/JamesConstruct/inmemorydb/blob/main/InMemoryDB/Program.cs%29.
+
+## Docs
+
+[Dokumentace Zde]%28https://jamesconstruct.github.io/inmemorydb%29.
+
+## Tests
+
+Testy jsou napsan&amp;#233%3b v testovac&amp;#237%3bm frameworku xUnit a testuj&amp;#237%3b předevš&amp;#237%3bm API datab&amp;#225%3bze a různ&amp;#233%3b kombinovan&amp;#233%3b dotazy a datov&amp;#233%3b manipulace.</ProjectSummary>
     <NamespaceSummaries>
-      <NamespaceSummaryItem name="InMemoryDB" isDocumented="True">Jednoduchá in-memory databáze napsaná v C# jako zápočtový projekt do Programování II.
- Databáze má polymorfní strukturu a může obsahovat libovolný počet sloupců (omezení pamětí) různého druhu. Databáze nativně podporuje základní datové typy C#, avšak
- je možné ji snadno rozšířit tak, aby pracovala s jakýmkoli typem implementujícím IComparable interface. Databáze podporuje indexování a binární vyhledávání
- v logaritmickém čase.
- 
- 
- &lt;h1&gt;Inicializace&lt;/h1&gt;
- 
- Databáze se inicializuje pomocí Db db = new Db();
- Dojde k inicializaci prázdné tabulky neobsahující žádné sloupce ani data.
- 
- 
- &lt;h1&gt;Struktura&lt;/h1&gt;
- 
- Strukturu databáze lze libovolně měnit, dokud je prázdná, poté tento pokus vyústí v Exception. Sloupce lze přidávat pomocí metody &lt;code&gt;AddColumn&lt;T&gt;(string name)&lt;/code&gt;,
- jež přiřadí sloupci jak název tak datový typ, ten je pro daný sloupec již neměnný, avšak sloupec lze později odstranit pomocí metod RemoveColumn a RemoveColumnAt.
- Pro vytvoření indexu slouží metoda MakeIndex&lt;T&gt;(string column_name), která přijímá název sloupce. Automaticky se tak namapuje binární vyhledávací strom (třída BST)
- na daný index a při každém přidání prvku se hodnota v daném sloupci zařadí do stromu spolu s odkazem na konkrétní řádek.
- 
- 
- &lt;h1&gt;Runtime&lt;/h1&gt;
- 
- Pro přidání slouží metoda Insert, celkový počet řádků vyjadřuje vlastnost Count. Pro vyhledávání existují dvě základní metody SelectOneWhere a SelectAllWhere,
- které vrací výsledky, jež se na daném sloupci shodují s hledanou hodnotou. SelectOneWhere vrací tzv. RecordWrapper, který zabaluje Record tak, aby se k jeho polím
- dalo dynamicky přistupovat jako k vlastnostem (avšak neobsahuje jakoukoli komplilační kontrolu existence sloupců). SelectAllWhere vrací všechny výsledky, které se
- shodují na daném sloupci s hledanou hodnotou ve formě pod-tabulky: opět třídy Db, která však obsahuje jen hledané řádky. Při tomto výběru se automaticky vybudují
- všechny indexy pro pod-tabulku znovu a umožňují stejné binární vyhledávání jako na mateřské tabulce. 
- 
- 
- &lt;h2&gt;Binární vyhledání&lt;/h2&gt;
- 
- O binární vyhledávání se starají binární vyhledávací stromy, jež se budují během přidávání prvků. Třída BST představuje jednoduchý nevyvážený strom, avšak lze ji
- nahradit jakoukoli třídou, jež implementuje interface ITree a je potomkem třídy BST. Tedy ji lze jednoduše vyměnit např. za AVL strom a zajistit si tak lepší
- složitost v nejhorším případě (v původní implementaci až lineární složitost).
- 
- 
- &lt;h2&gt;Více-sloupcové vyhledávání&lt;/h2&gt;
- 
- Více sloupcového vyhledávání lze dosáhnout pomocí SelectAllWhere, jež vrací tabulku, na které se opět dá spustit vyhledávání. Obdobně se dá postupovat při
- přidání dalších vyhledávácích metod.
- 
- 
- &lt;h2&gt;Rozšiřitelnost&lt;/h2&gt;
- 
- Databázi lze snadno rozšířit o další datové typy, stačí pouze rozšířit třídu FieldConvertor o funkci GetField:
- 
- &lt;code&gt;
- 
- public static ParentField GetField(bool val)
- {
-    return new Field&lt;bool&gt;(val);
- }
- 
- &lt;/code&gt;
- 
- Rozšíření o další možnosti Selektování lze jednoduše, pokud stačí lineární čas, avšak pro práci s binárním vyhledáváním je třeba vzít do úvahy slovník _indexes a pracovat
- s vyhledávacími stromy, to je asi nejvíce problematická část, co se rozšíření kódu týče, celková implementace stromů je pro další vývojáře možná zbytečně komplikovaná a
- specifická. Slovník _indexes obsahuje jako klíč pozici sloupce v tabulce a jako hodnotu příslušící vyhledávací strom uložený v polymorfním kontejneru obsahujícím mateřský
- typ BTS.
- 
- Pro implementaci dalších operací by také bylo třeba upravit BTS, avšak lze k tomu použít standardní metody práce s BVS. Při mazání je nutno synchronizovat mazání v tabulce a
- indexovacích stromech, elegantním řešením by byl další "neviditelný" sloupec, jež by označoval, zda-li byl záznam smazán, a tabulka by se čas od času pročistila od těchto
- záznamů. Výhodou tohoto řešení je, že by se nemusely všechny prvky posouvat tak často.
- 
- Změna vyhledávacího stromu je však jednoduchá, stačí změna v souboru Db.cs, nový strom musí být potomkem třídy BTS z BTS.cs a musí implementovat základní rozhraní ITree.
- 
- &lt;h1&gt;Příklad&lt;/h1&gt;
- 
- Příkladový zdrojový kód naleznete v souboru Program.cs</NamespaceSummaryItem>
-      <NamespaceSummaryItem name="(global)" isDocumented="True">Jednoduchá in-memory databáze napsaná v C# jako zápočtový projekt do Programování II.
- Databáze má polymorfní strukturu a může obsahovat libovolný počet sloupců (omezení pamětí) různého druhu. Databáze nativně podporuje základní datové typy C#, avšak
- je možné ji snadno rozšířit tak, aby pracovala s jakýmkoli typem implementujícím IComparable interface. Databáze podporuje indexování a binární vyhledávání
- v logaritmickém čase.
- 
- 
- &lt;h1&gt;Inicializace&lt;/h1&gt;
- 
- Databáze se inicializuje pomocí Db db = new Db();
- Dojde k inicializaci prázdné tabulky neobsahující žádné sloupce ani data.
- 
- 
- &lt;h1&gt;Struktura&lt;/h1&gt;
- 
- Strukturu databáze lze libovolně měnit, dokud je prázdná, poté tento pokus vyústí v Exception. Sloupce lze přidávat pomocí metody &lt;code&gt;AddColumn&lt;T&gt;(string name)&lt;/code&gt;,
- jež přiřadí sloupci jak název tak datový typ, ten je pro daný sloupec již neměnný, avšak sloupec lze později odstranit pomocí metod RemoveColumn a RemoveColumnAt.
- Pro vytvoření indexu slouží metoda MakeIndex&lt;T&gt;(string column_name), která přijímá název sloupce. Automaticky se tak namapuje binární vyhledávací strom (třída BST)
- na daný index a při každém přidání prvku se hodnota v daném sloupci zařadí do stromu spolu s odkazem na konkrétní řádek.
- 
- 
- &lt;h1&gt;Runtime&lt;/h1&gt;
- 
- Pro přidání slouží metoda Insert, celkový počet řádků vyjadřuje vlastnost Count. Pro vyhledávání existují dvě základní metody SelectOneWhere a SelectAllWhere,
- které vrací výsledky, jež se na daném sloupci shodují s hledanou hodnotou. SelectOneWhere vrací tzv. RecordWrapper, který zabaluje Record tak, aby se k jeho polím
- dalo dynamicky přistupovat jako k vlastnostem (avšak neobsahuje jakoukoli komplilační kontrolu existence sloupců). SelectAllWhere vrací všechny výsledky, které se
- shodují na daném sloupci s hledanou hodnotou ve formě pod-tabulky: opět třídy Db, která však obsahuje jen hledané řádky. Při tomto výběru se automaticky vybudují
- všechny indexy pro pod-tabulku znovu a umožňují stejné binární vyhledávání jako na mateřské tabulce. 
- 
- 
- &lt;h2&gt;Binární vyhledání&lt;/h2&gt;
- 
- O binární vyhledávání se starají binární vyhledávací stromy, jež se budují během přidávání prvků. Třída BST představuje jednoduchý nevyvážený strom, avšak lze ji
- nahradit jakoukoli třídou, jež implementuje interface ITree a je potomkem třídy BST. Tedy ji lze jednoduše vyměnit např. za AVL strom a zajistit si tak lepší
- složitost v nejhorším případě (v původní implementaci až lineární složitost).
- 
- 
- &lt;h2&gt;Více-sloupcové vyhledávání&lt;/h2&gt;
- 
- Více sloupcového vyhledávání lze dosáhnout pomocí SelectAllWhere, jež vrací tabulku, na které se opět dá spustit vyhledávání. Obdobně se dá postupovat při
- přidání dalších vyhledávácích metod.
- 
- 
- &lt;h2&gt;Rozšiřitelnost&lt;/h2&gt;
- 
- Databázi lze snadno rozšířit o další datové typy, stačí pouze rozšířit třídu FieldConvertor o funkci GetField:
- 
- &lt;code&gt;
- 
- public static ParentField GetField(bool val)
- {
-    return new Field&lt;bool&gt;(val);
- }
- 
- &lt;/code&gt;
- 
- Rozšíření o další možnosti Selektování lze jednoduše, pokud stačí lineární čas, avšak pro práci s binárním vyhledáváním je třeba vzít do úvahy slovník _indexes a pracovat
- s vyhledávacími stromy, to je asi nejvíce problematická část, co se rozšíření kódu týče, celková implementace stromů je pro další vývojáře možná zbytečně komplikovaná a
- specifická. Slovník _indexes obsahuje jako klíč pozici sloupce v tabulce a jako hodnotu příslušící vyhledávací strom uložený v polymorfním kontejneru obsahujícím mateřský
- typ BTS.
- 
- Pro implementaci dalších operací by také bylo třeba upravit BTS, avšak lze k tomu použít standardní metody práce s BVS. Při mazání je nutno synchronizovat mazání v tabulce a
- indexovacích stromech, elegantním řešením by byl další "neviditelný" sloupec, jež by označoval, zda-li byl záznam smazán, a tabulka by se čas od času pročistila od těchto
- záznamů. Výhodou tohoto řešení je, že by se nemusely všechny prvky posouvat tak často.
- 
- Změna vyhledávacího stromu je však jednoduchá, stačí změna v souboru Db.cs, nový strom musí být potomkem třídy BTS z BTS.cs a musí implementovat základní rozhraní ITree.
- 
- &lt;h1&gt;Příklad&lt;/h1&gt;
- 
- Příkladový zdrojový kód naleznete v souboru Program.cs</NamespaceSummaryItem>
-    </NamespaceSummaries>
+      <NamespaceSummaryItem name="InMemoryDB" isDocumented="True" />
+<NamespaceSummaryItem name="(global)" isDocumented="True">Jednoduchá **in-memory** databáze napsaná v C# jako zápočtový projekt do Programování v C#.
+Databáze má polymorfní strukturu a může obsahovat libovolný počet sloupců (omezení pamětí) různého druhu. Databáze nativně podporuje základní datové typy C#, avšak
+je možné ji snadno rozšířit tak, aby pracovala s jakýmkoli typem implementujícím IComparable interface. Databáze podporuje indexování a binární vyhledávání
+v logaritmickém čase.
+
+## Inicializace
+
+Databáze se inicializuje pomocí Db db = new Db();
+Dojde k inicializaci prázdné tabulky neobsahující žádné sloupce ani data.
+
+
+## Struktura
+
+Strukturu databáze lze libovolně měnit, dokud je prázdná, poté tento pokus vyústí v Exception. Sloupce lze přidávat pomocí metody `AddColumn&lt;T&gt;(string name)`,
+jež přiřadí sloupci jak název tak datový typ, ten je pro daný sloupec již neměnný, avšak sloupec lze později odstranit pomocí metod RemoveColumn a RemoveColumnAt.
+Pro vytvoření indexu slouží metoda `MakeIndex&lt;T&gt;(string column_name)`, která přijímá název sloupce. Automaticky se tak namapuje binární vyhledávací strom (třída BST)
+na daný index a při každém přidání prvku se hodnota v daném sloupci zařadí do stromu spolu s odkazem na konkrétní řádek.
+
+
+## Runtime
+
+Pro přidání slouží metoda Insert, celkový počet řádků vyjadřuje vlastnost Count. Pro vyhledávání existují dvě základní metody SelectOneWhere a SelectAllWhere,
+které vrací výsledky, jež se na daném sloupci shodují s hledanou hodnotou. SelectOneWhere vrací tzv. RecordWrapper, který zabaluje Record tak, aby se k jeho polím
+dalo dynamicky přistupovat jako k vlastnostem (avšak neobsahuje jakoukoli komplilační kontrolu existence sloupců). SelectAllWhere vrací všechny výsledky, které se
+shodují na daném sloupci s hledanou hodnotou ve formě pod-tabulky: opět třídy Db, která však obsahuje jen hledané řádky. Při tomto výběru se automaticky vybudují
+všechny indexy pro pod-tabulku znovu a umožňují stejné binární vyhledávání jako na mateřské tabulce. 
+
+
+## Binární vyhledání
+
+O binární vyhledávání se starají binární vyhledávací stromy, jež se budují během přidávání prvků. Třída BST představuje jednoduchý nevyvážený strom, avšak lze ji
+nahradit jakoukoli třídou, jež implementuje interface ITree a je potomkem třídy BST. Tedy ji lze jednoduše vyměnit např. za AVL strom a zajistit si tak lepší
+složitost v nejhorším případě (v původní implementaci až lineární složitost).
+
+
+## Více-sloupcové vyhledávání
+
+Více sloupcového vyhledávání lze dosáhnout pomocí SelectAllWhere, jež vrací tabulku, na které se opět dá spustit vyhledávání. Obdobně se dá postupovat při
+přidání dalších vyhledávácích metod.
+
+### Přístup k položkám
+
+Přistupovat k položkám se dá pomocí indexeru, metod `First()` a `Last()`. Z tabulky lze získat jeden záznam pomocí metody `SelectOneWhere&lt;T&gt;(string col, T val)` nebo pod-tabulku pomocí `SelectAllWhere&lt;T&gt;(string col, T val)` (viz. dokumentace ohledně třídy Db). Získané záznamy jsou obalené wrapperem, který umožňuje dynamický přístup k položkám dle názvu sloupce (tedy například `db[0].firstname`).
+
+### Filtry
+
+Databáze podporuje dynamickou extrakci sloupců, jejich porovnávání / transformování a zpětné vyhledávání v databázi pomocí `BooleanColumn`. 
+Příklad:
+
+```C#
+var db = new Db();
+db.AddColumn&lt;bool&gt;("id");
+db.AddColumn&lt;string&gt;("username");
+db.AddColumn&lt;bool&gt;("active");
+db.MakeIndex("id");
+
+// add data
+
+var activeUsers = db[((dynamic)db).active].username;    // usernames of active users
+var activeJohns = db[activeUsers.username == "john"];   // table containing records only about users named "john" who are active
+```
+
+Filtry umožňují chaining pomocí logických operátorů a aplikaci různých porovnání či transformací (i do jiného typu dat).
+
+```c#
+Func&lt;string, int&gt; nameLength = x =&gt; x.Length;
+var longnameUsers = db[((dynamic)db).username.TransformTo&lt;int&gt;(nameLength) &gt; 5];    // data o uživatelých se jménem delším než 5 znaků
+```
+
+
+## Rozšiřitelnost
+
+Databázi lze snadno rozšířit o další datové typy, jediné podmínky pro typ T jsou IComparable&lt;T&gt;, IEquatable&lt;T&gt; pokud je třeba binární vyhledávací strom nebo filtrování pomocí filtrů či hledání v databázi.
+
+
+Rozšíření o další možnosti Selektování lze jednoduše, pokud stačí lineární čas, avšak pro práci s binárním vyhledáváním je třeba vzít do úvahy slovník _indexes a pracovat
+s vyhledávacími stromy, to je asi nejvíce problematická část, co se rozšíření kódu týče, celková implementace stromů je pro další vývojáře možná zbytečně komplikovaná a
+specifická. Slovník _indexes obsahuje jako klíč pozici sloupce v tabulce a jako hodnotu příslušící vyhledávací strom uložený v polymorfním kontejneru obsahujícím mateřský
+typ BTS.
+
+Pro implementaci dalších operací by také bylo třeba upravit BTS, avšak lze k tomu použít standardní metody práce s BVS. Při mazání je nutno synchronizovat mazání v tabulce a
+indexovacích stromech, elegantním řešením by byl další "neviditelný" sloupec, jež by označoval, zda-li byl záznam smazán, a tabulka by se čas od času pročistila od těchto
+záznamů. Výhodou tohoto řešení je, že by se nemusely všechny prvky posouvat tak často.
+
+Změna vyhledávacího stromu je však jednoduchá, stačí změna v souboru Db.cs, nový strom musí být potomkem třídy BTS z BTS.cs a musí implementovat základní rozhraní ITree.
+
+## Příklad
+
+Příkladový zdrojový kód naleznete v souboru [Program.cs](https://github.com/JamesConstruct/inmemorydb/blob/main/InMemoryDB/Program.cs).
+
+## Docs
+
+[Dokumentace Zde](https://jamesconstruct.github.io/inmemorydb).
+
+## Tests
+
+Testy jsou napsané v testovacím frameworku xUnit a testují především API databáze a různé kombinované dotazy a datové manipulace.</NamespaceSummaryItem></NamespaceSummaries>
     <HelpTitle>In-Memory Datab&amp;#225%3bze v C#</HelpTitle>
     <HelpFileVersion>1.0.0.0</HelpFileVersion>
     <NamingMethod>Guid</NamingMethod>
