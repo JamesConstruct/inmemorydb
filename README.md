@@ -49,7 +49,7 @@ Přistupovat k položkám se dá pomocí indexeru, metod `First()` a `Last()`. Z
 Databáze podporuje dynamickou extrakci sloupců, jejich porovnávání / transformování a zpětné vyhledávání v databázi pomocí `BooleanColumn`. 
 Příklad:
 
-```
+```C#
 var db = new Db();
 db.AddColumn<bool>("id");
 db.AddColumn<string>("username");
@@ -63,7 +63,8 @@ var activeJohns = db[activeUsers.username == "john"];   // table containing reco
 ```
 
 Filtry umožňují chaining pomocí logických operátorů a aplikaci různých porovnání či transformací (i do jiného typu dat).
-```
+
+```c#
 Func<string, int> nameLength = x => x.Length;
 var longnameUsers = db[((dynamic)db).username.TransformTo<int>(nameLength) > 5];    // data o uživatelých se jménem delším než 5 znaků
 ```
@@ -92,3 +93,7 @@ Příkladový zdrojový kód naleznete v souboru [Program.cs](https://github.com
 ## Docs
 
 [Dokumentace Zde](https://github.com/JamesConstruct/inmemorydb/blob/main/InMemoryDB/HtmlHelp/Home.md).
+
+## Tests
+
+Testy jsou napsané v testovacím frameworku xUnit a testují především API databáze a různé kombinované dotazy a datové manipulace.

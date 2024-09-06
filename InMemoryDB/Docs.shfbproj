@@ -15,7 +15,7 @@
     <Name>Documentation</Name>
     <!-- SHFB properties -->
     <FrameworkVersion>.NET Core/.NET Standard/.NET 5.0+</FrameworkVersion>
-    <OutputPath>HtmlHelp\</OutputPath>
+    <OutputPath>..\docs\</OutputPath>
     <HtmlHelpName>Dokumentace</HtmlHelpName>
     <Language>en-US</Language>
     <DocumentationSources>

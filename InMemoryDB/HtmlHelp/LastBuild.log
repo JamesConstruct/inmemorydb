@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<shfbBuild product="Sandcastle Help File Builder and Tools" version="2022.8.14.1" projectFile="C:\Users\kuban\source\repos\InMemoryDB\InMemoryDB\Docs.shfbproj" started="06.09.2024 16:14:14">
+<shfbBuild product="Sandcastle Help File Builder and Tools" version="2022.8.14.1" projectFile="C:\Users\kuban\source\repos\InMemoryDB\InMemoryDB\Docs.shfbproj" started="06.09.2024 17:27:05">
 <buildStep step="Initializing">
 The Sandcastle tools are located in &#39;C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder&#39;
 Locating components in the following folder(s):
@@ -26,19 +26,18 @@ Generating shared content files (en-US, Angličtina (Spojen&#233; st&#225;ty))..
 </buildStep>
 <buildStep step="GenerateApiFilter">
 Generating API filter for MRefBuilder...
-    Last step completed in 00:00:00,0070
+    Last step completed in 00:00:00,0010
 </buildStep>
 <buildStep step="GenerateReflectionInfo">
 Generating reflection information...
-[C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Current\Bin\MSBuild.exe - GenerateRefInfo-e1b2a79d-911c-47a6-8fd3-a4ef4f72df35.proj]
-Vytv&#160;&#253;enˇ sestavenˇ bylo zah&#160;jeno 06.09.2024 16:14:15.
-Projekt C:\Users\kuban\source\repos\InMemoryDB\InMemoryDB\HtmlHelp\Working\GenerateRefInfo-e1b2a79d-911c-47a6-8fd3-a4ef4f72df35.proj v uzlu 1 (věchozˇ cˇle).
+[C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Current\Bin\amd64\MSBuild.exe - GenerateRefInfo-cd011b8c-f486-4b34-b36c-eeae1e924cf6.proj]
+Vytv&#160;&#253;enˇ sestavenˇ bylo zah&#160;jeno 06.09.2024 17:27:06.
+
+Projekt C:\Users\kuban\source\repos\InMemoryDB\InMemoryDB\HtmlHelp\Working\GenerateRefInfo-cd011b8c-f486-4b34-b36c-eeae1e924cf6.proj v uzlu 1 (věchozˇ cˇle).
 PrepareForBuild:
   Probˇh&#160; vytv&#160;&#253;enˇ adres&#160;&#253;e obj\Debug\.
-GenerateBindingRedirects:
-  &#233;kol ResolveAssemblyReferences nevr&#160;til &#167;&#160;dn‚ n&#160;vrhy na p&#253;esmŘrov&#160;nˇ vazeb.
 GenerateRefInfo:
-  Microsoft.Build (v16.11.0+0538acc04cc2c953f220f9ec3f3764db1769defe)
+  Microsoft.Build (v17.7.2+d6990bcfaf520c0d215a194fad0617f7efad68b4)
   c Microsoft Corporation. All rights reserved.
   No source code context base path specified.  Source context information is unavailable.
   Loaded 1 assemblies for reflection and 1 dependency assemblies.
@@ -47,24 +46,24 @@ GenerateRefInfo:
   Wrote information on 1 namespaces, 9 types, and 75 members
   Merging duplicate type and member information
   Merged 0 duplicate type(s) and 0 duplicate member(s)
-Sestavenˇ projektu C:\Users\kuban\source\repos\InMemoryDB\InMemoryDB\HtmlHelp\Working\GenerateRefInfo-e1b2a79d-911c-47a6-8fd3-a4ef4f72df35.proj (s věchozˇmi cˇli) bylo dokonźeno.
-    Last step completed in 00:00:00,6090
+Sestavenˇ projektu C:\Users\kuban\source\repos\InMemoryDB\InMemoryDB\HtmlHelp\Working\GenerateRefInfo-cd011b8c-f486-4b34-b36c-eeae1e924cf6.proj (s věchozˇmi cˇli) bylo dokonźeno.
+    Last step completed in 00:00:00,7772
 </buildStep>
 <buildStep step="ApplyDocumentModel">
 Applying document model to reflection output...
-    Last step completed in 00:00:00,0230
+    Last step completed in 00:00:00,0070
 </buildStep>
 <buildStep step="AddApiTopicFilenames">
 Adding topic filenames to API members...
-    Last step completed in 00:00:00,0267
+    Last step completed in 00:00:00,0050
 </buildStep>
 <buildStep step="GenerateApiTopicManifest">
 Generating API topic manifest...
-    Last step completed in 00:00:00,0283
+    Last step completed in 00:00:00,0030
 </buildStep>
 <buildStep step="GenerateNamespaceSummaries">
 Generating namespace summary information...
-    Last step completed in 00:00:00,0020
+    Last step completed in 00:00:00,0010
 </buildStep>
 <buildStep step="CopyAdditionalContent">
 Copying additional content files...
@@ -78,11 +77,11 @@ Merging conceptual and additional tables of contents...
 <buildStep step="GenerateIntermediateTableOfContents">
 Generating intermediate table of contents file for API content...
 Generating conceptual content intermediate TOC file...
-    Last step completed in 00:00:00,0160
+    Last step completed in 00:00:00,0050
 </buildStep>
 <buildStep step="CreateBuildAssemblerConfigs">
 Creating Sandcastle configuration files...
-    Last step completed in 00:00:00,0650
+    Last step completed in 00:00:00,0420
 </buildStep>
 <buildStep step="CombiningIntermediateTocFiles">
 Combining conceptual and API intermediate TOC files...
@@ -93,18 +92,15 @@ Merging custom build component configurations
 C:\Users\kuban\source\repos\InMemoryDB\InMemoryDB\HtmlHelp\Working\BuildAssembler.config
   Updating reference topic configurations.
   No conceptual content.  Removing conceptual content components.
-    Last step completed in 00:00:00,0170
+    Last step completed in 00:00:00,0030
 </buildStep>
 <buildStep step="BuildTopics">
 Building help topics...
 Loading configuration...
 Processing topics...
-SHFB: Warning BE0066: ShowMissingComponent: [N:InMemoryDB] Missing &lt;summary&gt; documentation
 SHFB: Warning BE0066: ShowMissingComponent: [T:InMemoryDB.BooleanColumn] Missing &lt;summary&gt; documentation
 SHFB: Warning BE0066: ShowMissingComponent: [M:InMemoryDB.BooleanColumn.#ctor(System.Collections.Generic.List{System.Boolean})] Missing &lt;param name=&quot;contents&quot;/&gt; documentation
 SHFB: Warning BE0066: ShowMissingComponent: [F:InMemoryDB.BooleanColumn._contents] Missing &lt;summary&gt; documentation
-SHFB: Warning BE0066: ShowMissingComponent: [P:InMemoryDB.BooleanColumn.Item(System.Int32)] Missing &lt;summary&gt; documentation
-SHFB: Warning BE0066: ShowMissingComponent: [P:InMemoryDB.BooleanColumn.Length] Missing &lt;summary&gt; documentation
 SHFB: Warning BE0066: ShowMissingComponent: [M:InMemoryDB.BooleanColumn.op_BitwiseAnd(InMemoryDB.BooleanColumn,InMemoryDB.BooleanColumn)] Missing &lt;summary&gt; documentation
 SHFB: Warning BE0066: ShowMissingComponent: [M:InMemoryDB.BooleanColumn.op_BitwiseAnd(InMemoryDB.BooleanColumn,InMemoryDB.BooleanColumn)] Missing &lt;returns&gt; documentation
 SHFB: Warning BE0066: ShowMissingComponent: [M:InMemoryDB.BooleanColumn.op_BitwiseAnd(InMemoryDB.BooleanColumn,InMemoryDB.BooleanColumn)] Missing &lt;param name=&quot;a&quot;/&gt; documentation
@@ -116,19 +112,10 @@ SHFB: Warning BE0066: ShowMissingComponent: [M:InMemoryDB.BooleanColumn.op_Bitwi
 SHFB: Warning BE0066: ShowMissingComponent: [M:InMemoryDB.BooleanColumn.op_LogicalNot(InMemoryDB.BooleanColumn)] Missing &lt;summary&gt; documentation
 SHFB: Warning BE0066: ShowMissingComponent: [M:InMemoryDB.BooleanColumn.op_LogicalNot(InMemoryDB.BooleanColumn)] Missing &lt;returns&gt; documentation
 SHFB: Warning BE0066: ShowMissingComponent: [M:InMemoryDB.BooleanColumn.op_LogicalNot(InMemoryDB.BooleanColumn)] Missing &lt;param name=&quot;col&quot;/&gt; documentation
-SHFB: Warning BE0066: ShowMissingComponent: [T:InMemoryDB.Column`1] Missing &lt;summary&gt; documentation
-SHFB: Warning BE0066: ShowMissingComponent: [T:InMemoryDB.Column`1] Missing &lt;typeparam name=&quot;T&quot;/&gt; documentation
-SHFB: Warning BE0066: ShowMissingComponent: [M:InMemoryDB.Column`1.#ctor(System.Collections.Generic.List{`0})] Missing &lt;param name=&quot;contents&quot;/&gt; documentation
-SHFB: Warning BE0066: ShowMissingComponent: [M:InMemoryDB.Column`1.Compare(InMemoryDB.Column{`0},System.Func{`0,`0,System.Boolean})] Missing &lt;summary&gt; documentation
-SHFB: Warning BE0066: ShowMissingComponent: [M:InMemoryDB.Column`1.Compare(InMemoryDB.Column{`0},System.Func{`0,`0,System.Boolean})] Missing &lt;returns&gt; documentation
-SHFB: Warning BE0066: ShowMissingComponent: [M:InMemoryDB.Column`1.Compare(InMemoryDB.Column{`0},System.Func{`0,`0,System.Boolean})] Missing &lt;param name=&quot;other&quot;/&gt; documentation
-SHFB: Warning BE0066: ShowMissingComponent: [M:InMemoryDB.Column`1.Compare(InMemoryDB.Column{`0},System.Func{`0,`0,System.Boolean})] Missing &lt;param name=&quot;comparator&quot;/&gt; documentation
 SHFB: Warning BE0066: ResolveReferenceLinksComponent: [M:InMemoryDB.Column`1.Compare(InMemoryDB.Column{`0},System.Func{`0,`0,System.Boolean})] Member ID URL resolver service failed.  No further look ups will be performed for this build.
 Reason: Nadř&#237;zen&#233; připojen&#237; bylo uzavřeno: Nepodařilo se nastavit vztah důvěryhodnosti pro zabezpečen&#253; kan&#225;l SSL/TLS..
 Na z&#225;kladě proveden&#233;ho ověřen&#237; nen&#237; vzd&#225;len&#253; certifik&#225;t platn&#253;.
 SHFB: Warning BE0066: ShowMissingComponent: [F:InMemoryDB.Column`1.Contents] Missing &lt;summary&gt; documentation
-SHFB: Warning BE0066: ShowMissingComponent: [P:InMemoryDB.Column`1.Item(System.Int32)] Missing &lt;summary&gt; documentation
-SHFB: Warning BE0066: ShowMissingComponent: [P:InMemoryDB.Column`1.Length] Missing &lt;summary&gt; documentation
 SHFB: Warning BE0066: ShowMissingComponent: [M:InMemoryDB.Column`1.op_BitwiseAnd(InMemoryDB.Column{`0},System.Func{`0,`0})] Missing &lt;summary&gt; documentation
 SHFB: Warning BE0066: ShowMissingComponent: [M:InMemoryDB.Column`1.op_BitwiseAnd(InMemoryDB.Column{`0},System.Func{`0,`0})] Missing &lt;returns&gt; documentation
 SHFB: Warning BE0066: ShowMissingComponent: [M:InMemoryDB.Column`1.op_BitwiseAnd(InMemoryDB.Column{`0},System.Func{`0,`0})] Missing &lt;param name=&quot;col&quot;/&gt; documentation
@@ -137,14 +124,9 @@ SHFB: Warning BE0066: ShowMissingComponent: [M:InMemoryDB.Column`1.op_Equality(I
 SHFB: Warning BE0066: ShowMissingComponent: [M:InMemoryDB.Column`1.op_Equality(InMemoryDB.Column{`0},InMemoryDB.Column{`0})] Missing &lt;returns&gt; documentation
 SHFB: Warning BE0066: ShowMissingComponent: [M:InMemoryDB.Column`1.op_Equality(InMemoryDB.Column{`0},InMemoryDB.Column{`0})] Missing &lt;param name=&quot;left&quot;/&gt; documentation
 SHFB: Warning BE0066: ShowMissingComponent: [M:InMemoryDB.Column`1.op_Equality(InMemoryDB.Column{`0},InMemoryDB.Column{`0})] Missing &lt;param name=&quot;right&quot;/&gt; documentation
-SHFB: Warning BE0066: ShowMissingComponent: [M:InMemoryDB.Column`1.op_Equality(InMemoryDB.Column{`0},`0)] Missing &lt;summary&gt; documentation
-SHFB: Warning BE0066: ShowMissingComponent: [M:InMemoryDB.Column`1.op_Equality(InMemoryDB.Column{`0},`0)] Missing &lt;returns&gt; documentation
 SHFB: Warning BE0066: ShowMissingComponent: [M:InMemoryDB.Column`1.op_Equality(InMemoryDB.Column{`0},`0)] Missing &lt;param name=&quot;left&quot;/&gt; documentation
 SHFB: Warning BE0066: ShowMissingComponent: [M:InMemoryDB.Column`1.op_Equality(InMemoryDB.Column{`0},`0)] Missing &lt;param name=&quot;val&quot;/&gt; documentation
-SHFB: Warning BE0066: ShowMissingComponent: [M:InMemoryDB.Column`1.op_GreaterThan(InMemoryDB.Column{`0},`0)] Missing &lt;summary&gt; documentation
 SHFB: Warning BE0066: ShowMissingComponent: [M:InMemoryDB.Column`1.op_GreaterThan(InMemoryDB.Column{`0},`0)] Missing &lt;returns&gt; documentation
-SHFB: Warning BE0066: ShowMissingComponent: [M:InMemoryDB.Column`1.op_GreaterThan(InMemoryDB.Column{`0},`0)] Missing &lt;param name=&quot;left&quot;/&gt; documentation
-SHFB: Warning BE0066: ShowMissingComponent: [M:InMemoryDB.Column`1.op_GreaterThan(InMemoryDB.Column{`0},`0)] Missing &lt;param name=&quot;val&quot;/&gt; documentation
 SHFB: Warning BE0066: ShowMissingComponent: [M:InMemoryDB.Column`1.op_Inequality(InMemoryDB.Column{`0},InMemoryDB.Column{`0})] Missing &lt;summary&gt; documentation
 SHFB: Warning BE0066: ShowMissingComponent: [M:InMemoryDB.Column`1.op_Inequality(InMemoryDB.Column{`0},InMemoryDB.Column{`0})] Missing &lt;returns&gt; documentation
 SHFB: Warning BE0066: ShowMissingComponent: [M:InMemoryDB.Column`1.op_Inequality(InMemoryDB.Column{`0},InMemoryDB.Column{`0})] Missing &lt;param name=&quot;left&quot;/&gt; documentation
@@ -153,19 +135,7 @@ SHFB: Warning BE0066: ShowMissingComponent: [M:InMemoryDB.Column`1.op_Inequality
 SHFB: Warning BE0066: ShowMissingComponent: [M:InMemoryDB.Column`1.op_Inequality(InMemoryDB.Column{`0},`0)] Missing &lt;returns&gt; documentation
 SHFB: Warning BE0066: ShowMissingComponent: [M:InMemoryDB.Column`1.op_Inequality(InMemoryDB.Column{`0},`0)] Missing &lt;param name=&quot;left&quot;/&gt; documentation
 SHFB: Warning BE0066: ShowMissingComponent: [M:InMemoryDB.Column`1.op_Inequality(InMemoryDB.Column{`0},`0)] Missing &lt;param name=&quot;val&quot;/&gt; documentation
-SHFB: Warning BE0066: ShowMissingComponent: [M:InMemoryDB.Column`1.op_LessThan(InMemoryDB.Column{`0},`0)] Missing &lt;summary&gt; documentation
-SHFB: Warning BE0066: ShowMissingComponent: [M:InMemoryDB.Column`1.op_LessThan(InMemoryDB.Column{`0},`0)] Missing &lt;returns&gt; documentation
-SHFB: Warning BE0066: ShowMissingComponent: [M:InMemoryDB.Column`1.op_LessThan(InMemoryDB.Column{`0},`0)] Missing &lt;param name=&quot;left&quot;/&gt; documentation
-SHFB: Warning BE0066: ShowMissingComponent: [M:InMemoryDB.Column`1.op_LessThan(InMemoryDB.Column{`0},`0)] Missing &lt;param name=&quot;val&quot;/&gt; documentation
-SHFB: Warning BE0066: ShowMissingComponent: [M:InMemoryDB.Column`1.ToString] Missing &lt;summary&gt; documentation
-SHFB: Warning BE0066: ShowMissingComponent: [M:InMemoryDB.Column`1.ToString] Missing &lt;returns&gt; documentation
-SHFB: Warning BE0066: ShowMissingComponent: [M:InMemoryDB.Column`1.Transform(System.Func{`0,`0})] Missing &lt;summary&gt; documentation
-SHFB: Warning BE0066: ShowMissingComponent: [M:InMemoryDB.Column`1.Transform(System.Func{`0,`0})] Missing &lt;returns&gt; documentation
-SHFB: Warning BE0066: ShowMissingComponent: [M:InMemoryDB.Column`1.Transform(System.Func{`0,`0})] Missing &lt;param name=&quot;transformator&quot;/&gt; documentation
-SHFB: Warning BE0066: ShowMissingComponent: [M:InMemoryDB.Column`1.TransformTo``1(System.Func{`0,``0})] Missing &lt;summary&gt; documentation
-SHFB: Warning BE0066: ShowMissingComponent: [M:InMemoryDB.Column`1.TransformTo``1(System.Func{`0,``0})] Missing &lt;typeparam name=&quot;V&quot;/&gt; documentation
-SHFB: Warning BE0066: ShowMissingComponent: [M:InMemoryDB.Column`1.TransformTo``1(System.Func{`0,``0})] Missing &lt;returns&gt; documentation
-SHFB: Warning BE0066: ShowMissingComponent: [M:InMemoryDB.Column`1.TransformTo``1(System.Func{`0,``0})] Missing &lt;param name=&quot;transform&quot;/&gt; documentation
+SHFB: Warning BE0066: ShowMissingComponent: [T:InMemoryDB.Db] Missing &lt;summary&gt; documentation
 SHFB: Warning BE0066: ShowMissingComponent: [F:InMemoryDB.Db._columns] Missing &lt;summary&gt; documentation
 SHFB: Warning BE0066: ShowMissingComponent: [F:InMemoryDB.Db._empty] Missing &lt;summary&gt; documentation
 SHFB: Warning BE0066: ShowMissingComponent: [F:InMemoryDB.Db._fields] Missing &lt;summary&gt; documentation
@@ -226,10 +196,10 @@ SHFB: Warning BE0066: ShowMissingComponent: [M:InMemoryDB.ITree`1.FindAll(`0)] M
 SHFB: Warning BE0066: ShowMissingComponent: [M:InMemoryDB.ParentField.ToString] Missing &lt;summary&gt; documentation
 SHFB: Warning BE0066: ShowMissingComponent: [M:InMemoryDB.ParentField.ToString] Missing &lt;returns&gt; documentation
 Processed 109 topic(s)
-124 warning(s)
+95 warning(s)
 CopyFromIndexComponent: &quot;reflection&quot; in-memory cache entries used: 5 of 15.
 CopyFromIndexComponent: &quot;comments&quot; in-memory cache entries used: 3 of 30.
-    Last step completed in 00:00:02,3240
+    Last step completed in 00:00:01,6072
 </buildStep>
 <buildStep step="CopyStandardHelpContent">
 Copying standard help content...
@@ -239,7 +209,7 @@ C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\Markdo
 C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\Markdown\media\AlertSecurity.png -&gt; C:\Users\kuban\source\repos\InMemoryDB\InMemoryDB\HtmlHelp\Working\Output\Markdown\media\AlertSecurity.png
 C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\Markdown\media\AlertToDo.png -&gt; C:\Users\kuban\source\repos\InMemoryDB\InMemoryDB\HtmlHelp\Working\Output\Markdown\media\AlertToDo.png
 C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\Markdown\MarkdownContent\_Footer.md -&gt; C:\Users\kuban\source\repos\InMemoryDB\InMemoryDB\HtmlHelp\Working\Output\Markdown\_Footer.md
-    Last step completed in 00:00:00,0070
+    Last step completed in 00:00:00,0190
 </buildStep>
 <buildStep step="GenerateHelpProject">
 Executing informational Generate Help Project build step for plug-ins (not used for Markdown)
@@ -250,15 +220,15 @@ Generating markdown content...
 Finished generating 109 topics
 Copying content to output folder...
 Finished copying 117 files
-    Last step completed in 00:00:00,2236
+    Last step completed in 00:00:00,2041
 </buildStep>
 <buildStep step="CleanIntermediates">
 Removing intermediate files...
-    Last step completed in 00:00:00,0380
+    Last step completed in 00:00:00,0407
 </buildStep>
 <buildStep step="Completed">
 
-Build completed successfully at 06.09.2024 16:14:18.  Total time: 00:00:03,8511
+Build completed successfully at 06.09.2024 17:27:08.  Total time: 00:00:03,2308
 
 </buildStep>
 </shfbBuild>

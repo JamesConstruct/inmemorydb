@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -68,6 +69,7 @@ namespace InMemoryDB
             return new BooleanColumn(new_contents);
         }
 
+
         public static BooleanColumn operator !=(Column<T> left, Column<T> right)
         {
             if (left.Contents.Count != right.Contents.Count) throw new ArgumentException("Columns are of a different length!");
@@ -85,9 +87,9 @@ namespace InMemoryDB
         /// <summary>
         /// Compare the column with a T value.
         /// </summary>
-        /// <param name="left"></param>
-        /// <param name="val"></param>
-        /// <returns>BooleanColumn with true on the i-th position if i-th element equals val</returns>
+        /// <param name="left">The column for comparison.</param>
+        /// <param name="val">Value to compare with.</param>
+        /// <returns>BooleanColumn with true on the i-th position if the i-th element equals val</returns>
         public static BooleanColumn operator ==(Column<T> left, T val)
         {
 
@@ -102,6 +104,12 @@ namespace InMemoryDB
         }
 
 
+        /// <summary>
+        /// Compares every value in the column to the given value.
+        /// </summary>
+        /// <param name="left">Column to compare.</param>
+        /// <param name="val">Value to compare to.</param>
+        /// <returns></returns>
         public static BooleanColumn operator !=(Column<T> left, T val)
         {
 
@@ -115,6 +123,12 @@ namespace InMemoryDB
             return new BooleanColumn(new_contents);
         }
 
+        /// <summary>
+        /// Compares every value in the column to the given value.
+        /// </summary>
+        /// <param name="left">Column to compare.</param>
+        /// <param name="val">Value to compare to.</param>
+        /// <returns></returns>
         public static BooleanColumn operator >(Column<T> left, T val)
         {
 
@@ -129,11 +143,11 @@ namespace InMemoryDB
         }
 
         /// <summary>
-        /// 
+        /// Compares every value in the column to the given value.
         /// </summary>
-        /// <param name="left"></param>
-        /// <param name="val"></param>
-        /// <returns></returns>
+        /// <param name="left">Column to compare.</param>
+        /// <param name="val">Value to compare to.</param>
+        /// <returns>BooleanColumn</returns>
         public static BooleanColumn operator <(Column<T> left, T val)
         {
 
@@ -147,6 +161,14 @@ namespace InMemoryDB
             return new BooleanColumn(new_contents);
         }
 
+        /// <summary>
+        /// Compares the column with the other using the given comparator. The columns are compared element by element, meaning the result of i-th comparasion is true, provided
+        /// the comparator returns true for the i-th element of the first and the i-th element of the second column.
+        /// </summary>
+        /// <param name="other">Column to compare with, has to be of the same length.</param>
+        /// <param name="comparator">Function to compare two elements.</param>
+        /// <returns>BooleanColumn</returns>
+        /// <exception cref="ArgumentException">Throws ArgumentException if the columns are of a different length.</exception>
         public BooleanColumn Compare(Column<T> other, Func<T, T, bool> comparator)
         {
             if (Length != other.Length) throw new ArgumentException("Columns of different lengths cannot be compared!");
@@ -161,25 +183,37 @@ namespace InMemoryDB
             return new BooleanColumn(new_contents);
         }
 
-        public Column<T> Transform(Func<T, T> transformator)
-        {
+        // the transform function for type V can be used to transform the column into the same type
+        ///// <summary>
+        ///// Transf
+        ///// </summary>
+        ///// <param name="transformator"></param>
+        ///// <returns></returns>
+        //public Column<T> Transform(Func<T, T> transformator)
+        //{
 
-            List<T> new_contents = new List<T>();
+        //    List<T> new_contents = new List<T>();
 
-            for (int i = 0; i < Contents.Count; i++)
-            {
-                new_contents.Add(transformator(Contents[i]));
-            }
+        //    for (int i = 0; i < Contents.Count; i++)
+        //    {
+        //        new_contents.Add(transformator(Contents[i]));
+        //    }
 
-            return new Column<T>(new_contents);
-        }
+        //    return new Column<T>(new_contents);
+        //}
 
         public static Column<T> operator &(Column<T> col, Func<T, T> transform)
         {
             return col.Transform(transform);
         }
 
-        public Column<V> TransformTo<V>(Func<T, V> transform) where V : IComparable<V>, IEquatable<V>
+        /// <summary>
+        /// Transforms the Column<typeparamref name="T"/> into Column<typeparamref name="V"/> of a different underlying type V given the transformation function transform for each element.
+        /// </summary>
+        /// <typeparam name="V">Resulting type after the transformation.</typeparam>
+        /// <param name="transform">Function that transforms each element of type T to the type V.</param>
+        /// <returns>The entire transformed column.</returns>
+        public Column<V> Transform<V>(Func<T, V> transform) where V : IComparable<V>, IEquatable<V>
         {
             List<V> new_contents = new List<V>();
 
@@ -191,36 +225,12 @@ namespace InMemoryDB
             return new Column<V>(new_contents);
         }
 
-        //public static BooleanColumn operator !(Column<T> column)
-        //{
-        //    List<bool> new_contents = new List<bool>();
 
-        //    if (typeof(T) == typeof(bool)) {
-
-        //        foreach (var element in column._contents)
-        //        {
-
-        //            new_contents.Add(!(dynamic)element);
-
-        //        }
-
-        //        return new BooleanColumn(new_contents);
-
-        //    }
-
-        //    else
-        //    {
-        //        throw new NotSupportedException("Only boolean columns can be negated.");
-        //    }
-
-
-        //}
-
-        //public static BooleanColumn operator & (Column<T> left, Column<T> right)
-        //{
-        //    return new BooleanColumn(new List<bool>());
-        //}
-
+        /// <summary>
+        /// Indexer returning the element at the given index.
+        /// </summary>
+        /// <param name="index">Index of the element.</param>
+        /// <returns>Element of type T at the given index.</returns>
         public T this[int index]
         {
             get
@@ -229,6 +239,10 @@ namespace InMemoryDB
             }
         }
 
+        /// <summary>
+        /// Converts the column to string with space between every element.
+        /// </summary>
+        /// <returns>String in format "element1 element2 ...."</returns>
         public override string ToString()
         {
             StringBuilder sb = new();
@@ -240,6 +254,26 @@ namespace InMemoryDB
             return sb.ToString();
         }
 
+
+        /// <summary>
+        /// Compares the Column with another object. Columns are equal when the underlying lists are equal (list can be accessed as column.Content).
+        /// </summary>
+        /// <param name="obj">Object to compare with.</param>
+        /// <returns>True if the other object is also Column<typeparamref name="T"/> with equal underlying list.</returns>
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(this, obj))
+            {
+                return true;
+            }
+
+            if (ReferenceEquals(obj, null))
+            {
+                return false;
+            }
+
+            return obj is Column<T> && (this.Contents == ((Column<T>)obj).Contents);
+        }
     }
 
     /// <summary>

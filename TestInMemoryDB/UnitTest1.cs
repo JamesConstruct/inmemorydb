@@ -153,7 +153,7 @@ namespace TestInMemoryDB
             //output.WriteLine(verifiedPeopleOver12.ToString());
             Func<string, bool> IsVerified = x => verifiedPeopleOver12.Contents.Contains(x);
 
-            var filter = ((dynamic)db).Receiver.TransformTo(IsVerified) == true;
+            var filter = ((dynamic)db).Receiver.Transform(IsVerified) == true;
             var result = db[filter];
 
             output.WriteLine(result.ToString());

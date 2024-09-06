@@ -19,7 +19,7 @@ namespace InMemoryDB
 
     /// <summary>
     /// Jednoduchá in-memory databáze napsaná v C# jako zápočtový projekt do Programování II.
-    /// Databáze má polymorfní strukturu a může obsahovat libovolný počet sloupců (omezení pamětí) různého druhu. Databáze nativně podporuje základní datové typy C#, avšak
+    /// Databáze má polymorfní strukturu a může obsahovat libovolný počet sloupců(omezení pamětí) různého druhu.Databáze nativně podporuje základní datové typy C#, avšak
     /// je možné ji snadno rozšířit tak, aby pracovala s jakýmkoli typem implementujícím IComparable interface. Databáze podporuje indexování a binární vyhledávání
     /// v logaritmickém čase.
     /// 
@@ -41,22 +41,22 @@ namespace InMemoryDB
     /// <h1>Runtime</h1>
     /// 
     /// Pro přidání slouží metoda Insert, celkový počet řádků vyjadřuje vlastnost Count. Pro vyhledávání existují dvě základní metody SelectOneWhere a SelectAllWhere,
-    /// které vrací výsledky, jež se na daném sloupci shodují s hledanou hodnotou. SelectOneWhere vrací tzv. RecordWrapper, který zabaluje Record tak, aby se k jeho polím
+    /// které vrací výsledky, jež se na daném sloupci shodují s hledanou hodnotou.SelectOneWhere vrací tzv.RecordWrapper, který zabaluje Record tak, aby se k jeho polím
     /// dalo dynamicky přistupovat jako k vlastnostem (avšak neobsahuje jakoukoli komplilační kontrolu existence sloupců). SelectAllWhere vrací všechny výsledky, které se
-    /// shodují na daném sloupci s hledanou hodnotou ve formě pod-tabulky: opět třídy Db, která však obsahuje jen hledané řádky. Při tomto výběru se automaticky vybudují
-    /// všechny indexy pro pod-tabulku znovu a umožňují stejné binární vyhledávání jako na mateřské tabulce. 
+    /// shodují na daném sloupci s hledanou hodnotou ve formě pod-tabulky: opět třídy Db, která však obsahuje jen hledané řádky.Při tomto výběru se automaticky vybudují
+    /// všechny indexy pro pod-tabulku znovu a umožňují stejné binární vyhledávání jako na mateřské tabulce.
     /// 
     /// 
     /// <h2>Binární vyhledání</h2>
     /// 
     /// O binární vyhledávání se starají binární vyhledávací stromy, jež se budují během přidávání prvků. Třída BST představuje jednoduchý nevyvážený strom, avšak lze ji
-    /// nahradit jakoukoli třídou, jež implementuje interface ITree a je potomkem třídy BST. Tedy ji lze jednoduše vyměnit např. za AVL strom a zajistit si tak lepší
+    /// nahradit jakoukoli třídou, jež implementuje interface ITree a je potomkem třídy BST.Tedy ji lze jednoduše vyměnit např.za AVL strom a zajistit si tak lepší
     /// složitost v nejhorším případě (v původní implementaci až lineární složitost).
     /// 
     /// 
     /// <h2>Více-sloupcové vyhledávání</h2>
     /// 
-    /// Více sloupcového vyhledávání lze dosáhnout pomocí SelectAllWhere, jež vrací tabulku, na které se opět dá spustit vyhledávání. Obdobně se dá postupovat při
+    /// Více sloupcového vyhledávání lze dosáhnout pomocí SelectAllWhere, jež vrací tabulku, na které se opět dá spustit vyhledávání.Obdobně se dá postupovat při
     /// přidání dalších vyhledávácích metod.
     /// 
     /// 
@@ -70,9 +70,9 @@ namespace InMemoryDB
     /// {
     ///    return new Fiel bool (val);
     /// }
-    /// 
-    /// 
-    /// 
+    ///
+    ///
+    ///
     /// Rozšíření o další možnosti Selektování lze jednoduše, pokud stačí lineární čas, avšak pro práci s binárním vyhledáváním je třeba vzít do úvahy slovník _indexes a pracovat
     /// s vyhledávacími stromy, to je asi nejvíce problematická část, co se rozšíření kódu týče, celková implementace stromů je pro další vývojáře možná zbytečně komplikovaná a
     /// specifická. Slovník _indexes obsahuje jako klíč pozici sloupce v tabulce a jako hodnotu příslušící vyhledávací strom uložený v polymorfním kontejneru obsahujícím mateřský
