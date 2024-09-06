@@ -10,3 +10,4 @@ InMemoryDB/*.csproj
 *.zip
 InMemoryDB/*.rar
 InMemoryDB/*.zip
+.vs/*
