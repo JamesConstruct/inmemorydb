@@ -1,7 +1,4 @@
-﻿using System.IO;
-
-
-namespace InMemoryDB
+﻿namespace InMemoryDB
 {
 
     /// <summary>
@@ -18,6 +15,8 @@ namespace InMemoryDB
 
             // Jednoduchá tabulka, výběr dle jména a součet
 
+            Console.WriteLine("Simple table:\n*************");
+
             var db = new InMemoryDB.Db();
 
             db.AddColumn<int>("Id");
@@ -32,6 +31,8 @@ namespace InMemoryDB
             db.Insert(13, "Alpharomeo", 1.02);
             db.Insert(1, "Ziki", 1.0);
             db.Insert(44, "Emily", 100.00);
+
+            Console.WriteLine(db);
 
             dynamic r = db.SelectOneWhere("Name", "Ziki");
             System.Console.WriteLine("Ziki, balance: " + r.Balance);
@@ -56,6 +57,8 @@ namespace InMemoryDB
 
             db.Drop();
 
+            Console.WriteLine("\n\nTransactions:\n*************");
+
             db.AddColumn<int>("Id");
             db.AddColumn<string>("Sender");
             db.AddColumn<string>("Receiver");
@@ -77,20 +80,26 @@ namespace InMemoryDB
 
             Console.WriteLine("Jimmi's balance = " + (income - outcome));
 
+
+
+
             // demonstrace filtrů
 
-            Console.WriteLine("Filters:");
+            Console.WriteLine("\n\nFilters:\n*************");
+
 
             // vyber platby s id 0, jež jsou ověřené, anebo vyber platby které odesílá "Unknown"
-            var filter = ( ((dynamic)db).Id == 0 & ((dynamic)db).Verified ) | ((dynamic)db).Sender == "Unknown";
+            Console.WriteLine("Verified payments with ID 0 or payments from sender unknown:");
+            var filter = (((dynamic)db).Id == 0 & ((dynamic)db).Verified) | ((dynamic)db).Sender == "Unknown";
             var result = db[filter];
             Console.WriteLine(result);
 
             // vyber všechny platby, kde příjemce odeslal alespoň jednu ověřenou platbu
+            Console.WriteLine("All payments, where the receiver sent at least one verified payment:");
             var verifiedPeople = db[((dynamic)db).Verified].Sender;
             Func<string, bool> IsVerified = x => verifiedPeople.Contents.Contains(x);
 
-            var filter2 = ((dynamic)db).Receiver.TransformTo(IsVerified) == true;
+            var filter2 = ((dynamic)db).Receiver.Transform(IsVerified) == true;
             var result2 = db[filter2];
 
             // Console.WriteLine(verifiedPeople);

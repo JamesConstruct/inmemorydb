@@ -57,8 +57,8 @@
     </TransformComponentArguments>
     <ProjectSummary>Jednoduch&amp;#225%3b %2a%2ain-memory%2a%2a datab&amp;#225%3bze napsan&amp;#225%3b v C# jako z&amp;#225%3bpočtov&amp;#253%3b projekt do Programov&amp;#225%3bn&amp;#237%3b v C#.
 Datab&amp;#225%3bze m&amp;#225%3b polymorfn&amp;#237%3b strukturu a může obsahovat libovoln&amp;#253%3b počet sloupců %28omezen&amp;#237%3b pamět&amp;#237%3b%29 různ&amp;#233%3bho druhu. Datab&amp;#225%3bze nativně podporuje z&amp;#225%3bkladn&amp;#237%3b datov&amp;#233%3b typy C#, avšak
-je možn&amp;#233%3b ji snadno rozš&amp;#237%3břit tak, aby pracovala s jak&amp;#253%3bmkoli typem implementuj&amp;#237%3bc&amp;#237%3bm IComparable interface. Datab&amp;#225%3bze podporuje indexov&amp;#225%3bn&amp;#237%3b a bin&amp;#225%3brn&amp;#237%3b vyhled&amp;#225%3bv&amp;#225%3bn&amp;#237%3b
-v logaritmick&amp;#233%3bm čase.
+je možn&amp;#233%3b ji snadno rozš&amp;#237%3břit tak, aby pracovala s jak&amp;#253%3bmkoli typem implementuj&amp;#237%3bc&amp;#237%3bm IComparable a IEquitable interface. Datab&amp;#225%3bze podporuje indexov&amp;#225%3bn&amp;#237%3b a bin&amp;#225%3brn&amp;#237%3b vyhled&amp;#225%3bv&amp;#225%3bn&amp;#237%3b
+v logaritmick&amp;#233%3bm čase, stejně jako pokročil&amp;#233%3b možnosti filtrov&amp;#225%3bn&amp;#237%3b z&amp;#225%3bznamů.
 
 ## Inicializace
 
@@ -154,10 +154,9 @@ Př&amp;#237%3bkladov&amp;#253%3b zdrojov&amp;#253%3b k&amp;#243%3bd naleznete v
 Testy jsou napsan&amp;#233%3b v testovac&amp;#237%3bm frameworku xUnit a testuj&amp;#237%3b předevš&amp;#237%3bm API datab&amp;#225%3bze a různ&amp;#233%3b kombinovan&amp;#233%3b dotazy a datov&amp;#233%3b manipulace.</ProjectSummary>
     <NamespaceSummaries>
       <NamespaceSummaryItem name="InMemoryDB" isDocumented="True" />
-<NamespaceSummaryItem name="(global)" isDocumented="True">Jednoduchá **in-memory** databáze napsaná v C# jako zápočtový projekt do Programování v C#.
+      <NamespaceSummaryItem name="(global)" isDocumented="True">Jednoduchá **in-memory** databáze napsaná v C# jako zápočtový projekt do Programování v C#.
 Databáze má polymorfní strukturu a může obsahovat libovolný počet sloupců (omezení pamětí) různého druhu. Databáze nativně podporuje základní datové typy C#, avšak
-je možné ji snadno rozšířit tak, aby pracovala s jakýmkoli typem implementujícím IComparable interface. Databáze podporuje indexování a binární vyhledávání
-v logaritmickém čase.
+je možné ji snadno rozšířit tak, aby pracovala s jakýmkoli typem implementujícím IComparable a IEquitable interface. Databáze podporuje indexování a binární vyhledávání v logaritmickém čase, stejně jako pokročilé možnosti filtrování záznamů.
 
 ## Inicializace
 
@@ -250,7 +249,8 @@ Příkladový zdrojový kód naleznete v souboru [Program.cs](https://github.com
 
 ## Tests
 
-Testy jsou napsané v testovacím frameworku xUnit a testují především API databáze a různé kombinované dotazy a datové manipulace.</NamespaceSummaryItem></NamespaceSummaries>
+Testy jsou napsané v testovacím frameworku xUnit a testují především API databáze a různé kombinované dotazy a datové manipulace.</NamespaceSummaryItem>
+    </NamespaceSummaries>
     <HelpTitle>In-Memory Datab&amp;#225%3bze v C#</HelpTitle>
     <HelpFileVersion>1.0.0.0</HelpFileVersion>
     <NamingMethod>Guid</NamingMethod>

@@ -9,8 +9,20 @@
             Interface pro konkrétní vyhledávací strom.
             </summary>
         </member>
-        <!-- Badly formed XML comment ignored for member "M:InMemoryDB.ITree`1.Find(`0)" -->
-        <!-- Badly formed XML comment ignored for member "M:InMemoryDB.ITree`1.FindAll(`0)" -->
+        <member name="M:InMemoryDB.ITree`1.Find(`0)">
+            <summary>
+            Vyhledá první prvek s danou hodnotou ve stromě a vrátí jeho id
+            </summary>
+            <param name="value">Hodnota, kterou hledáme.</param>
+            <returns>Int Id daného záznamu.</returns>
+        </member>
+        <member name="M:InMemoryDB.ITree`1.FindAll(`0)">
+            <summary>
+            Vyhledá všechny prvky s danou hodnotou ve stromě a vrátí seznam jejich id.
+            </summary>
+            <param name="value">Hodnota, kterou hledáme.</param>
+            <returns>List of ints Id daných záznamů.</returns>
+        </member>
         <member name="M:InMemoryDB.ITree`1.Insert(`0,System.Int32)">
             <summary>
             Umožňuje vložit nový uzel do stromu s hodnotou value odkazující na záznam s daným Id.
@@ -86,11 +98,28 @@
             <param name="index"></param>
             <returns></returns>
         </member>
+        <member name="P:InMemoryDB.IColumn`1.Length">
+            <summary>
+            Length of the column (number of rows it was taken from).
+            </summary>
+        </member>
+        <member name="M:InMemoryDB.IColumn`1.Equals(System.Object)">
+            <summary>
+            Compares two IColumns for equality.
+            </summary>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
         <member name="T:InMemoryDB.Column`1">
             <summary>
-            Generic class for column (internally a list of T values with added functionality for transformations and stuff).
+            Generic class for column (internally a list of T values with added functionality for transformations and comparisons).
             </summary>
             <typeparam name="T"></typeparam>
+        </member>
+        <member name="F:InMemoryDB.Column`1.Contents">
+            <summary>
+            Internal representation of the column's data.
+            </summary>
         </member>
         <member name="M:InMemoryDB.Column`1.#ctor(System.Collections.Generic.List{`0})">
             <summary>
@@ -103,13 +132,39 @@
             The length of the column (how many rows it spans).
             </summary>
         </member>
+        <member name="M:InMemoryDB.Column`1.op_Equality(InMemoryDB.Column{`0},InMemoryDB.Column{`0})">
+            <summary>
+            Pairwise comparison of two columns of the same length.
+            </summary>
+            <param name="left">First column to compare.</param>
+            <param name="right">Second column to compare.</param>
+            <returns>BooleanColumn on the i-th position if the i-th elements in the left and right columns are the same.</returns>
+            <exception cref="T:System.ArgumentException">Throws ArgumentException if the columns are of a different length.</exception>
+        </member>
+        <member name="M:InMemoryDB.Column`1.op_Inequality(InMemoryDB.Column{`0},InMemoryDB.Column{`0})">
+            <summary>
+            Pairwise comparison of two columns of the same length.
+            </summary>
+            <param name="left">First column to compare.</param>
+            <param name="right">Second column to compare.</param>
+            <returns>BooleanColumn on the i-th position if the i-th elements in the left and right columns are different.</returns>
+            <exception cref="T:System.ArgumentException">Throws ArgumentException if the columns are of a different length.</exception>
+        </member>
         <member name="M:InMemoryDB.Column`1.op_Equality(InMemoryDB.Column{`0},`0)">
             <summary>
             Compare the column with a T value.
             </summary>
-            <param name="left"></param>
-            <param name="val"></param>
-            <returns>BooleanColumn with true on the i-th position if i-th element equals val</returns>
+            <param name="left">The column for comparison.</param>
+            <param name="val">Value to compare with.</param>
+            <returns>BooleanColumn with true on the i-th position if the i-th element equals val</returns>
+        </member>
+        <member name="M:InMemoryDB.Column`1.op_Inequality(InMemoryDB.Column{`0},`0)">
+            <summary>
+            Compares every value in the column to the given value.
+            </summary>
+            <param name="left">Column to compare.</param>
+            <param name="val">Value to compare to.</param>
+            <returns></returns>
         </member>
         <member name="M:InMemoryDB.Column`1.op_GreaterThan(InMemoryDB.Column{`0},`0)">
             <summary>
@@ -136,6 +191,14 @@
             <param name="comparator">Function to compare two elements.</param>
             <returns>BooleanColumn</returns>
             <exception cref="T:System.ArgumentException">Throws ArgumentException if the columns are of a different length.</exception>
+        </member>
+        <member name="M:InMemoryDB.Column`1.op_BitwiseAnd(InMemoryDB.Column{`0},System.Func{`0,`0})">
+            <summary>
+            Apply a transformation on every element of the column.
+            </summary>
+            <param name="col">Column to transform.</param>
+            <param name="transform">Transformation function.</param>
+            <returns>New Column<typeparamref name="T"/> with all elements transformed by the given function.</returns>
         </member>
         <member name="M:InMemoryDB.Column`1.Transform``1(System.Func{`0,``0})">
             <summary>
@@ -165,7 +228,14 @@
             <param name="obj">Object to compare with.</param>
             <returns>True if the other object is also Column<typeparamref name="T"/> with equal underlying list.</returns>
         </member>
-        <!-- Badly formed XML comment ignored for member "T:InMemoryDB.BooleanColumn" -->
+        <member name="M:InMemoryDB.Column`1.GetHashCode">
+            <inheritdoc/>
+        </member>
+        <member name="T:InMemoryDB.BooleanColumn">
+            <summary>
+            Class representing a column of only boolean values. Supports logic operators like AND, OR (|) or NOT (!).
+            </summary>
+        </member>
         <member name="M:InMemoryDB.BooleanColumn.#ctor(System.Collections.Generic.List{System.Boolean})">
             <summary>
             Create a column from list of bools.
@@ -184,79 +254,45 @@
             The length of the column i.e. how many rows it spans.
             </summary>
         </member>
+        <member name="M:InMemoryDB.BooleanColumn.op_BitwiseOr(InMemoryDB.BooleanColumn,InMemoryDB.BooleanColumn)">
+            <summary>
+            Logical bitwise OR operation applied pairwise on all positions.
+            </summary>
+            <param name="a"></param>
+            <param name="b"></param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentException"></exception>
+        </member>
+        <member name="M:InMemoryDB.BooleanColumn.op_BitwiseAnd(InMemoryDB.BooleanColumn,InMemoryDB.BooleanColumn)">
+            <summary>
+            Logical AND between the columns a and b (applied pairwise between all positions).
+            </summary>
+            <param name="a"></param>
+            <param name="b"></param>
+            <returns>BooleanColumn with true on i-th position if both i-th positions in a and b are true.</returns>
+            <exception cref="T:System.ArgumentException"></exception>
+        </member>
+        <member name="M:InMemoryDB.BooleanColumn.op_LogicalNot(InMemoryDB.BooleanColumn)">
+            <summary>
+            Negates the values inside the BooleanColumn.
+            </summary>
+            <param name="col">Column to negate.</param>
+            <returns>BooleanColumn with applied negation.</returns>
+        </member>
         <member name="T:InMemoryDB.NamespaceDoc">
-             <summary>
-             Jednoduchá in-memory databáze napsaná v C# jako zápočtový projekt do Programování II.
-             Databáze má polymorfní strukturu a může obsahovat libovolný počet sloupců(omezení pamětí) různého druhu.Databáze nativně podporuje základní datové typy C#, avšak
-             je možné ji snadno rozšířit tak, aby pracovala s jakýmkoli typem implementujícím IComparable interface. Databáze podporuje indexování a binární vyhledávání
-             v logaritmickém čase.
-             
-             
-             <h1>Inicializace</h1>
-             
-             Databáze se inicializuje pomocí Db db = new Db();
-             Dojde k inicializaci prázdné tabulky neobsahující žádné sloupce ani data.
-             
-             
-             <h1>Struktura</h1>
+            <summary>
             
-             Strukturu databáze lze libovolně měnit, dokud je prázdná, poté tento pokus vyústí v Exception. Sloupce lze přidávat pomocí metody `AddColumn T (string name)`,
-             jež přiřadí sloupci jak název tak datový typ, ten je pro daný sloupec již neměnný, avšak sloupec lze později odstranit pomocí metod RemoveColumn a RemoveColumnAt.
-             Pro vytvoření indexu slouží metoda `MakeIndex T (string column_name)`, která přijímá název sloupce. Automaticky se tak namapuje binární vyhledávací strom (třída BST)
-             na daný index a při každém přidání prvku se hodnota v daném sloupci zařadí do stromu spolu s odkazem na konkrétní řádek.
-             
-             
-             <h1>Runtime</h1>
-             
-             Pro přidání slouží metoda Insert, celkový počet řádků vyjadřuje vlastnost Count. Pro vyhledávání existují dvě základní metody SelectOneWhere a SelectAllWhere,
-             které vrací výsledky, jež se na daném sloupci shodují s hledanou hodnotou.SelectOneWhere vrací tzv.RecordWrapper, který zabaluje Record tak, aby se k jeho polím
-             dalo dynamicky přistupovat jako k vlastnostem (avšak neobsahuje jakoukoli komplilační kontrolu existence sloupců). SelectAllWhere vrací všechny výsledky, které se
-             shodují na daném sloupci s hledanou hodnotou ve formě pod-tabulky: opět třídy Db, která však obsahuje jen hledané řádky.Při tomto výběru se automaticky vybudují
-             všechny indexy pro pod-tabulku znovu a umožňují stejné binární vyhledávání jako na mateřské tabulce.
-             
-             
-             <h2>Binární vyhledání</h2>
-             
-             O binární vyhledávání se starají binární vyhledávací stromy, jež se budují během přidávání prvků. Třída BST představuje jednoduchý nevyvážený strom, avšak lze ji
-             nahradit jakoukoli třídou, jež implementuje interface ITree a je potomkem třídy BST.Tedy ji lze jednoduše vyměnit např.za AVL strom a zajistit si tak lepší
-             složitost v nejhorším případě (v původní implementaci až lineární složitost).
-             
-             
-             <h2>Více-sloupcové vyhledávání</h2>
-             
-             Více sloupcového vyhledávání lze dosáhnout pomocí SelectAllWhere, jež vrací tabulku, na které se opět dá spustit vyhledávání.Obdobně se dá postupovat při
-             přidání dalších vyhledávácích metod.
-             
-             
-             <h2>Rozšiřitelnost</h2>
-             
-             Databázi lze snadno rozšířit o další datové typy, stačí pouze rozšířit třídu FieldConvertor o funkci GetField:
-             
-             
-             
-             public static ParentField GetField(bool val)
-             {
-                return new Fiel bool (val);
-             }
+            Jednoduchá **in-memory** databáze napsaná v C# jako zápočtový projekt do Programování v C#.
+            Databáze má polymorfní strukturu a může obsahovat libovolný počet sloupců (omezení pamětí) různého druhu. Databáze nativně podporuje základní datové typy C#, avšak
+            je možné ji snadno rozšířit tak, aby pracovala s jakýmkoli typem implementujícím IComparable a IEquitable interface. Databáze podporuje indexování a binární vyhledávání
+            v logaritmickém čase, stejně jako pokročilé možnosti filtrování záznamů.
             
-            
-            
-             Rozšíření o další možnosti Selektování lze jednoduše, pokud stačí lineární čas, avšak pro práci s binárním vyhledáváním je třeba vzít do úvahy slovník _indexes a pracovat
-             s vyhledávacími stromy, to je asi nejvíce problematická část, co se rozšíření kódu týče, celková implementace stromů je pro další vývojáře možná zbytečně komplikovaná a
-             specifická. Slovník _indexes obsahuje jako klíč pozici sloupce v tabulce a jako hodnotu příslušící vyhledávací strom uložený v polymorfním kontejneru obsahujícím mateřský
-             typ BTS.
-             
-             Pro implementaci dalších operací by také bylo třeba upravit BTS, avšak lze k tomu použít standardní metody práce s BVS. Při mazání je nutno synchronizovat mazání v tabulce a
-             indexovacích stromech, elegantním řešením by byl další "neviditelný" sloupec, jež by označoval, zda-li byl záznam smazán, a tabulka by se čas od času pročistila od těchto
-             záznamů. Výhodou tohoto řešení je, že by se nemusely všechny prvky posouvat tak často.
-             
-             Změna vyhledávacího stromu je však jednoduchá, stačí změna v souboru Db.cs, nový strom musí být potomkem třídy BTS z BTS.cs a musí implementovat základní rozhraní ITree.
-             
-             <h1>Příklad</h1>
-             
-             Příkladový zdrojový kód naleznete v souboru Program.cs
-             
-             </summary>
+            </summary>
+        </member>
+        <member name="T:InMemoryDB.Db">
+            <summary>
+            The main in-memory database object.
+            </summary>
         </member>
         <member name="T:InMemoryDB.Db.FieldConvertor">
             <summary>
@@ -274,6 +310,34 @@
             </summary>
             <param name="record">Záznam z databáze.</param>
             <param name="db">Databáze, ze které záznam pochází.</param>
+        </member>
+        <member name="M:InMemoryDB.Db.RecordWrapper.GetDynamicMemberNames">
+            <summary>
+            Returns the names of the columns of the parent database (columns defined for this record).
+            </summary>
+            <returns>The column names.</returns>
+        </member>
+        <member name="M:InMemoryDB.Db.RecordWrapper.TryGetMember(System.Dynamic.GetMemberBinder,System.Object@)">
+            <summary>
+            Gives dynamic access to the values of the record by the names of the columns.
+            </summary>
+            <param name="binder">Name of the column.</param>
+            <param name="result">Value of the column in the current record. The value is of the same type as was defined during the column addition in the database structure.</param>
+            <returns>True if success, false otherwise.</returns>
+        </member>
+        <member name="M:InMemoryDB.Db.RecordWrapper.TrySetMember(System.Dynamic.SetMemberBinder,System.Object)">
+            <summary>
+            Tries to set the column value, but that is currently not supported.
+            </summary>
+            <param name="binder"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:InMemoryDB.Db.RecordWrapper.ToString">
+            <summary>
+            Converts the record to string including the header of the table and the values of the record.
+            </summary>
+            <returns>Stringified record with header.</returns>
         </member>
         <member name="M:InMemoryDB.Db.First">
             <summary>
@@ -294,6 +358,13 @@
             <param name="i">Pozice záznamu.</param>
             <returns>Vrátí RecordWrapper obsahující daný záznam.</returns>
             <exception cref="T:System.Exception">Vrátí Exception, pokud je daná pozice neplatná.</exception>
+        </member>
+        <member name="P:InMemoryDB.Db.Item(System.Int32)">
+            <summary>
+            Returns the RecordWrapper of record on the given position in the database.
+            </summary>
+            <param name="index">Index of the record to return.</param>
+            <returns>RecordWrapper around the record on the given position.</returns>
         </member>
         <member name="M:InMemoryDB.Db.SelectOneWhere``1(System.String,``0)">
             <summary>
@@ -317,6 +388,15 @@
             <param name="val">Hodnota, kterou chceme nalézt.</param>
             <returns>Vrací novou databázi se stejnou strukturou obsahující jen vyhledávané záznamy.</returns>
             <exception cref="T:System.ArgumentException">ArgumentException v případě špatného typu sloupce.</exception>
+        </member>
+        <member name="P:InMemoryDB.Db.Item(InMemoryDB.BooleanColumn)">
+            <summary>
+            Applies a boolean filter to the database and returns a new database containing only selected rows. That is, if i-th value in the BooleanColumn is true, the i-th
+            row is part to the returned database.
+            </summary>
+            <param name="filter">BooleanColumn used to filter the database, has to be of the same length as the number of entries in the database.</param>
+            <returns>New filtered database.</returns>
+            <exception cref="T:System.ArgumentException">Throws ArgumentException if the Length of the filter doesn't match the size of the database.</exception>
         </member>
         <member name="M:InMemoryDB.Db.GetSum``1(System.String)">
             <summary>
@@ -374,8 +454,29 @@
         </member>
         <member name="M:InMemoryDB.Db.#ctor">
             <summary>
-            Vytvoří prázdnou databázi.
+            Creates an empty database.
             </summary>
+        </member>
+        <member name="M:InMemoryDB.Db.GetDynamicMemberNames">
+            <summary>
+            Returns the names of the created columns in the database.
+            </summary>
+            <returns>Column names</returns>
+        </member>
+        <member name="M:InMemoryDB.Db.TryGetMember(System.Dynamic.GetMemberBinder,System.Object@)">
+            <summary>
+            Gives get-only access to the database columns. These are returned as Column with the specific type of the column.
+            </summary>
+            <param name="binder">Name of the database column.</param>
+            <param name="result">Object to return the Column class to.</param>
+            <returns>True if success, false otherwise.</returns>
+        </member>
+        <member name="M:InMemoryDB.Db.ToString">
+            <summary>
+            Converts the table to a string, including a header and all the rows. Every row is converted to a string field by field (every Field is 
+            converted to a string representation of its value). The table is formated to a fixed size, overly large values are shortened using "...".
+            </summary>
+            <returns></returns>
         </member>
         <member name="M:InMemoryDB.Db.CopyStructure(InMemoryDB.Db)">
             <summary>
@@ -386,12 +487,17 @@
         </member>
         <member name="M:InMemoryDB.Db.Drop">
             <summary>
-            Vyprázdní tabulku a smaže její strukturu.
+            Empties the table (deletes all entries) and drops the internal structure, including columns and indexes.
             </summary>
         </member>
         <member name="P:InMemoryDB.Db.Count">
             <summary>
-            Vrátí velikost databáze, tedy počet záznamů v databázi..
+            Number of entries (rows) in the database.
+            </summary>
+        </member>
+        <member name="P:InMemoryDB.Db.ColumnCount">
+            <summary>
+            The number of columns in the database.
             </summary>
         </member>
         <member name="M:InMemoryDB.Db.ColumnType(System.String)">
@@ -410,10 +516,22 @@
             <returns>Index sloupce = pořadí sloupce v tabulce.</returns>
             <exception cref="T:System.Exception">Vrací Exception, pokud daný sloupec neexistuje.</exception>
         </member>
+        <member name="M:InMemoryDB.Db.GetEnumerator">
+            <summary>
+            Creates an enumarator for the database, enumarating by the **rows** in the database.
+            </summary>
+            <returns>The RecordWrapper enumerator.</returns>
+        </member>
         <member name="T:InMemoryDB.ParentField">
             <summary>
             Mateřská třída pole umožňující polymorfismus.
             </summary>
+        </member>
+        <member name="M:InMemoryDB.ParentField.ToString">
+            <summary>
+            Returns the string representation of the field.
+            </summary>
+            <returns></returns>
         </member>
         <member name="T:InMemoryDB.Field`1">
             <summary>
@@ -426,11 +544,43 @@
             Hodnota pole.
             </summary>
         </member>
+        <member name="M:InMemoryDB.Field`1.op_Equality(InMemoryDB.Field{`0},InMemoryDB.Field{`0})">
+            <summary>
+            Compares two fields based on their underlying value.
+            </summary>
+            <param name="a">First field to compare.</param>
+            <param name="b">Second field to compare.</param>
+            <returns>True if field a has the same value as the field b, otherwise false.</returns>
+        </member>
+        <member name="M:InMemoryDB.Field`1.op_Inequality(InMemoryDB.Field{`0},InMemoryDB.Field{`0})">
+            <summary>
+            Compares two fields based on their underlying value.
+            </summary>
+            <param name="a">First field to compare.</param>
+            <param name="b">Second field to compare.</param>
+            <returns>True if field a has a different value from the field b, otherwise false.</returns>
+        </member>
+        <member name="M:InMemoryDB.Field`1.Equals(System.Object)">
+            <summary>
+            Compares the field with a given object.
+            </summary>
+            <param name="o">Object to compare with.</param>
+            <returns>True if the object o is of the same type and has the same value.</returns>
+        </member>
+        <member name="M:InMemoryDB.Field`1.GetHashCode">
+            <inheritdoc/>
+        </member>
         <member name="M:InMemoryDB.Field`1.#ctor(`0)">
             <summary>
             Vytvoří pole dané hodnoty typu T.
             </summary>
             <param name="value">Hodnota pole.</param>
+        </member>
+        <member name="M:InMemoryDB.Field`1.ToString">
+            <summary>
+            Converts the underlying value to string and returns it.
+            </summary>
+            <returns>String representation of the underlying value.</returns>
         </member>
         <member name="T:InMemoryDB.Program">
             <summary>
@@ -453,6 +603,47 @@
             |-------|-------|
             
             </summary>
+        </member>
+        <member name="M:InMemoryDB.Stringifier.#ctor(System.Int32,System.Int32)">
+            <summary>
+            Creates a new stringifier instance with the number of columns set to columnNum and the width of each column fiexed to colWidth.
+            </summary>
+            <param name="columnNum">Number of columns of the table.</param>
+            <param name="colWidth">Width of a single column in characters.</param>
+        </member>
+        <member name="M:InMemoryDB.Stringifier.PushHeader(System.Collections.Generic.List{System.String})">
+            <summary>
+            Writes a table header to the internal cache.
+            </summary>
+            <param name="header"></param>
+        </member>
+        <member name="M:InMemoryDB.Stringifier.PushRow(System.Collections.Generic.List{System.Object})">
+            <summary>
+            Writes a table row to the internal cache.
+            </summary>
+            <param name="data"></param>
+        </member>
+        <member name="M:InMemoryDB.Stringifier.PushFields(System.Collections.Generic.List{InMemoryDB.ParentField})">
+            <summary>
+            Writes a table row to the internal cache. The fields are individualy converted to strings.
+            </summary>
+            <param name="fields"></param>
+        </member>
+        <member name="M:InMemoryDB.Stringifier.MakeLine">
+            <summary>
+            Makes a horizontal line.
+            </summary>
+        </member>
+        <member name="M:InMemoryDB.Stringifier.MakeDoubleLine">
+            <summary>
+            Makes a double horizontal line.
+            </summary>
+        </member>
+        <member name="M:InMemoryDB.Stringifier.ToString">
+            <summary>
+            Converts the current cache to string and returns it.
+            </summary>
+            <returns>Current string version of the written table features.</returns>
         </member>
     </members>
 </doc>

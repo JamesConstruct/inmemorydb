@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace InMemoryDB
+﻿namespace InMemoryDB
 {
 
     /// <summary>
@@ -16,14 +10,14 @@ namespace InMemoryDB
         /// Vyhledá první prvek s danou hodnotou ve stromě a vrátí jeho id
         /// </summary>
         /// <param name="value">Hodnota, kterou hledáme.</param>
-        /// <returns>Int Id daného záznamu.</int></returns>
+        /// <returns>Int Id daného záznamu.</returns>
         public int Find(T value);
 
         /// <summary>
         /// Vyhledá všechny prvky s danou hodnotou ve stromě a vrátí seznam jejich id.
         /// </summary>
         /// <param name="value">Hodnota, kterou hledáme.</param>
-        /// <returns>List<Int> Id daných záznamů.</id></returns>
+        /// <returns>List of ints Id daných záznamů.</returns>
         public List<int> FindAll(T value);
 
         /// <summary>
@@ -37,7 +31,7 @@ namespace InMemoryDB
     /// <summary>
     /// Obecná třída vyhledávacích stromů. Kvůli polymorfismu.
     /// </summary>
-    internal abstract class BST {}
+    internal abstract class BST { }
 
 
     /// <summary>
@@ -56,7 +50,7 @@ namespace InMemoryDB
             public T value; // hodnota uzlu
 
             public int RecordId;    // pořadí záznamu v databázi
-        
+
             public Node? Left;  // Levý syn
 
             public Node? Right; // Pravý syn
@@ -70,12 +64,12 @@ namespace InMemoryDB
             public Node(T value, int id) { this.value = value; RecordId = id; }
 
 
-            public static bool operator<(Node a, T b)
+            public static bool operator <(Node a, T b)
             {
                 return Comparer<T>.Default.Compare(a.value, b) < 0;
             }
 
-            public static bool operator>(Node a, T b)
+            public static bool operator >(Node a, T b)
             {
                 return Comparer<T>.Default.Compare(a.value, b) > 0;
             }
@@ -148,7 +142,7 @@ namespace InMemoryDB
         /// <returns>List Id záznamu, na který uzly ukazují.</returns>
         public List<int> FindAll(T value)
         {
-            
+
             Node? current = root;
 
             List<int> results = new();
@@ -197,7 +191,7 @@ namespace InMemoryDB
             else
                 while (true)
                 {
-               
+
                     if (current > value)
                         next = current.Left;
 

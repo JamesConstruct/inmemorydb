@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text;
 
 namespace InMemoryDB
 {
@@ -22,24 +17,38 @@ namespace InMemoryDB
         /// <returns></returns>
         T this[int index] { get; }
 
+        /// <summary>
+        /// Length of the column (number of rows it was taken from).
+        /// </summary>
         int Length { get; }
+
+        /// <summary>
+        /// Compares two IColumns for equality.
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        bool Equals(object obj);
     }
 
 
     /// <summary>
-    /// Generic class for column (internally a list of T values with added functionality for transformations and stuff).
+    /// Generic class for column (internally a list of T values with added functionality for transformations and comparisons).
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public class Column<T> : IColumn<T> where T : IComparable<T>, IEquatable<T>
     {
 
+        /// <summary>
+        /// Internal representation of the column's data.
+        /// </summary>
         public readonly List<T> Contents;
 
         /// <summary>
         /// Create a new instance of Column<typeparamref name="T"/> from list of T.
         /// </summary>
         /// <param name="contents"></param>
-        public Column(List<T> contents) {
+        public Column(List<T> contents)
+        {
             this.Contents = contents;
         }
 
@@ -55,13 +64,20 @@ namespace InMemoryDB
         }
 
 
-        public static BooleanColumn operator == (Column<T> left, Column<T> right)
+        /// <summary>
+        /// Pairwise comparison of two columns of the same length.
+        /// </summary>
+        /// <param name="left">First column to compare.</param>
+        /// <param name="right">Second column to compare.</param>
+        /// <returns>BooleanColumn on the i-th position if the i-th elements in the left and right columns are the same.</returns>
+        /// <exception cref="ArgumentException">Throws ArgumentException if the columns are of a different length.</exception>
+        public static BooleanColumn operator ==(Column<T> left, Column<T> right)
         {
             if (left.Contents.Count != right.Contents.Count) throw new ArgumentException("Columns are of a different length!");
 
             List<bool> new_contents = new List<bool>();
 
-            for (int i = 0;  i < left.Contents.Count; i++)
+            for (int i = 0; i < left.Contents.Count; i++)
             {
                 new_contents.Add(left.Contents[i].Equals(right.Contents[i]));
             }
@@ -70,6 +86,13 @@ namespace InMemoryDB
         }
 
 
+        /// <summary>
+        /// Pairwise comparison of two columns of the same length.
+        /// </summary>
+        /// <param name="left">First column to compare.</param>
+        /// <param name="right">Second column to compare.</param>
+        /// <returns>BooleanColumn on the i-th position if the i-th elements in the left and right columns are different.</returns>
+        /// <exception cref="ArgumentException">Throws ArgumentException if the columns are of a different length.</exception>
         public static BooleanColumn operator !=(Column<T> left, Column<T> right)
         {
             if (left.Contents.Count != right.Contents.Count) throw new ArgumentException("Columns are of a different length!");
@@ -202,6 +225,12 @@ namespace InMemoryDB
         //    return new Column<T>(new_contents);
         //}
 
+        /// <summary>
+        /// Apply a transformation on every element of the column.
+        /// </summary>
+        /// <param name="col">Column to transform.</param>
+        /// <param name="transform">Transformation function.</param>
+        /// <returns>New Column<typeparamref name="T"/> with all elements transformed by the given function.</returns>
         public static Column<T> operator &(Column<T> col, Func<T, T> transform)
         {
             return col.Transform(transform);
@@ -246,7 +275,7 @@ namespace InMemoryDB
         public override string ToString()
         {
             StringBuilder sb = new();
-            foreach(var el in Contents)
+            foreach (var el in Contents)
             {
                 sb.Append(el.ToString());
                 sb.Append(' ');
@@ -274,10 +303,16 @@ namespace InMemoryDB
 
             return obj is Column<T> && (this.Contents == ((Column<T>)obj).Contents);
         }
+
+        /// <inheritdoc/>
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(Contents);
+        }
     }
 
     /// <summary>
-    /// Class representing a column of only boolean values. Supports logic operators like & (and), | (or) and ! (not).
+    /// Class representing a column of only boolean values. Supports logic operators like AND, OR (|) or NOT (!).
     /// </summary>
     public class BooleanColumn : IColumn<bool>
     {
@@ -287,7 +322,8 @@ namespace InMemoryDB
         /// Create a column from list of bools.
         /// </summary>
         /// <param name="contents"></param>
-        public BooleanColumn(List<bool> contents) {
+        public BooleanColumn(List<bool> contents)
+        {
             this._contents = contents;
         }
 
@@ -316,7 +352,14 @@ namespace InMemoryDB
             }
         }
 
-        public static BooleanColumn operator | (BooleanColumn a, BooleanColumn b)
+        /// <summary>
+        /// Logical bitwise OR operation applied pairwise on all positions.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException"></exception>
+        public static BooleanColumn operator |(BooleanColumn a, BooleanColumn b)
         {
             if (a.Length != b.Length) throw new ArgumentException("Columns of different lengths cannot be compared!");
 
@@ -330,6 +373,13 @@ namespace InMemoryDB
 
         }
 
+        /// <summary>
+        /// Logical AND between the columns a and b (applied pairwise between all positions).
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns>BooleanColumn with true on i-th position if both i-th positions in a and b are true.</returns>
+        /// <exception cref="ArgumentException"></exception>
         public static BooleanColumn operator &(BooleanColumn a, BooleanColumn b)
         {
             if (a.Length != b.Length) throw new ArgumentException("Columns of different lengths cannot be compared!");
@@ -344,6 +394,11 @@ namespace InMemoryDB
 
         }
 
+        /// <summary>
+        /// Negates the values inside the BooleanColumn.
+        /// </summary>
+        /// <param name="col">Column to negate.</param>
+        /// <returns>BooleanColumn with applied negation.</returns>
         public static BooleanColumn operator !(BooleanColumn col)
         {
             List<bool> list = new();

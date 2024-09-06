@@ -41,7 +41,7 @@ namespace TestInMemoryDB
             }
 
             Assert.Equal(10, db.Count);
-            for (int i = 0;i < 10; i++)
+            for (int i = 0; i < 10; i++)
             {
                 Assert.Equal(i, ((dynamic)db[i]).id);
             }
@@ -220,7 +220,7 @@ namespace TestInMemoryDB
             db.AddColumn<int>("Test");
             db.AddColumn<string>("A thing");
             db.Insert(2, "test");
-            
+
             db.Drop();
 
             Assert.Equal(0, db.Count);
