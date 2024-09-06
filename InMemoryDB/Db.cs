@@ -644,7 +644,6 @@ namespace InMemoryDB
 
 
         /// <summary>
-        /// Zkopíruje strukturu jiné databáze, tedy typy a názvy sloupců a indexovací sloupce. Lze pouze, pokud je tabulka prázdná.
         /// Copies the structure of a different database to itself, including the types and names of columns and which columns are indexed. Only possible with an empty
         /// database (the copied database does not have to be empty).
         /// </summary>

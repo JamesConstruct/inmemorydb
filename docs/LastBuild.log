@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<shfbBuild product="Sandcastle Help File Builder and Tools" version="2022.8.14.1" projectFile="C:\Users\kuban\source\repos\InMemoryDB\InMemoryDB\Docs.shfbproj" started="06.09.2024 20:33:05">
+<shfbBuild product="Sandcastle Help File Builder and Tools" version="2022.8.14.1" projectFile="C:\Users\kuban\source\repos\InMemoryDB\InMemoryDB\Docs.shfbproj" started="06.09.2024 20:41:19">
 <buildStep step="Initializing">
 The Sandcastle tools are located in &#39;C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder&#39;
 Locating components in the following folder(s):
@@ -28,17 +28,17 @@ Copying XML comments files
 </buildStep>
 <buildStep step="GenerateSharedContent">
 Generating shared content files (en-US, Angličtina (Spojen&#233; st&#225;ty))...
-    Last step completed in 00:00:00,0050
+    Last step completed in 00:00:00,0040
 </buildStep>
 <buildStep step="GenerateApiFilter">
 Generating API filter for MRefBuilder...
-    Last step completed in 00:00:00,0030
+    Last step completed in 00:00:00,0040
 </buildStep>
 <buildStep step="GenerateReflectionInfo">
 Generating reflection information...
-[C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Current\Bin\MSBuild.exe - GenerateRefInfo-a11d4660-d379-4934-b88a-0c407934a661.proj]
-Vytv&#160;&#253;enˇ sestavenˇ bylo zah&#160;jeno 06.09.2024 20:33:06.
-Projekt C:\Users\kuban\source\repos\InMemoryDB\docs\Working\GenerateRefInfo-a11d4660-d379-4934-b88a-0c407934a661.proj v uzlu 1 (věchozˇ cˇle).
+[C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Current\Bin\MSBuild.exe - GenerateRefInfo-b49be746-3625-4aa7-992e-90dcac18af31.proj]
+Vytv&#160;&#253;enˇ sestavenˇ bylo zah&#160;jeno 06.09.2024 20:41:20.
+Projekt C:\Users\kuban\source\repos\InMemoryDB\docs\Working\GenerateRefInfo-b49be746-3625-4aa7-992e-90dcac18af31.proj v uzlu 1 (věchozˇ cˇle).
 PrepareForBuild:
   Probˇh&#160; vytv&#160;&#253;enˇ adres&#160;&#253;e obj\Debug\.
 GenerateBindingRedirects:
@@ -53,29 +53,29 @@ GenerateRefInfo:
   Wrote information on 1 namespaces, 9 types, and 77 members
   Merging duplicate type and member information
   Merged 0 duplicate type(s) and 0 duplicate member(s)
-Sestavenˇ projektu C:\Users\kuban\source\repos\InMemoryDB\docs\Working\GenerateRefInfo-a11d4660-d379-4934-b88a-0c407934a661.proj (s věchozˇmi cˇli) bylo dokonźeno.
-    Last step completed in 00:00:00,6031
+Sestavenˇ projektu C:\Users\kuban\source\repos\InMemoryDB\docs\Working\GenerateRefInfo-b49be746-3625-4aa7-992e-90dcac18af31.proj (s věchozˇmi cˇli) bylo dokonźeno.
+    Last step completed in 00:00:00,5929
 </buildStep>
 <buildStep step="ApplyDocumentModel">
 Applying document model to reflection output...
-    Last step completed in 00:00:00,0274
+    Last step completed in 00:00:00,0260
 </buildStep>
 <buildStep step="AddApiTopicFilenames">
 Adding topic filenames to API members...
-    Last step completed in 00:00:00,0120
+    Last step completed in 00:00:00,0050
 </buildStep>
 <buildStep step="GenerateApiTopicManifest">
 Generating API topic manifest...
-    Last step completed in 00:00:00,0050
+    Last step completed in 00:00:00,0040
 </buildStep>
 <buildStep step="GenerateNamespaceSummaries">
 Generating namespace summary information...
-    Last step completed in 00:00:00,0060
+    Last step completed in 00:00:00,0050
 </buildStep>
 <buildStep step="GenerateInheritedDocumentation">
 Generating inherited documentation...
 [C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Current\Bin\MSBuild.exe - GenerateInheritedDocs.proj]
-    Last step completed in 00:00:00,9096
+    Last step completed in 00:00:00,9918
 </buildStep>
 <buildStep step="CopyAdditionalContent">
 Copying additional content files...
@@ -93,18 +93,18 @@ Generating conceptual content intermediate TOC file...
 </buildStep>
 <buildStep step="CreateBuildAssemblerConfigs">
 Creating Sandcastle configuration files...
-    Last step completed in 00:00:00,0609
+    Last step completed in 00:00:00,0600
 </buildStep>
 <buildStep step="CombiningIntermediateTocFiles">
 Combining conceptual and API intermediate TOC files...
-    Last step completed in 00:00:00,0210
+    Last step completed in 00:00:00,0230
 </buildStep>
 <buildStep step="MergeCustomConfigs">
 Merging custom build component configurations
 C:\Users\kuban\source\repos\InMemoryDB\docs\Working\BuildAssembler.config
   Updating reference topic configurations.
   No conceptual content.  Removing conceptual content components.
-    Last step completed in 00:00:00,0180
+    Last step completed in 00:00:00,0235
 </buildStep>
 <buildStep step="BuildTopics">
 Building help topics...
@@ -147,7 +147,7 @@ CopyFromIndexComponent: &quot;reflection&quot; in-memory cache entries used: 5 o
 CopyFromIndexComponent: &quot;comments&quot; in-memory cache entries used: 4 of 30.
 <plugIn name="Website Table of Contents Generator" behavior="After" priority="1000">
 Generating TOC fragment files
-</plugIn>    Last step completed in 00:00:02,7972
+</plugIn>    Last step completed in 00:00:02,6729
 </buildStep>
 <buildStep step="CopyStandardHelpContent">
 Copying standard help content...
@@ -183,27 +183,26 @@ C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\Defaul
 C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\Default2022\RootWebsiteContent\SearchHelp.inc.php -&gt; C:\Users\kuban\source\repos\InMemoryDB\docs\Working\Output\Website\SearchHelp.inc.php
 C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\Default2022\RootWebsiteContent\SearchHelp.php -&gt; C:\Users\kuban\source\repos\InMemoryDB\docs\Working\Output\Website\SearchHelp.php
 C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Components\Default2022\RootWebsiteContent\Web.Config -&gt; C:\Users\kuban\source\repos\InMemoryDB\docs\Working\Output\Website\Web.Config
-    Last step completed in 00:00:00,1120
+    Last step completed in 00:00:00,1040
 </buildStep>
 <buildStep step="GenerateFullTextIndex">
 Generating full-text index for the website...
 
-    Last step completed in 00:00:00,1555
+    Last step completed in 00:00:00,1430
 </buildStep>
 <buildStep step="CopyingWebsiteFiles">
 Copying website files to output folder...
 
 Copied 204 files for the website content
-    Last step completed in 00:00:00,1910
+    Last step completed in 00:00:00,2130
 </buildStep>
 <buildStep step="CleanIntermediates">
 Removing intermediate files...
-    Not all build output was removed from &#39;C:\Users\kuban\source\repos\InMemoryDB\docs\Working\&#39;: Proces nemůže přistupovat k souboru C:\Users\kuban\source\repos\InMemoryDB\docs\Working\, protože soubor je využ&#237;v&#225;n jin&#253;m procesem.
-    Last step completed in 00:00:00,0620
+    Last step completed in 00:00:00,0670
 </buildStep>
 <buildStep step="Completed">
 
-Build completed successfully at 06.09.2024 20:33:11.  Total time: 00:00:05,5663
+Build completed successfully at 06.09.2024 20:41:24.  Total time: 00:00:05,4901
 
 </buildStep>
 </shfbBuild>
